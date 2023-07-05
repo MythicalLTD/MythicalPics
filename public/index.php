@@ -1,5 +1,10 @@
 <?php
-require("../vendor/autoload.php");
+try {
+    require("../vendor/autoload.php");
+}
+catch(Exception $e) {
+    die('Woopps this looks like your packages are broken or you installed the wrong version of AtoroPics please check your vendor folder"');
+}
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 error_reporting(0);

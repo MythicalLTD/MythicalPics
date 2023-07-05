@@ -22,6 +22,7 @@ if (isset($_GET['owner_key']) && isset($_GET['imgid'])) {
                 $apikey = $_GET['owner_key'];
                 $conn->query("DELETE FROM atoropics_imgs WHERE name = '$name' AND owner_key = '$apikey'");
                 echo json_encode(array('status' => 'success', 'message' => 'Image deleted successfully'));
+                http_response_code(200);
             } else {
                 echo json_encode(array('status' => 'error', 'message' => 'Invalid image id'));
             }
