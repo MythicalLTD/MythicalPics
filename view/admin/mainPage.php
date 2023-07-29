@@ -2,7 +2,7 @@
 require('../class/session.php');
 
 $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
-$version = file_get_contents("https://raw.githubusercontent.com/AtoroTech/AtoroPics/main/version");
+$version = file_get_contents("https://raw.githubusercontent.com/MythicalLTD/mythicalpics/main/version");
 $settingsVersion = trim($settings['version']);
 $githubVersion = trim($version);
 
@@ -127,7 +127,7 @@ if ($userdb['admin'] == "false") {
                                     <h3 class="box-title">System Information</h3>
                                 </div>
                                 <div class="box-body">
-                                    You are running AtoroPics version <code><?= $settings['version'] ?></code>. Your system
+                                    You are running MythicalPics version <code><?= $settings['version'] ?></code>. Your system
                                     is up-to-date!
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ if ($userdb['admin'] == "false") {
                                     <h3 class="box-title">System Information</h3>
                                 </div>
                                 <div class="box-body">
-                                    You are not up-to-date please update your AtoroPics panel, your version is:
+                                    You are not up-to-date please update your MythicalPics panel, your version is:
                                     <code><?= $settings['version'] ?></code>.
                                 </div>
                             </div>
