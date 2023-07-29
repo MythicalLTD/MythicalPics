@@ -154,7 +154,7 @@ if (isset($_GET['revoke-key'])) {
                 <?= $settings['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
-            Copyright &copy; 2022 - 2023 <a href="https://atoro.tech/">Atoro Tech</a>.
+            Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.
         </footer>
     </div>
     <script src="/dist/js/keyboard.polyfill.js" type="application/javascript"></script>

@@ -5,9 +5,6 @@ try {
 catch(Exception $e) {
     die('Woopps this looks like your packages are broken or you installed the wrong version of AtoroPics please check your vendor folder"');
 }
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
 
 try {
     $router = new \Router\Router();
@@ -162,6 +159,25 @@ try {
         }
     });
 
+    $router->add("/admin/users/edit",function(){
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/user/edit.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/edit");  
+        }
+    });
+
+    $router->add("/admin/users/delete",function(){
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/user/delete.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/delete");  
+        }
+    });
 
     $router->add("/admin/settings/mail",function(){
         require('../index.php');

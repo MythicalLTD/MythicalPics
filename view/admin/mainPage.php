@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\Cache\Adapter\PdoAdapter;
 require('../class/session.php');
 
 $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
@@ -107,7 +108,6 @@ if ($userdb['admin'] == "false") {
                     <li><a href="/admin">Admin</a></li>
                     <li class="active">Index</li>
                 </ol>
-
             </section>
 
             <section class="content">
@@ -155,17 +155,17 @@ if ($userdb['admin'] == "false") {
                                     class="fa fa-fw fa-support"></i> Get Help <small>(via Discord)</small></button></a>
                     </div>
                     <div class="col-xs-6 col-sm-3 text-center">
-                        <a href="https://github.com/AtoroTech/AtoroPics/blob/main/docs/introduction"><button
+                        <a href="https://github.com/mythicalltd/mythicalpics/blob/main/docs/introduction"><button
                                 class="btn btn-primary" style="width:100%;"><i class="fa fa-fw fa-link"></i>
                                 Documentation</button></a>
                     </div>
                     <div class="clearfix visible-xs-block">&nbsp;</div>
                     <div class="col-xs-6 col-sm-3 text-center">
-                        <a href="https://github.com/AtoroTech/AtoroPics"><button class="btn btn-primary"
+                        <a href="https://github.com/mythicalltd/mythicalpics"><button class="btn btn-primary"
                                 style="width:100%;"><i class="fa fa-fw fa-support"></i> Github</button></a>
                     </div>
                     <div class="col-xs-6 col-sm-3 text-center">
-                        <a href="https://paypal.me/cassiangherman?country.x=AT&locale.x=de_DE"><button
+                        <a href="https://paypal.me/mythicalsystems"><button
                                 class="btn btn-success" style="width:100%;"><i class="fa fa-fw fa-money"></i> Support
                                 the Project</button></a>
                     </div>
@@ -230,7 +230,7 @@ if ($userdb['admin'] == "false") {
                 <?= $settings['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
-            Copyright &copy; 2022 - 2023 <a href="https://atoro.tech/">Atoro Tech</a>.
+            Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.
         </footer>
     </div>
     <script src="/dist/js/keyboard.polyfill.js" type="application/javascript"></script>

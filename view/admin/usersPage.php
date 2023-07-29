@@ -148,7 +148,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                         <?php foreach ($users as $user): ?>
                                             <tr class="align-middle">
                                                 <td><code><?= $user['id'] ?></code></td>
-                                                <td><a href="#">
+                                                <td><a href="/admin/users/edit?id=<?= $user['id'] ?>">
                                                         <?= $user['email'] ?>
                                                     </a>
                                                     <?php if ($user['admin'] == "true") {
@@ -169,7 +169,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                         ?>
                                                     </a>
                                                 </td>-->
-                                                <td class="text-center" ><a href="#"> <?php
+                                                <td class="text-center" ><!--<a href="#">--> <?php
                                                         $domainsResult = $conn->query("SELECT COUNT(*) FROM atoropics_domains WHERE ownerkey = '" . $user['api_key'] . "'");
                                                         $domainsCount = $domainsResult->fetch_row()[0];
                                                         echo $domainsCount;
@@ -227,7 +227,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                 <?= $settings['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
-            Copyright &copy; 2022 - 2023 <a href="https://atoro.tech/">Atoro Tech</a>.
+            Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.
         </footer>
     </div>
     <script src="/dist/js/keyboard.polyfill.js" type="application/javascript"></script>

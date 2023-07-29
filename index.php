@@ -10,6 +10,16 @@ require __DIR__ . '/vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env');
 $dotenv->load();
+if ($_ENV['DEBUG_MODE'] == "true") {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
+else {
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(0);
+}
 $conn = new mysqli($_ENV['MySQL_HOST'] . ':' .$_ENV['MySQL_PORT'], $_ENV['MySQL_USER'], $_ENV['MySQL_PASSWORD'], $_ENV['MySQL_DATABASE']);
 $settings = $conn->query("SELECT * FROM atoropics_settings")->fetch_array();
 
