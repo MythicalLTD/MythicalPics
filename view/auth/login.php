@@ -2,106 +2,111 @@
 if ($settings['enable_rechapa2'] == "true") {
   $recaptcha = new \ReCaptcha\ReCaptcha($settings['rechapa2_site_secret']);
 }
-
-
 $lifetime = 30 * 24 * 60 * 60;
 ini_set('session.gc_maxlifetime', $lifetime);
 session_set_cookie_params($lifetime);
 session_start();
+include(__DIR__ . '/../csrf.php');
+$csrf = new CSRF();
+
 if (isset($_SESSION['SESSION_EMAIL'])) {
   header("Location: /dashboard");
   die();
 }
 
 $msg = "";
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  if (isset($_GET['verification'])) {
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE code='".$_GET['verification']."'")) > 0) {
+      $query = mysqli_query($conn, "UPDATE atoropics_users SET code='' WHERE code='".$_GET['verification']."'");
 
-if (isset($_GET['verification'])) {
-  if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE code='{$_GET['verification']}'")) > 0) {
-    $query = mysqli_query($conn, "UPDATE atoropics_users SET code='' WHERE code='{$_GET['verification']}'");
-
-    if ($query) {
-      $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
-    }
-  } else {
-    header("Location: /dashboard");
-  }
-}
-
-if (isset($_POST['submit'])) {
-  if ($settings['enable_rechapa2'] == "false") {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-    $sql = "SELECT * FROM atoropics_users WHERE email='{$email}' AND password='{$password}'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) === 1) {
-      $row = mysqli_fetch_assoc($result);
-      $api_key = $row['api_key'];
-      $_SESSION["api_key"] = $api_key;
-      $_SESSION['loggedin'] = true;
-      $email = $row['email'];
-      $_SESSION["email"] = $email;
-      $username = $row['username'];
-      $_SESSION["username"] = $username;
-      setcookie('api_key', '', time() - 3600, '/');
-      setcookie('api_key', $api_key, time() + (10 * 365 * 24 * 60 * 60), '/');
-      if (empty($row['code'])) {
-        $_SESSION['SESSION_EMAIL'] = $email;
-        header("Location: /dashboard");
-        exit;
-      } else {
-        if ($row['code'] == "null") {
-          $_SESSION['SESSION_EMAIL'] = $email;
-          header("Location: /dashboard");
-          exit;
-        } else {
-          $msg = "<div class='alert alert-info'>First verify your account and try again.</div>";
-        }
+      if ($query) {
+        $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
       }
     } else {
-      $msg = "<div class='alert alert-danger'>Email or password do not match.</div>";
+      header("Location: /dashboard");
     }
-  } else {
-    $resp = $recaptcha->setExpectedHostname($_SERVER['HTTP_HOST'])
-      ->verify($_POST["g-recaptcha-response"], $_SERVER['REMOTE_ADDR']);
-    if ($resp->isSuccess()) {
-      $email = mysqli_real_escape_string($conn, $_POST['email']);
-      $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-      $sql = "SELECT * FROM atoropics_users WHERE email='{$email}' AND password='{$password}'";
-      $result = mysqli_query($conn, $sql);
-      if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        $api_key = $row['api_key'];
-        $_SESSION["api_key"] = $api_key;
-        $_SESSION['loggedin'] = true;
-        $email = $row['email'];
-        $_SESSION["email"] = $email;
-        $username = $row['username'];
-        $_SESSION["username"] = $username;
-        setcookie('api_key', '', time() - 3600, '/');
-        setcookie('api_key', $api_key, time() + (10 * 365 * 24 * 60 * 60), '/');
-        if (empty($row['code'])) {
-          $_SESSION['SESSION_EMAIL'] = $email;
-          header("Location: /dashboard");
-          exit;
-        } else {
-          if ($row['code'] == "null") {
+  }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($csrf->validate('login-form')) {
+    if (isset($_POST['submit'])) {
+      if ($settings['enable_rechapa2'] == "false") {
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+        $sql = "SELECT * FROM atoropics_users WHERE email='".$email."' AND password='".$password."'";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) === 1) {
+          $row = mysqli_fetch_assoc($result);
+          $api_key = $row['api_key'];
+          $_SESSION["api_key"] = $api_key;
+          $_SESSION['loggedin'] = true;
+          $email = $row['email'];
+          $_SESSION["email"] = $email;
+          $username = $row['username'];
+          $_SESSION["username"] = $username;
+          setcookie('api_key', '', time() - 3600, '/');
+          setcookie('api_key', $api_key, time() + (10 * 365 * 24 * 60 * 60), '/');
+          if (empty($row['code'])) {
             $_SESSION['SESSION_EMAIL'] = $email;
             header("Location: /dashboard");
             exit;
           } else {
-            $msg = "<div class='alert alert-info'>First verify your account and try again.</div>";
+            if ($row['code'] == "null") {
+              $_SESSION['SESSION_EMAIL'] = $email;
+              header("Location: /dashboard");
+              exit;
+            } else {
+              $msg = "<div class='alert alert-info'>First verify your account and try again.</div>";
+            }
           }
+        } else {
+          $msg = "<div class='alert alert-danger'>Email or password do not match.</div>";
         }
       } else {
-        $msg = "<div class='alert alert-danger'>Email or password do not match.</div>";
+        $resp = $recaptcha->setExpectedHostname($_SERVER['HTTP_HOST'])
+          ->verify($_POST["g-recaptcha-response"], $_SERVER['REMOTE_ADDR']);
+        if ($resp->isSuccess()) {
+          $email = mysqli_real_escape_string($conn, $_POST['email']);
+          $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+          $sql = "SELECT * FROM atoropics_users WHERE email='".$email."' AND password='".$password."'";
+          $result = mysqli_query($conn, $sql);
+          if (mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+            $api_key = $row['api_key'];
+            $_SESSION["api_key"] = $api_key;
+            $_SESSION['loggedin'] = true;
+            $email = $row['email'];
+            $_SESSION["email"] = $email;
+            $username = $row['username'];
+            $_SESSION["username"] = $username;
+            setcookie('api_key', '', time() - 3600, '/');
+            setcookie('api_key', $api_key, time() + (10 * 365 * 24 * 60 * 60), '/');
+            if (empty($row['code'])) {
+              $_SESSION['SESSION_EMAIL'] = $email;
+              header("Location: /dashboard");
+              exit;
+            } else {
+              if ($row['code'] == "null") {
+                $_SESSION['SESSION_EMAIL'] = $email;
+                header("Location: /dashboard");
+                exit;
+              } else {
+                $msg = "<div class='alert alert-info'>First verify your account and try again.</div>";
+              }
+            }
+          } else {
+            $msg = "<div class='alert alert-danger'>Email or password do not match.</div>";
+          }
+        } else {
+          $errors = $resp->getErrorCodes();
+        }
       }
-    } else {
-      // code for showing an error message goes here
-      $errors = $resp->getErrorCodes();
     }
   }
-
-
+  else {
+    $msg = "<div class='alert alert-danger'>CSRF verification faild!</div>";
+  }
 }
 ?>
 
@@ -202,7 +207,7 @@ if (isset($_POST['submit'])) {
 
             }
             ?>
-
+            <?= $csrf->input('login-form'); ?>
             <div class="form-footer">
               <button type="submit" name="submit" class="btn btn-primary w-100">Sign in</button>
             </div>
