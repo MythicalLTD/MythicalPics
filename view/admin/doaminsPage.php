@@ -145,7 +145,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                         <?php foreach ($users as $user): ?>
                                             <tr class="align-middle">
                                                 <td><code><?= $user['id'] ?></code></td>
-                                                <td><a href="#">
+                                                <td><a href="/admin/domains/edit?id=<?= $user['id']?>">
                                                         <?= $user['domain'] ?>
                                                     </a>
                                                 </td>

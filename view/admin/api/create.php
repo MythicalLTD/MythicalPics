@@ -8,7 +8,7 @@ if ($userdb['admin'] == "false") {
 }
 if (isset($_POST['submit'])) {
     $keyname = $_POST['api:key:name'];
-    $api_key = "atoropics_" . generateRandomString(45);
+    $api_key = "mythicalpics_" . generateRandomString(45);
     mysqli_query($conn, "INSERT INTO `atoropics_apikeys` (`api_key`, `owner_api_key`, `name`) VALUES ('" . $api_key . "', '" . $_SESSION["api_key"] . "', '" . $keyname . "')");
     header('location: /admin/api');
 }

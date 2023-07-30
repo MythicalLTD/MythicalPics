@@ -242,6 +242,17 @@ try {
         
     });
 
+    $router->add("/admin/domains/edit", function() {
+        require("../index.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/domain/edit.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/domains/edit");  
+        }
+        
+    });
+
     $router->add("/admin/nodes", function() {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])

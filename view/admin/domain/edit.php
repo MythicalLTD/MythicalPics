@@ -18,7 +18,7 @@ if (isset($_GET['edit_user'])) {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $userdbdd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $userdbd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
             $email = mysqli_real_escape_string($conn, $_GET['email']);
             $username = mysqli_real_escape_string($conn, $_GET['username']);
             $avatar = mysqli_real_escape_string($conn, $_GET['avatar']);
@@ -32,7 +32,7 @@ if (isset($_GET['edit_user'])) {
             if (!$password == "") {
                 $conn->query("UPDATE `atoropics_users` SET `password` = '" . $password . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
             }
-            if (!$email == "" || !$email == $userdbdd['email']) {
+            if (!$email == "" || !$email == $userdbd['email']) {
                 $user_query = "SELECT * FROM atoropics_users WHERE email = ?";
                 $stmt = mysqli_prepare($conn, $user_query);
                 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -47,7 +47,7 @@ if (isset($_GET['edit_user'])) {
                 }
 
             }
-            if (!$username == "" || !$userdbdd['username'] == $username) {
+            if (!$username == "" || !$userdbd['username'] == $username) {
                 $user_query = "SELECT * FROM atoropics_users WHERE username = ?";
                 $stmt = mysqli_prepare($conn, $user_query);
                 mysqli_stmt_bind_param($stmt, "s", $username);
@@ -74,13 +74,13 @@ if (isset($_GET['edit_user'])) {
     }
 } else if (isset($_GET['id'])) {
     if (!$_GET['id'] == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
-        $stmt = mysqli_prepare($conn, $user_query);
+        $domain_query = "SELECT * FROM atoropics_domains WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $domain_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $userdbdd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $domaindb = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
         header('location: /admin/users');
@@ -166,15 +166,13 @@ if (isset($_GET['edit_user'])) {
         <div class="content-wrapper" style="min-height: 888px;">
             <section class="content-header">
                 <h1>
-                    <?= $userdbdd['username'] ?><small>
-                        <?= $userdbdd['email'] ?>
-                    </small>
+                    <?= $domaindb['domain'] ?>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="/admin">Admin</a></li>
-                    <li><a href="/admin/users">Users</a></li>
+                    <li><a href="/admin/users">Domains</a></li>
                     <li class="active">
-                        <?= $userdbdd['username'] ?>
+                        <?= $domaindb['domain'] ?>
                     </li>
                 </ol>
             </section>
@@ -189,28 +187,35 @@ if (isset($_GET['edit_user'])) {
                         <div class="col-md-6">
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Identity</h3>
+                                    <h3 class="box-title">Info</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="email" class="control-label">Email</label>
+                                        <label for="domain" class="control-label">Domain</label>
                                         <div>
-                                            <input type="email" name="email" value="<?= $userdbdd['email'] ?>"
+                                            <input type="text" name="domain" value="<?= $domaindb['domain'] ?>"
                                                 class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="registered" class="control-label">Username</label>
+                                        <label for="description" class="control-label">Description</label>
                                         <div>
-                                            <input type="text" name="username" value="<?= $userdbdd['username'] ?>"
+                                            <input type="text" name="description" value="<?= $domaindb['description'] ?>"
                                                 class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="registered" class="control-label">Avatar</label>
+                                        <label for="key" class="control-label">Key</label>
                                         <div>
-                                            <input type="text" name="avatar" value="<?= $userdbdd['avatar'] ?>"
+                                            <input type="text" name="key" value="<?= $domaindb['ownerkey'] ?>"
                                                 class="form-control form-autocomplete-stop">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="created-date" class="control-label">Created Date</label>
+                                        <div>
+                                            <input type="text" name="created-date" value="<?= $domaindb['created-date'] ?>"
+                                            disabled="" class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
                                 </div>
@@ -223,32 +228,11 @@ if (isset($_GET['edit_user'])) {
                         <div class="col-md-6">
                             <div class="box">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Password</h3>
-                                </div>
-                                <div class="box-body">
-                                    <div class="alert alert-success" style="display:none;margin-bottom:10px;"
-                                        id="gen_pass"></div>
-                                    <div class="form-group no-margin-bottom">
-                                        <label for="password" class="control-label">Password <span
-                                                class="field-optional"></span></label>
-                                        <div>
-                                            <input type="password" id="password" name="password"
-                                                class="form-control form-autocomplete-stop">
-                                            <p class="text-muted small">Leave blank to keep this user's password the
-                                                same. User will not receive any notification if password is changed.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="box">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Permissions</h3>
+                                    <h3 class="box-title">Status</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="root_admin" class="control-label">Administrator</label>
+                                        <label for="root_admin" class="control-label">Domain status</label>
                                         <div>
                                             <select name="root_admin" class="form-control">
                                                 <?php if ($userdbdd['admin'] == "false") {
@@ -265,8 +249,7 @@ if (isset($_GET['edit_user'])) {
                                                 ?>
 
                                             </select>
-                                            <p class="text-muted"><small>Setting this to 'Yes' gives a user full
-                                                    administrative access.</small></p>
+                                            <p class="text-muted"><small>Here you can change the status of the domain!</small></p>
                                         </div>
                                     </div>
                                 </div>
@@ -276,11 +259,10 @@ if (isset($_GET['edit_user'])) {
                     <div class="col-xs-12">
                         <div class="box box-danger">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Delete User</h3>
+                                <h3 class="box-title">Delete Domain</h3>
                             </div>
                             <div class="box-body">
-                                <p class="no-margin">There must be no servers associated with this account in order for
-                                    it to be deleted.</p>
+                                <p class="no-margin">If you delete a domain you can't add it back</p>
                             </div>
                             <div class="box-footer">
                                 <form action="/admin/users/delete" method="GET">

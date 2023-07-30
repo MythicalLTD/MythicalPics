@@ -24,14 +24,14 @@ if (isset($_POST['api_key'])) {
                 if (!file_exists('../public/storage/json')) {
                     mkdir('json', 0777, true);
                 }
-
+                $checkCommand = "cd /var/www/MythicalPics && git pull";
+                ssh2_exec($connection, $checkCommand);
+                ssh2_disconnect($connection);
                 $imgname_c = time();
                 $new_name = $imgname_c . '.' . $ext;
                 $upload_folder = '../public/storage/uploads/';
-
-                $lockFile = fopen('lockfile.lock', 'w');
+                $lockFile = fopen('lockfile-'.$imgname_c.'.lock', 'w');
                 flock($lockFile, LOCK_EX);
-
                 if (move_uploaded_file($file['tmp_name'], $upload_folder . $new_name)) {
                     $imgurl = $settings['app_proto'] . $settings['app_url'] . "/storage/uploads/" . $new_name;
                     $date = date("Y-m-d H:i:s");
@@ -78,7 +78,7 @@ if (isset($_POST['api_key'])) {
 
                     flock($lockFile, LOCK_UN);
                     fclose($lockFile);
-                    unlink('lockfile.lock');
+                    unlink('lockfile-'.$imgname_c.'.lock');
                 } else {
                     echo json_encode(array('status' => 'error', 'message' => 'Failed to upload file'));
                 }
