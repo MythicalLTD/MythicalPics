@@ -264,6 +264,17 @@ try {
         
     });
 
+    $router->add("/admin/reports", function() {
+        require("../index.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            echo '<font color="red">This thing is not done yet do not try to bypass or enable this function yet!!</font>';
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/reports");  
+        }
+        
+    });
+
     $router->add("/api/delete", function() {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
