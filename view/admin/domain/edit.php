@@ -10,66 +10,41 @@ if ($userdb['admin'] == "false") {
     header('location: /');
 }
 
-if (isset($_GET['edit_user'])) {
-    if (!$_GET['id'] == "" || !$_GET['edit_user'] == "") {
+if (isset($_GET['edit_domain'])) {
+    if (!$_GET['id'] == "" || !$_GET['edit_domain'] == "") {
         $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $userdbd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
-            $email = mysqli_real_escape_string($conn, $_GET['email']);
-            $username = mysqli_real_escape_string($conn, $_GET['username']);
-            $avatar = mysqli_real_escape_string($conn, $_GET['avatar']);
-            $password = md5(mysqli_real_escape_string($conn, $_GET['password']));
-            $admin = mysqli_real_escape_string($conn, $_GET['root_admin']);
-            if ($admin == "1") {
-                $conn->query("UPDATE `atoropics_users` SET `admin` = 'true' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
-            } else if ($admin == "0") {
-                $conn->query("UPDATE `atoropics_users` SET `admin` = 'false' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
-            }
-            if (!$password == "") {
-                $conn->query("UPDATE `atoropics_users` SET `password` = '" . $password . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
-            }
-            if (!$email == "" || !$email == $userdbd['email']) {
-                $user_query = "SELECT * FROM atoropics_users WHERE email = ?";
+            $domaind = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $dsc = mysqli_real_escape_string($conn, $_GET['description']);
+            $skey = mysqli_real_escape_string($conn, $_GET['skey']);
+            if (!$skey == "" || !$skey == $domaind['ownerkey']) {
+                $user_query = "SELECT * FROM atoropics_domains WHERE ownerkey = ?";
                 $stmt = mysqli_prepare($conn, $user_query);
-                mysqli_stmt_bind_param($stmt, "s", $email);
+                mysqli_stmt_bind_param($stmt, "s", $skey);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
-                if (mysqli_num_rows($result) > 0) {
-                    $conn->query("UPDATE `atoropics_users` SET `email` = '" . $email . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
+                if (!mysqli_num_rows($result) > 0) {
+                    $conn->query("UPDATE `atoropics_domains` SET `ownerkey` = '" . $skey . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
                 } else {
                     $conn->close();
-                    header('location: /admin/users?e=Email is already taken in the database');
+                    header('location: /admin/domains?e=User can`t have more then 1 domain');
                     exit();
                 }
 
             }
-            if (!$username == "" || !$userdbd['username'] == $username) {
-                $user_query = "SELECT * FROM atoropics_users WHERE username = ?";
-                $stmt = mysqli_prepare($conn, $user_query);
-                mysqli_stmt_bind_param($stmt, "s", $username);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                if (mysqli_num_rows($result) > 0) {
-                    $conn->query("UPDATE `atoropics_users` SET `username` = '" . $username . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
-                } else {
-                    $conn->close();
-                    header('location: /admin/users?e=Username is already taken in the database');
-                    exit();
-                }
-            }
-            if (!$avatar == "") {
-                $conn->query("UPDATE `atoropics_users` SET `avatar` = '" . $avatar . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
+            if (!$dsc == "" || !$domaind['description'] == $dsc) {
+                $conn->query("UPDATE `atoropics_domains` SET `description` = '" . $dsc . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
             }
             $conn->close();
-            header('location: /admin/users/edit?id='.$_GET['id']);
+            header('location: /admin/domains/edit?id='.$_GET['id']);
             exit();
         }
     } else {
-        header('location: /admin/users');
+        header('location: /admin/domains');
         exit();
     }
 } else if (isset($_GET['id'])) {
@@ -83,11 +58,11 @@ if (isset($_GET['edit_user'])) {
             $domaindb = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
-        header('location: /admin/users');
+        header('location: /admin/domains');
         exit();
     }
 } else {
-    header('location: /admin/users');
+    header('location: /admin/domains');
     exit();
 }
 ?>
@@ -182,7 +157,7 @@ if (isset($_GET['edit_user'])) {
                     </div>
                 </div>
                 <div class="row">
-                    <form action="/admin/users/edit?id=<?= $_GET['id'] ?>" method="get
+                    <form action="/admin/domains/edit?id=<?= $_GET['id'] ?>" method="get
                     ">
                         <div class="col-md-6">
                             <div class="box box-primary">
@@ -194,7 +169,7 @@ if (isset($_GET['edit_user'])) {
                                         <label for="domain" class="control-label">Domain</label>
                                         <div>
                                             <input type="text" name="domain" value="<?= $domaindb['domain'] ?>"
-                                                class="form-control form-autocomplete-stop">
+                                                disabled="" class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -205,9 +180,9 @@ if (isset($_GET['edit_user'])) {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="key" class="control-label">Owner User Key</label>
+                                        <label for="skey" class="control-label">Owner User Key</label>
                                         <div>
-                                            <input type="text" name="key" value="<?= $domaindb['ownerkey'] ?>"
+                                            <input type="text" name="skey" value="<?= $domaindb['ownerkey'] ?>"
                                                 class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
@@ -221,7 +196,7 @@ if (isset($_GET['edit_user'])) {
                                 </div>
                                 <div class="box-footer">
                                     <input type="hidden" value="<?= $_GET['id'] ?>" name="id">
-                                    <input type="submit" value="Update" name="edit_user" class="btn btn-primary btn-sm">
+                                    <input type="submit" value="Update" name="edit_domain" class="btn btn-primary btn-sm">
                                 </div>
                             </div>
                         </div>
