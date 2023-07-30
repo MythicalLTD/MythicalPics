@@ -1,4 +1,7 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require('../class/session.php');
 function pass()
 {
@@ -9,6 +12,93 @@ $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysql
 if ($userdb['admin'] == "false") {
     header('location: /');
 }
+if (isset($_POST['create_user'])) {
+    if ($settings['enable_smtp'] == "true") {
+        $smtp_host = $settings['smtp_host'];
+        $smtp_username = $settings['smtp_user'];
+        $smtp_password = $settings['smtp_password'];
+        $smtp_port = $settings['smtp_port'];
+        $smtp_from = $settings['smtp_from'];
+        $name = $settings['smtp_from_name'];
+    }
+    $length = 16;
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array();
+    $alphaLength = strlen($alphabet) - 1;
+    for ($i = 0; $i < $length; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    $key = implode($pass);
+    $ip_addres = getclientip();
+    $msg = "";
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+    if ($settings['enable_smtp'] == "true") {
+        $code = mysqli_real_escape_string($conn, md5(rand()));
+    } else {
+        $code = "null";
+    }
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE email='" . $email . "'")) > 0) {
+        $msg = "<div class='alert alert-danger'>" . $email . " - This email address is in use.</div>";
+    }
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE username='" . $name . "'")) > 0) {
+        $msg = "<div class='alert alert-danger'>" . $name . " - This username is in use.</div>";
+    } else {
+        $default = "https://www.gravatar.com/avatar/00000000000000000000000000000000";
+        $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default);
+
+        $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            echo "<div style='display: none;'>";
+            //Create an instance; passing `true` enables exceptions
+            if ($settings['enable_smtp'] == "true") {
+                $mail = new PHPMailer(true);
+
+                try {
+                    //Server settings
+                    $mail->SMTPDebug = 2; //Enable verbose debug output
+                    $mail->isSMTP(); //Send using SMTP
+                    $mail->Host = $smtp_host; //Set the SMTP server to send through
+                    $mail->SMTPAuth = true; //Enable SMTP authentication
+                    $mail->Username = $smtp_username; //SMTP username
+                    $mail->Password = $smtp_password; //SMTP password
+                    $mail->SMTPSecure = 'tls'; //Enable implicit TLS encryption
+                    $mail->Port = $smtp_port; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                    //Recipients
+                    $mail->setFrom($smtp_from);
+                    $mail->addAddress($email);
+
+                    //Content
+                    $mail->isHTML(true); //Set email format to HTML
+                    $mail->Subject = 'no reply';
+                    $mail->Body = 'Here is the verification link <b><a href="'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '">'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '</a></b>';
+
+                    $mail->send();
+                    echo 'Message has been sent';
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: " . $mail->ErrorInfo . "";
+                }
+                echo "</div>";
+                $msg = "<div class='alert alert-info'>We've send a verification link on your email address.</div>";
+            } else {
+                echo "</div>";
+                $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
+                header('location: /admin/users');
+            }
+
+        } else {
+            echo "</div>";
+            $msg = "<div class='alert alert-danger'>Something wrong went.</div>";
+        }
+    }
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -94,6 +184,24 @@ if ($userdb['admin'] == "false") {
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -108,14 +216,14 @@ if ($userdb['admin'] == "false") {
                                     <div class="form-group">
                                         <label for="email" class="control-label">Email</label>
                                         <div>
-                                            <input type="text" autocomplete="off" name="email" value=""
+                                            <input type="email" autocomplete="off" name="email" value=""
                                                 class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username" class="control-label">Username</label>
+                                        <label for="name" class="control-label">Username</label>
                                         <div>
-                                            <input type="text" autocomplete="off" name="username" value=""
+                                            <input type="text" autocomplete="off" name="name" value=""
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -127,7 +235,9 @@ if ($userdb['admin'] == "false") {
                                     </div>
                                 </div>
                                 <div class="box-footer text-center">
-                                    <input type="submit" value="Create User" class="btn btn-success btn-sm">
+                                    <button type="submit" name="create_user" value="true"
+                                        class="btn btn-success btn-sm">Create
+                                        User</button>
                                 </div>
                             </div>
                         </div>

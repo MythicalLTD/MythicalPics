@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $default = "https://www.gravatar.com/avatar/00000000000000000000000000000000";
             $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default);
 
-            $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme, embed_sitename) VALUES ('".$name."', '{$grav_url}', '".$email."', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service', 'Didcom')";
+            $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('".$name."', '{$grav_url}', '".$email."', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
             $result = mysqli_query($conn, $sql);
 
             if ($result) {
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   //Content
                   $mail->isHTML(true); //Set email format to HTML
                   $mail->Subject = 'no reply';
-                  $mail->Body = 'Here is the verification link <b><a href="https://img.atoro.tech/auth/login/?verification=' . $code . '">https://img.atoro.tech/auth/login/?verification=' . $code . '</a></b>';
+                  $mail->Body = 'Here is the verification link <b><a href="'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '">'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '</a></b>';
 
                   $mail->send();
                   echo 'Message has been sent';
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               } else {
                 echo "</div>";
                 $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
-                header('location: login');
+                header('location: /auth/login');
               }
 
             } else {
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     //Content
                     $mail->isHTML(true); //Set email format to HTML
                     $mail->Subject = 'no reply';
-                    $mail->Body = 'Here is the verification link <b><a href="https://img.atoro.tech/auth/login/?verification=' . $code . '">https://img.atoro.tech/auth/login/?verification=' . $code . '</a></b>';
+                    $mail->Body = 'Here is the verification link <b><a href="'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '">'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '</a></b>';
 
                     $mail->send();
                     echo 'Message has been sent';
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                   echo "</div>";
                   $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
-                  header('location: login');
+                  header('location: /auth/login');
                 }
 
               } else {
