@@ -205,7 +205,7 @@ if (isset($_GET['edit_user'])) {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="key" class="control-label">Key</label>
+                                        <label for="key" class="control-label">Owner User Key</label>
                                         <div>
                                             <input type="text" name="key" value="<?= $domaindb['ownerkey'] ?>"
                                                 class="form-control form-autocomplete-stop">
@@ -225,36 +225,6 @@ if (isset($_GET['edit_user'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="box">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Status</h3>
-                                </div>
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="root_admin" class="control-label">Domain status</label>
-                                        <div>
-                                            <select name="root_admin" class="form-control">
-                                                <?php if ($userdbdd['admin'] == "false") {
-                                                    ?>
-                                                    <option value="0" selected="&quot;selected&quot;">No</option>
-                                                    <option value="1">Yes</option>
-                                                    <?php
-                                                } else if ($userdbdd['admin'] == "true") {
-                                                    ?>
-                                                        <option value="0">No</option>
-                                                        <option value="1" selected="&quot;selected&quot;">Yes</option>
-                                                        <?php
-                                                }
-                                                ?>
-
-                                            </select>
-                                            <p class="text-muted"><small>Here you can change the status of the domain!</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                     <div class="col-xs-12">
                         <div class="box box-danger">
@@ -265,8 +235,8 @@ if (isset($_GET['edit_user'])) {
                                 <p class="no-margin">If you delete a domain you can't add it back</p>
                             </div>
                             <div class="box-footer">
-                                <form action="/admin/users/delete" method="GET">
-                                    <button type="submit" name="id" class="btn btn-sm btn-danger pull-right" value="<?= $_GET['id']?>">Delete User</button>
+                                <form action="/admin/domain/delete" method="GET">
+                                    <button type="submit" name="id" class="btn btn-sm btn-danger pull-right" value="<?= $_GET['id']?>">Delete domain</button>
                                 </form>
                             </div>
                         </div>

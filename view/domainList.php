@@ -122,7 +122,6 @@ if (isset($_GET['del_domain'])) {
                       echo '<table class="table table-vcenter card-table table-striped">
                               <thead>
                                 <tr>
-                                  <th>Status</th>
                                   <th>Domain Name</th>
                                   <th>Description</th>
                                   <th>Creation Date</th>
@@ -132,15 +131,6 @@ if (isset($_GET['del_domain'])) {
                               <tbody>';
                   
                               while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<tr>
-                                        <td>';
-                            
-                                if ($row['enabled'] == true) {
-                                    echo 'Working';
-                                } else {
-                                    echo 'Suspendet';
-                                }
-                            
                                 echo '</td>
                                         <td><code>' . $row['domain'] . '</code></td>
                                         <td>' . $row['description'] . '</td>
