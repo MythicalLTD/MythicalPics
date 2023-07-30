@@ -36,7 +36,7 @@ if (isset($_GET['edit_domain'])) {
                 $conn->query("UPDATE `atoropics_domains` SET `description` = '" . $dsc . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
             }
             $conn->close();
-            header('location: /admin/domains/edit?id='.$_GET['id']);
+            header('location: /admin/domains/edit?id=' . $_GET['id']);
             exit();
         }
     } else {
@@ -149,6 +149,24 @@ if (isset($_GET['edit_domain'])) {
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -171,7 +189,8 @@ if (isset($_GET['edit_domain'])) {
                                     <div class="form-group">
                                         <label for="description" class="control-label">Description</label>
                                         <div>
-                                            <input type="text" name="description" value="<?= $domaindb['description'] ?>"
+                                            <input type="text" name="description"
+                                                value="<?= $domaindb['description'] ?>"
                                                 class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
@@ -185,14 +204,16 @@ if (isset($_GET['edit_domain'])) {
                                     <div class="form-group">
                                         <label for="created-date" class="control-label">Created Date</label>
                                         <div>
-                                            <input type="text" name="created-date" value="<?= $domaindb['created-date'] ?>"
-                                            disabled="" class="form-control form-autocomplete-stop">
+                                            <input type="text" name="created-date"
+                                                value="<?= $domaindb['created-date'] ?>" disabled=""
+                                                class="form-control form-autocomplete-stop">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="box-footer">
                                     <input type="hidden" value="<?= $_GET['id'] ?>" name="id">
-                                    <input type="submit" value="Update" name="edit_domain" class="btn btn-primary btn-sm">
+                                    <input type="submit" value="Update" name="edit_domain"
+                                        class="btn btn-primary btn-sm">
                                 </div>
                             </div>
                         </div>
@@ -207,7 +228,8 @@ if (isset($_GET['edit_domain'])) {
                             </div>
                             <div class="box-footer">
                                 <form action="/admin/domain/delete" method="GET">
-                                    <button type="submit" name="id" class="btn btn-sm btn-danger pull-right" value="<?= $_GET['id']?>">Delete domain</button>
+                                    <button type="submit" name="id" class="btn btn-sm btn-danger pull-right"
+                                        value="<?= $_GET['id'] ?>">Delete domain</button>
                                 </form>
                             </div>
                         </div>

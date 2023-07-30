@@ -105,6 +105,24 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -169,11 +187,13 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                         ?>
                                                     </a>
                                                 </td>-->
-                                                <td class="text-center" ><!--<a href="#">--> <?php
-                                                        $domainsResult = $conn->query("SELECT COUNT(*) FROM atoropics_domains WHERE ownerkey = '" . $user['api_key'] . "'");
-                                                        $domainsCount = $domainsResult->fetch_row()[0];
-                                                        echo $domainsCount;
-                                                        ?></a></td>
+                                                <td class="text-center"><!--<a href="#">-->
+                                                    <?php
+                                                    $domainsResult = $conn->query("SELECT COUNT(*) FROM atoropics_domains WHERE ownerkey = '" . $user['api_key'] . "'");
+                                                    $domainsCount = $domainsResult->fetch_row()[0];
+                                                    echo $domainsCount;
+                                                    ?></a>
+                                                </td>
                                                 <td class="text-center"><img src="<?= $user['avatar'] ?>"
                                                         style="height:20px;" class="img-circle">
                                                 </td>

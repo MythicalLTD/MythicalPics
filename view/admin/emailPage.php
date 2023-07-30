@@ -15,13 +15,13 @@ if (isset($_POST['saveEmailSettings'])) {
     $mail_password = $_POST['mail:password'];
     $mail_from_address = $_POST['mail:from:address'];
     $mail_from_name = $_POST['mail:from:name'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_smtp` = '".$mail_enable."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_host` = '".$mail_host."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_port` = '".$mail_port."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_user` = '".$mail_username."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_password` = '".$mail_password."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from` = '".$mail_from_address."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from_name` = '".$mail_from_name."' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_smtp` = '" . $mail_enable . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_host` = '" . $mail_host . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_port` = '" . $mail_port . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_user` = '" . $mail_username . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_password` = '" . $mail_password . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from` = '" . $mail_from_address . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from_name` = '" . $mail_from_name . "' WHERE `atoropics_settings`.`id` = 1;");
     header('location: /admin/settings/mail');
 }
 ?>
@@ -32,7 +32,7 @@ if (isset($_POST['saveEmailSettings'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - Settings 
+        <?= $settings['app_name'] ?> - Settings
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -107,6 +107,24 @@ if (isset($_POST['saveEmailSettings'])) {
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -135,34 +153,31 @@ if (isset($_POST['saveEmailSettings'])) {
                                             <div class="form-group col-md-3">
                                                 <label class="control-label">SMTP</label>
                                                 <div>
-                                                    <?php 
-                                                    if ($settings['enable_smtp'] == "true")
-                                                    {
+                                                    <?php
+                                                    if ($settings['enable_smtp'] == "true") {
                                                         ?>
                                                         <select name="mail:enable" class="form-control">
-                                                        <option value="true">Enable</option>
-                                                        <option value="false">Disable</option>
+                                                            <option value="true">Enable</option>
+                                                            <option value="false">Disable</option>
                                                         </select>
                                                         <?php
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         ?>
                                                         <select name="mail:enable" class="form-control">
-                                                        <option value="false">Disable</option>
-                                                        <option value="true">Enable</option>
+                                                            <option value="false">Disable</option>
+                                                            <option value="true">Enable</option>
                                                         </select>
                                                         <?php
                                                     }
                                                     ?>
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="control-label">SMTP Host</label>
                                                 <div>
-                                                    <input required="" type="text" class="form-control"
-                                                        name="mail:host" value="<?= $settings['smtp_host']?>">
+                                                    <input required="" type="text" class="form-control" name="mail:host"
+                                                        value="<?= $settings['smtp_host'] ?>">
                                                     <p class="text-muted small">Enter the SMTP server
                                                         address that mail should be sent through.</p>
                                                 </div>
@@ -171,7 +186,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">SMTP Port</label>
                                                 <div>
                                                     <input required="" type="number" class="form-control"
-                                                        name="mail:port" value="<?= $settings['smtp_port']?>">
+                                                        name="mail:port" value="<?= $settings['smtp_port'] ?>">
                                                     <p class="text-muted small">Enter the SMTP server
                                                         port that mail should be sent through.</p>
                                                 </div>
@@ -180,8 +195,8 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">Username <span
                                                         class="field-optional"></span></label>
                                                 <div>
-                                                    <input type="text" class="form-control"
-                                                        name="mail:username" value="<?= $settings['smtp_user']?>">
+                                                    <input type="text" class="form-control" name="mail:username"
+                                                        value="<?= $settings['smtp_user'] ?>">
                                                     <p class="text-muted small">The username to use when
                                                         connecting to the SMTP server.</p>
                                                 </div>
@@ -190,8 +205,8 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">Password <span
                                                         class="field-optional"></span></label>
                                                 <div>
-                                                    <input type="password" value="<?= $settings['smtp_password']?>"class="form-control"
-                                                        name="mail:password">
+                                                    <input type="password" value="<?= $settings['smtp_password'] ?>"
+                                                        class="form-control" name="mail:password">
                                                     <p class="text-muted small">The password to use in
                                                         conjunction with the SMTP username.
                                                     </p>
@@ -204,7 +219,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">Mail From</label>
                                                 <div>
                                                     <input required="" type="email" class="form-control"
-                                                        name="mail:from:address" value="<?= $settings['smtp_from']?>">
+                                                        name="mail:from:address" value="<?= $settings['smtp_from'] ?>">
                                                     <p class="text-muted small">Enter an email address
                                                         that all outgoing emails will originate from.
                                                     </p>
@@ -215,7 +230,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                         class="field-optional"></span></label>
                                                 <div>
                                                     <input type="text" class="form-control" name="mail:from:name"
-                                                        value="<?= $settings['smtp_from_name']?>">
+                                                        value="<?= $settings['smtp_from_name'] ?>">
                                                     <p class="text-muted small">The name that emails
                                                         should appear to come from.</p>
                                                 </div>
@@ -224,7 +239,8 @@ if (isset($_POST['saveEmailSettings'])) {
                                     </div>
                                     <div class="box-footer">
                                         <div class="pull-right">
-                                            <button type="submit" id="saveButton" name="saveEmailSettings" class="btn btn-sm btn-primary">Save</button>
+                                            <button type="submit" id="saveButton" name="saveEmailSettings"
+                                                class="btn btn-sm btn-primary">Save</button>
                                         </div>
                                     </div>
                                 </form>

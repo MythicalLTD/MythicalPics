@@ -1,5 +1,6 @@
 <?php
 use Symfony\Component\Cache\Adapter\PdoAdapter;
+
 require('../class/session.php');
 
 $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
@@ -112,6 +113,24 @@ if ($userdb['admin'] == "false") {
 
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -127,7 +146,8 @@ if ($userdb['admin'] == "false") {
                                     <h3 class="box-title">System Information</h3>
                                 </div>
                                 <div class="box-body">
-                                    You are running MythicalPics version <code><?= $settings['version'] ?></code>. Your system
+                                    You are running MythicalPics version <code><?= $settings['version'] ?></code>. Your
+                                    system
                                     is up-to-date!
                                 </div>
                             </div>
@@ -165,8 +185,8 @@ if ($userdb['admin'] == "false") {
                                 style="width:100%;"><i class="fa fa-fw fa-support"></i> Github</button></a>
                     </div>
                     <div class="col-xs-6 col-sm-3 text-center">
-                        <a href="https://paypal.me/mythicalsystems"><button
-                                class="btn btn-success" style="width:100%;"><i class="fa fa-fw fa-money"></i> Support
+                        <a href="https://paypal.me/mythicalsystems"><button class="btn btn-success"
+                                style="width:100%;"><i class="fa fa-fw fa-money"></i> Support
                                 the Project</button></a>
                     </div>
                 </div>

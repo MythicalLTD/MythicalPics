@@ -97,6 +97,24 @@ if (isset($_POST['submit'])) {
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -105,22 +123,23 @@ if (isset($_POST['submit'])) {
                         <div class="col-xs-12">
                             <div class="box box-primary">
                                 <center>
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label class="control-label" for="memoField">Name <span
-                                                class="field-required"></span></label>
-                                        <input id="memoField" type="text" name="api:key:name" class="form-control">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="control-label" for="memoField">Name <span
+                                                    class="field-required"></span></label>
+                                            <input id="memoField" type="text" name="api:key:name" class="form-control">
+                                        </div>
+                                        <button type="submit" name="submit"
+                                            class="btn btn-success btn-sm pull-right">Create Credentials</button>
                                     </div>
-                                    <button type="submit" name="submit" class="btn btn-success btn-sm pull-right">Create Credentials</button>
-                                </div>
                                 </center>
                             </div>
                         </div>
                     </form>
                 </div>
-                
+
             </section>
-            
+
         </div>
 
         <footer class="main-footer">

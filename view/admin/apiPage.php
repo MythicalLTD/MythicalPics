@@ -8,7 +8,7 @@ if ($userdb['admin'] == "false") {
 }
 if (isset($_GET['revoke-key'])) {
     $keyid = $_GET['revoke-key'];
-    mysqli_query($conn, "DELETE FROM atoropics_apikeys WHERE `atoropics_apikeys`.`id` = ".$keyid."");
+    mysqli_query($conn, "DELETE FROM atoropics_apikeys WHERE `atoropics_apikeys`.`id` = " . $keyid . "");
     header('location: /admin/api');
 }
 ?>
@@ -93,6 +93,24 @@ if (isset($_GET['revoke-key'])) {
                 </ol>
             </section>
             <section class="content">
+                <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
                 <div class="row">
                     <div class="col-xs-12">
                     </div>

@@ -65,7 +65,7 @@ if (isset($_GET['edit_user'])) {
                 $conn->query("UPDATE `atoropics_users` SET `avatar` = '" . $avatar . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
             }
             $conn->close();
-            header('location: /admin/users/edit?id='.$_GET['id']);
+            header('location: /admin/users/edit?id=' . $_GET['id']);
             exit();
         }
     } else {
@@ -180,6 +180,24 @@ if (isset($_GET['edit_user'])) {
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -284,7 +302,8 @@ if (isset($_GET['edit_user'])) {
                             </div>
                             <div class="box-footer">
                                 <form action="/admin/users/delete" method="GET">
-                                    <button type="submit" name="id" class="btn btn-sm btn-danger pull-right" value="<?= $_GET['id']?>">Delete User</button>
+                                    <button type="submit" name="id" class="btn btn-sm btn-danger pull-right"
+                                        value="<?= $_GET['id'] ?>">Delete User</button>
                                 </form>
                             </div>
                         </div>

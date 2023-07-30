@@ -9,8 +9,8 @@ if ($userdb['admin'] == "false") {
 if (isset($_POST['update_settings'])) {
     $app_name = $_POST['app:name'];
     $app_logo = $_POST['app:logo'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_name` = '".$app_name."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_logo` = '".$app_logo."' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_name` = '" . $app_name . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `atoropics_settings`.`id` = 1;");
     header('location: /admin/settings');
 }
 ?>
@@ -96,6 +96,24 @@ if (isset($_POST['update_settings'])) {
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -103,11 +121,9 @@ if (isset($_POST['update_settings'])) {
                     <div class="col-xs-12">
                         <div class="nav-tabs-custom nav-tabs-floating">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a
-                                        href="/admin/settings">General</a></li>
+                                <li class="active"><a href="/admin/settings">General</a></li>
                                 <li><a href="/admin/settings/mail">Mail</a></li>
-                                <li><a
-                                        href="/admin/settings/advanced">Advanced</a>
+                                <li><a href="/admin/settings/advanced">Advanced</a>
                                 </li>
                             </ul>
                         </div>
@@ -125,21 +141,26 @@ if (isset($_POST['update_settings'])) {
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Company Name</label>
                                             <div>
-                                                <input type="text" class="form-control" name="app:name" value="<?= $settings['app_name'] ?>">
-                                                <p class="text-muted"><small>This is the name that is used throughout the panel and in emails sent to clients.</small></p>
+                                                <input type="text" class="form-control" name="app:name"
+                                                    value="<?= $settings['app_name'] ?>">
+                                                <p class="text-muted"><small>This is the name that is used throughout
+                                                        the panel and in emails sent to clients.</small></p>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Company Logo</label>
                                             <div>
-                                                <input type="text" class="form-control" name="app:logo" value="<?= $settings['app_logo'] ?>">
-                                                <p class="text-muted"><small>This is the logo that is used to display the favicon and in the ui.</small></p>
+                                                <input type="text" class="form-control" name="app:logo"
+                                                    value="<?= $settings['app_logo'] ?>">
+                                                <p class="text-muted"><small>This is the logo that is used to display
+                                                        the favicon and in the ui.</small></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="box-footer">
-                                    <button type="submit" name="update_settings" class="btn btn-sm btn-primary pull-right">Save</button>
+                                    <button type="submit" name="update_settings"
+                                        class="btn btn-sm btn-primary pull-right">Save</button>
                                 </div>
                             </form>
                         </div>

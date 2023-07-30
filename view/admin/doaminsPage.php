@@ -105,6 +105,22 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
             </section>
             <section class="content">
                 <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li><?= $_GET['e']?></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                     </div>
                 </div>
@@ -145,7 +161,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                         <?php foreach ($users as $user): ?>
                                             <tr class="align-middle">
                                                 <td><code><?= $user['id'] ?></code></td>
-                                                <td><a href="/admin/domains/edit?id=<?= $user['id']?>">
+                                                <td><a href="/admin/domains/edit?id=<?= $user['id'] ?>">
                                                         <?= $user['domain'] ?>
                                                     </a>
                                                 </td>
@@ -153,19 +169,19 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                     <code><?= $user['description'] ?></code>
                                                 </td>
                                                 <td>
-                                                <?php 
-                                                        
-                                                        $check_query = "SELECT * FROM atoropics_users WHERE api_key = '".$user['ownerkey']."'";
-                                                        $result = mysqli_query($conn, $check_query);
-                                                        if (mysqli_num_rows($result) > 0) {
-                                                            $ownersResult = $conn->query("SELECT username FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'");
-                                                            $ownersCount = $ownersResult->fetch_row()[0];
-                                                            echo $ownersCount;
-                                                        } else {
-                                                            echo 'None';
-                                                        }
-                                                        
-                                                ?>
+                                                    <?php
+
+                                                    $check_query = "SELECT * FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'";
+                                                    $result = mysqli_query($conn, $check_query);
+                                                    if (mysqli_num_rows($result) > 0) {
+                                                        $ownersResult = $conn->query("SELECT username FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'");
+                                                        $ownersCount = $ownersResult->fetch_row()[0];
+                                                        echo $ownersCount;
+                                                    } else {
+                                                        echo 'None';
+                                                    }
+
+                                                    ?>
                                                 </td>
                                                 <td>
                                                     <?= $user['created-date'] ?>

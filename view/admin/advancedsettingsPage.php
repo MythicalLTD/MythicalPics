@@ -17,15 +17,15 @@ if (isset($_POST['saveadvsettings'])) {
     $app_recaptcha_secret_key = $_POST['recaptcha:secret_key'];
     $app_discord_invite = $_POST['discord:server:invite'];
     $app_discord_webhook = $_POST['discord:webhook'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_proto` = '".$app_proto."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_maintenance` = '".$app_maintenance."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_url` = '".$app_url."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_registration` = '".$app_registration."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_rechapa2` = '".$app_recaptcha."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_key` = '".$app_recaptcha_site_key."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_secret` = '".$app_recaptcha_secret_key."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord` = '".$app_discord_invite."' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord_webhook` = '".$app_discord_webhook."' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_proto` = '" . $app_proto . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_maintenance` = '" . $app_maintenance . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_url` = '" . $app_url . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_registration` = '" . $app_registration . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_rechapa2` = '" . $app_recaptcha . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_key` = '" . $app_recaptcha_site_key . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `atoropics_settings`.`id` = 1;");
     header('location: /admin/settings/advanced');
 }
 ?>
@@ -109,7 +109,26 @@ if (isset($_POST['saveadvsettings'])) {
                     <li class="active">Settings</li>
                 </ol>
             </section>
+
             <section class="content">
+                <div class="row">
+                    <?php
+                    if (isset($_GET['e'])) {
+                        ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                There was an error.<br><br>
+                                <ul>
+                                    <li>
+                                        <?= $_GET['e'] ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
                 <div class="row">
                     <div class="col-xs-12">
                     </div>
@@ -129,34 +148,32 @@ if (isset($_POST['saveadvsettings'])) {
                 <div class="row">
                     <div class="col-xs-12">
                         <form action="" method="POST">
-                        <div class="box">
+                            <div class="box">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">App Core</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                    <div class="form-group col-md-2">
+                                        <div class="form-group col-md-2">
                                             <label class="control-label">App Maintenance</label>
                                             <div>
-                                                <?php 
+                                                <?php
                                                 if ($settings['app_maintenance'] == "false") {
                                                     ?>
                                                     <select class="form-control" name="atoropics:settings:maintenance">
-                                                    <option value="false">Off</option>
-                                                    <option value="true">On</option>
+                                                        <option value="false">Off</option>
+                                                        <option value="true">On</option>
                                                     </select>
                                                     <?php
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     ?>
                                                     <select class="form-control" name="atoropics:settings:maintenance">
-                                                    <option value="true">On</option>
-                                                    <option value="false">Off</option>
+                                                        <option value="true">On</option>
+                                                        <option value="false">Off</option>
                                                     </select>
                                                     <?php
                                                 }
-                                                
+
                                                 ?>
                                                 <p class="text-muted small">The protocol for the app!</p>
                                             </div>
@@ -164,25 +181,23 @@ if (isset($_POST['saveadvsettings'])) {
                                         <div class="form-group col-md-5">
                                             <label class="control-label">App Protocol</label>
                                             <div>
-                                                <?php 
+                                                <?php
                                                 if ($settings['app_proto'] == "https://") {
                                                     ?>
                                                     <select class="form-control" name="atoropics:settings:proto">
-                                                    <option value="https://">HTTPS</option>
-                                                    <option value="http://">HTTP</option>
+                                                        <option value="https://">HTTPS</option>
+                                                        <option value="http://">HTTP</option>
                                                     </select>
                                                     <?php
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     ?>
                                                     <select class="form-control" name="atoropics:settings:proto">
-                                                    <option value="http://">HTTP</option>
-                                                    <option value="https://">HTTPS</option>
+                                                        <option value="http://">HTTP</option>
+                                                        <option value="https://">HTTPS</option>
                                                     </select>
                                                     <?php
                                                 }
-                                                
+
                                                 ?>
                                                 <p class="text-muted small">The protocol for the app!</p>
                                             </div>
@@ -204,7 +219,7 @@ if (isset($_POST['saveadvsettings'])) {
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                    <div class="form-group col-md-2">
+                                        <div class="form-group col-md-2">
                                             <label class="control-label">Registration Status</label>
                                             <div>
                                                 <?php
@@ -224,7 +239,7 @@ if (isset($_POST['saveadvsettings'])) {
                                                     <?php
                                                 }
                                                 ?>
-                                                
+
                                             </div>
                                         </div>
                                         <div class="form-group col-md-2">
@@ -247,7 +262,7 @@ if (isset($_POST['saveadvsettings'])) {
                                                     <?php
                                                 }
                                                 ?>
-                                              
+
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4">
@@ -280,7 +295,8 @@ if (isset($_POST['saveadvsettings'])) {
                                             <div>
                                                 <input type="text" required="" class="form-control"
                                                     name="discord:server:invite" value="<?= $settings['discord'] ?>">
-                                                <p class="text-muted small">The server invite so users will join your discord.</p>
+                                                <p class="text-muted small">The server invite so users will join your
+                                                    discord.</p>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -288,7 +304,8 @@ if (isset($_POST['saveadvsettings'])) {
                                             <div>
                                                 <input type="password" required="" class="form-control"
                                                     name="discord:webhook" value="<?= $settings['discord_webhook'] ?>">
-                                                <p class="text-muted small">The webhook where we are going to send the reports!</p>
+                                                <p class="text-muted small">The webhook where we are going to send the
+                                                    reports!</p>
                                             </div>
                                         </div>
                                     </div>
