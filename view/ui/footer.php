@@ -14,7 +14,7 @@
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
                         Copyright &copy; 2023
-                        <a href="." class="link-secondary">Atoro</a>.
+                        <a href="https://github.com/mythicalltd" class="link-secondary">MythicalSystems</a>.
                         All rights reserved.
                     </li>
 

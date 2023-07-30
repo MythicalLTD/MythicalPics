@@ -15,7 +15,7 @@ if ($enable_template == "true")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./dist/css/preloader.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <title>AtoroPics | Home</title>
+    <title>MythicalPics | Home</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@ if ($enable_template == "true")
         <div id="loader"></div>
     </div>
     <center>
-        <p>Welcome to AtoroPics</p>
+        <p>Welcome to MythicalPics</p>
         <p>This is the default template for the instalation</p>
         <p>Make sure to replace this with your custom build template</p>
         <p>To upload the template make sure to go in <code>/view/index.php</code></p>
