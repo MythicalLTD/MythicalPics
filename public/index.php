@@ -284,7 +284,7 @@ try {
           header('location: '.$settings['app_proto'].$settings['app_url']."/api/delete");  
         }
     });
-    
+
     $router->add("/(.*)", function() {
         require("../index.php");
         require("../view/errors/404.php");
