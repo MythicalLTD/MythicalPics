@@ -231,6 +231,18 @@ try {
         
     });
 
+    
+    $router->add("/admin/users/new", function() {
+        require("../index.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/user/create.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/new");  
+        }
+        
+    });
+
     $router->add("/admin/domains", function() {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
