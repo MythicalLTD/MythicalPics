@@ -154,9 +154,17 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                 </td>
                                                 <td>
                                                 <?php 
-                                                        $ownersResult = $conn->query("SELECT username FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'");
-                                                        $ownersCount = $ownersResult->fetch_row()[0];
-                                                        echo $ownersCount;
+                                                        
+                                                        $check_query = "SELECT * FROM atoropics_users WHERE api_key = '".$user['ownerkey']."'";
+                                                        $result = mysqli_query($conn, $check_query);
+                                                        if (mysqli_num_rows($result) > 0) {
+                                                            $ownersResult = $conn->query("SELECT username FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'");
+                                                            $ownersCount = $ownersResult->fetch_row()[0];
+                                                            echo $ownersCount;
+                                                        } else {
+                                                            echo 'None';
+                                                        }
+                                                        
                                                 ?>
                                                 </td>
                                                 <td>

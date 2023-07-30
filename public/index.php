@@ -19,13 +19,13 @@ try {
         }
     });
    
-    $router->add('/api/v2/stats', function() {
+    $router->add('/api/admin/stats', function() {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
             require("../api/v2/stats.php");
         } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/api/v2/stats");  
+          header('location: '.$settings['app_proto'].$settings['app_url']."/api/admin/stats");  
         }
     });
 
@@ -166,6 +166,16 @@ try {
             require("../view/admin/user/edit.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/edit");  
+        }
+    });
+
+    $router->add("/admin/domains",function(){
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/doaminsPage.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/domains");  
         }
     });
 
