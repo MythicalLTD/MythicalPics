@@ -1,8 +1,6 @@
 <?php
 ini_set('display_errors', 0);
-
 header('Content-Type: application/json');
-
 if (isset($_GET['owner_key']) && isset($_GET['imgid'])) {
     $owner_key = mysqli_real_escape_string($conn, $_GET['owner_key']);
     $imgid = mysqli_real_escape_string($conn, $_GET['imgid']);

@@ -1,3 +1,6 @@
+<?php 
+http_response_code(404);
+?>
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.

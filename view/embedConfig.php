@@ -12,7 +12,6 @@ $desc = $userdb['embed_desc'];
 $desc_title = $userdb['embed_title'];
 $small_title = $userdb['embed_small_title'];
 $embed_theme = $userdb['embed_theme'];
-$site_name = $userdb['embed_sitename'];
 $embed_desc = $userdb['embed_desc'];
 
 $result = mysqli_query($conn, "SELECT * FROM atoropics_imgs");

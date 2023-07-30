@@ -53,7 +53,6 @@ if (isset($_POST['api_key'])) {
                         'description' => $desc,
                         'title' => $desc_tit,
                         'theme' => $embed_theme,
-                        'sitename' => 'DISABLED',
                         'small_title' => $small_title,
                         'date' => $date,
                         'filesize' => $filesize

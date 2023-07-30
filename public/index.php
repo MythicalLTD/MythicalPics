@@ -284,18 +284,7 @@ try {
           header('location: '.$settings['app_proto'].$settings['app_url']."/api/delete");  
         }
     });
-
-    $router->add("/api/report", function() {
-        require("../index.php");
-        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
-        {
-            require("../api/report.php");
-        } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/api/report");  
-        }
-        
-    });
-
+    
     $router->add("/(.*)", function() {
         require("../index.php");
         require("../view/errors/404.php");

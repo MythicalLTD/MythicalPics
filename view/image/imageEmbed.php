@@ -83,12 +83,12 @@ if (isset($_GET['i'])) {
                   </span>
                 </h6>
 
-                <button class="btn btn-danger" data-toggle="modal" id="report" data-target="#reportModal">
+                <!--<button class="btn btn-danger" data-toggle="modal" id="report" data-target="#reportModal">
                   <span class="btn-inner--icon">
                     <i class="fa-solid fa-triangle-exclamation mr-2"></i>
                   </span>
                   Report
-                </button>
+                </button>-->
                 <button onclick="copyImage()" class="btn btn-info" data-toggle="modal" data-target="#reportModal">
                   <span class="btn-inner--icon">
                     <i class="fa fa-clipboard mr-2"></i>
@@ -96,7 +96,7 @@ if (isset($_GET['i'])) {
                   Copy
                 </button>
 
-                <a href="<?= $data['url'] ?>" download target="_blank" class="btn btn-success">
+                <a href="<?= mysqli_real_escape_string($conn, $data['url']) ?>" download target="_blank" class="btn btn-success">
                   <span class="btn-inner--icon">
                     <i class="fas fa-cloud-download mr-2"></i>
                   </span>
@@ -116,48 +116,6 @@ if (isset($_GET['i'])) {
               navigator.clipboard.write([item]);
             });
         }
-      </script>
-      <script>
-        var reportButton = document.getElementById("report");
-        var lastClicked = localStorage.getItem("lastClicked_" + window.location.href);
-        if (lastClicked !== null) {
-          var now = Date.now();
-          var timeSinceLastClick = now - parseInt(lastClicked, 10);
-          if (timeSinceLastClick < 500000) {
-            reportButton.disabled = true;
-            setTimeout(function () {
-              reportButton.disabled = false;
-            }, 500000 - timeSinceLastClick);
-          }
-        }
-
-        reportButton.addEventListener("click", function () {
-          reportButton.disabled = true;
-          localStorage.setItem("lastClicked_" + window.location.href, Date.now().toString());
-
-          var message = prompt("Please enter a message:");
-          if (message !== null) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/api/report", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-              if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                  alert("The report was successful!");
-                } else {
-                  alert("The report failed.");
-                }
-                setTimeout(function () {
-                  reportButton.disabled = false;
-                }, 500000);
-              }
-            };
-            xhr.send("message=" + encodeURIComponent(message) + "&url=" + encodeURIComponent(window.location.href) + "&img_json=" + encodeURIComponent("<?= $json_file ?>"));
-          } else {
-            reportButton.disabled = false;
-          }
-        });
-
       </script>
       <script src="./dist/js/preloader.js" defer></script>
 

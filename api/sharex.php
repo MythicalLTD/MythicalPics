@@ -1,7 +1,6 @@
 <?php
 header('Content-Type: application/json');
 require('../class/session.php');
-
 $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 $query = "SELECT domain FROM atoropics_domains WHERE ownerkey = '".$_SESSION['api_key']."'";
 $result = $conn->query($query);
@@ -47,8 +46,5 @@ header("Content-Disposition: attachment; filename=".basename($file));
 header("Content-Length: ".filesize($file));
 readfile($file);
 unlink($file);
-
-
 exit;
-
 ?>
