@@ -1,5 +1,4 @@
 <?php
-use Symfony\Component\Cache\Adapter\PdoAdapter;
 
 require('../class/session.php');
 

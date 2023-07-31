@@ -128,6 +128,46 @@ try {
         }
     });
 
+    $router->add("/newadmin",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/dashboard.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin");  
+        }
+    });
+
+    $router->add("/newadmin/settings",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/settings/main.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/settings");  
+        }
+    });
+
+    $router->add("/newadmin/update",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/settings/update.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/update");  
+        }
+    });
+
+    $router->add("/newadmin/settings/mail",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/settings/mail.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/settings/mail");  
+        }
+    });
+
     $router->add("/admin",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
