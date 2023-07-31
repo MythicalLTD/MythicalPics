@@ -23,5 +23,10 @@
             "homepage": "https://github.com/NaysKutzu",
             "role": "Main Developer"
         }
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
 }

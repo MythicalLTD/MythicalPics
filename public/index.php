@@ -132,7 +132,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/mainPage.php");
+            require("../view/old_admin/mainPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin");  
         }
@@ -142,7 +142,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/settingsPage.php");
+            require("../view/old_admin/settingsPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/settings");  
         }
@@ -153,7 +153,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/advancedsettingsPage.php");
+            require("../view/old_admin/advancedsettingsPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/settings/advanced");  
         }
@@ -163,7 +163,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/user/edit.php");
+            require("../view/old_admin/user/edit.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/edit");  
         }
@@ -173,7 +173,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/doaminsPage.php");
+            require("../view/old_admin/doaminsPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/domains");  
         }
@@ -183,7 +183,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/user/delete.php");
+            require("../view/old_admin/user/delete.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/delete");  
         }
@@ -193,7 +193,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/emailPage.php");
+            require("../view/old_admin/emailPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/settings/mail");  
         }
@@ -203,7 +203,7 @@ try {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/apiPage.php");
+            require("../view/old_admin/apiPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/api");  
         }
@@ -213,7 +213,7 @@ try {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/api/create.php");
+            require("../view/old_admin/api/create.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/api/new");  
         }
@@ -224,7 +224,7 @@ try {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/usersPage.php");
+            require("../view/old_admin/usersPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users");  
         }
@@ -236,7 +236,7 @@ try {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/user/create.php");
+            require("../view/old_admin/user/create.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/users/new");  
         }
@@ -247,7 +247,7 @@ try {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/doaminsPage.php");
+            require("../view/old_admin/doaminsPage.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/domains");  
         }
@@ -258,7 +258,7 @@ try {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../view/admin/domain/edit.php");
+            require("../view/old_admin/domain/edit.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/admin/domains/edit");  
         }
