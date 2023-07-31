@@ -1,0 +1,5 @@
+<?php 
+echo "|==================================== MythicalPics CLI ====================================|\n";
+echo "\n";
+echo "This is not done yet so yeah wait for updates\n"
+?>
