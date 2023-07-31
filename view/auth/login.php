@@ -170,14 +170,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <form action="" method="post" autocomplete="off" novalidate>
             <div class="mb-3">
               <label class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+              <input required type="email" name="email" class="form-control" placeholder="your@email.com" autocomplete="off">
             </div>
             <div class="mb-2">
               <label class="form-label">
                 Password
               </label>
               <div class="input-group input-group-flat">
-                <input type="password" name="password" class="form-control" placeholder="Your password"
+                <input type="password" required name="password" class="form-control" placeholder="Your password"
                   autocomplete="off">
                 <span class="input-group-text">
                   <a href="#" class="link-secondary" title="Show password"

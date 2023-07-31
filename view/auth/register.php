@@ -260,26 +260,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h2 class="card-title text-center mb-4">Create new account</h2>
           <div class="mb-3">
             <label class="form-label">Username</label>
-            <input type="text" class="form-control" name="name" value="<?php if (isset($_POST['submit'])) {
+            <input type="text" required class="form-control" name="name" value="<?php if (isset($_POST['submit'])) {
               echo $name;
             } ?>" placeholder="Enter name">
           </div>
           <div class="mb-3">
             <label class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" value="<?php if (isset($_POST['submit'])) {
+            <input type="email" class="form-control" required name="email" value="<?php if (isset($_POST['submit'])) {
               echo $email;
             } ?>" placeholder="Enter email">
           </div>
           <div class="mb-3">
             <label class="form-label">Password</label>
             <div class="input-group input-group-flat">
-              <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
+              <input type="password" class="form-control" required name="password" placeholder="Password" autocomplete="off">
             </div>
           </div>
           <div class="mb-3">
             <label class="form-label">Confirm Password</label>
             <div class="input-group input-group-flat">
-              <input type="password" class="form-control" name="confirm-password" placeholder="Repeat Password"
+              <input type="password" class="form-control" required name="confirm-password" placeholder="Repeat Password"
                 autocomplete="off">
             </div>
           </div>
