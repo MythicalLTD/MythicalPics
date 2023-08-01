@@ -76,7 +76,7 @@ if (isset($_POST['create_user'])) {
                     //Content
                     $mail->isHTML(true); //Set email format to HTML
                     $mail->Subject = 'no reply';
-                    $mail->Body = 'Here is the verification link <b><a href="'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '">'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '</a></b>';
+                    $mail->Body = 'Here is the verification link <b><a href="' . $settings["app_proto"] . $settings["app_url"] . '/auth/login/?verification=' . $code . '">' . $settings["app_proto"] . $settings["app_url"] . '/auth/login/?verification=' . $code . '</a></b>';
 
                     $mail->send();
                     echo 'Message has been sent';
@@ -120,6 +120,7 @@ if (isset($_POST['create_user'])) {
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/colors/skin-blue.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/sweetalert/sweetalert.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/animate/animate.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/css/pterodactyl.css" />
@@ -292,6 +293,14 @@ if (isset($_POST['create_user'])) {
 
             document.getElementById("loadtime").innerHTML = pgloadtime + "s";
         }
+    </script>
+    <script>
+        Swal.fire({
+            title: 'Admin Area Error!',
+            text: 'This admin area is EOL and won`t get updated anymore \nDo you want to continue',
+            icon: 'error',
+            confirmButtonText: 'Yes'
+        });
     </script>
 </body>
 

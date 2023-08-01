@@ -11,11 +11,11 @@ $isDomainsSearchPage = (strpos($current_url, "/oldadmin/domains") !== false && !
         <ul class="sidebar-menu">
             <li class="header">BASIC ADMINISTRATION</li>
             <li class="<?php
-            if ($current_url == "/admin") {
+            if ($current_url == "/oldadmin") {
                 echo 'active';
             }
             ?>">
-                <a href="/admin">
+                <a href="/oldadmin">
                     <i class="fa fa-home"></i> <span>Overview</span>
                 </a>
             </li>
