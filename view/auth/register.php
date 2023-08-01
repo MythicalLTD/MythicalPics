@@ -37,7 +37,9 @@ for ($i = 0; $i < $length; $i++) {
   $n = rand(0, $alphaLength);
   $pass[] = $alphabet[$n];
 }
-$key = implode($pass);
+$formatted_timestamp = date("HisdmY", $timestamp);
+$encoded_timestamp = base64_encode($formatted_timestamp);
+$key = $encoded_timestamp.implode($pass);
 $ip_addres = getclientip();
 $msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,4 +1,6 @@
 <?php
+include(__DIR__ . '/../requirements/page.php');
+
 if (isset($_GET['update_settings'])) {
     $mail_enable = $_GET['mail:enable'];
     $mail_host = $_GET['mail:host'];

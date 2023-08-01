@@ -74,7 +74,7 @@ $configFileName = '/etc/apache2/sites-available/'.$domain_name.'.conf';
                 ssh2_exec($connection, $enableCommand);
 
                 ssh2_disconnect($connection);
-                mysqli_query($conn, "INSERT INTO `atoropics_domains` (`domain`, `description`, `ownerkey`, `enabled`) VALUES ('$domain_name', '$domain_description', '".$_SESSION["api_key"]."', 'true');");
+                mysqli_query($conn, "INSERT INTO `atoropics_domains` (`domain`, `description`, `ownerkey`) VALUES ('$domain_name', '$domain_description', '".$_SESSION["api_key"]."');");
                 header('location: /domains?msg=done');
             } else {
                 try {

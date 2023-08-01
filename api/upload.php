@@ -1,16 +1,16 @@
 <?php
 header('Content-Type: application/json');
 if (isset($_POST['api_key'])) {
-    $query = "SELECT * FROM atoropics_users WHERE api_key='" . $_POST['api_key'] . "'";
+    $query = "SELECT * FROM atoropics_users WHERE api_key='" . mysqli_real_escape_string($conn, $_POST['api_key']) . "'";
     $results = mysqli_query($conn, $query);
     if (mysqli_num_rows($results) == 1) {
-        $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . $_POST['api_key'] . "'")->fetch_array();
+        $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_POST['api_key']) . "'")->fetch_array();
         $username = $userdb['username'];
         $desc = $userdb['embed_desc'];
         $desc_tit = $userdb['embed_title'];
         $embed_theme = $userdb['embed_theme'];
         $small_title = $userdb['embed_small_title'];
-
+        
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -70,7 +70,7 @@ if (isset($_POST['api_key'])) {
                     } else {
                         echo $settings['app_proto'] . $settings['app_url'] . "/i?i=" . $imgname_c;
                     }
-                    $apikey = $_POST['api_key'];
+                    $apikey = mysqli_real_escape_string($conn, $_POST['api_key']);
                     $conn->query("INSERT INTO atoropics_imgs (name, owner_key, size, storage_folder) VALUES ('$imgname_c', '$apikey', '$filesize', '$imgurl')");
 
                     flock($lockFile, LOCK_UN);

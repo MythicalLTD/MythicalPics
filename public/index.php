@@ -138,6 +138,36 @@ try {
         }
     });
 
+    $router->add("/newadmin/api",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/api/main.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/api");  
+        }
+    });
+
+    $router->add("/newadmin/api/create",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/api/create.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/api/create");  
+        }
+    });
+
+    $router->add("/newadmin/api/delete",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/api/delete.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/api/delete");  
+        }
+    });
+
     $router->add("/newadmin/settings",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
