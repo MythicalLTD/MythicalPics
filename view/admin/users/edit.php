@@ -233,7 +233,7 @@ if (isset($_GET['edit_user'])) {
                                             <div class="mt-2">
                                                 <button type="submit" name="edit_user" class="btn btn-primary me-2"
                                                     value="true">Save changes</button>
-                                                <a href="/newadmin/users/view" class="btn btn-label-secondary">Cancel</a>
+                                                <a href="/newadmin/users" class="btn btn-label-secondary">Cancel</a>
                                             </div>
                                         </form>
                                     </div>

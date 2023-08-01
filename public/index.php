@@ -198,6 +198,16 @@ try {
         }
     });
 
+    $router->add("/newadmin/domains/edit",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/domains/edit.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/domains/edit");  
+        }
+    });
+
     $router->add("/newadmin/api",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
