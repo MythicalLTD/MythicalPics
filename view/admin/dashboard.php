@@ -112,7 +112,9 @@ $row_nodes = mysqli_fetch_assoc($result_nodes);
                                                     </svg>
                                                 </div>
                                                 <div class="card-info">
-                                                    <h5 class="mb-0"><?= $row_imgs['total_count'] ?></h5>
+                                                    <h5 class="mb-0">
+                                                        <?= $row_imgs['total_count'] ?>
+                                                    </h5>
                                                     <small>Images</small>
                                                 </div>
                                             </div>
@@ -137,7 +139,9 @@ $row_nodes = mysqli_fetch_assoc($result_nodes);
                                                     </svg>
                                                 </div>
                                                 <div class="card-info">
-                                                    <h5 class="mb-0"><?= $row_nodes['total_count'] ?> (SOON)</h5>
+                                                    <h5 class="mb-0">
+                                                        <?= $row_nodes['total_count'] ?> (SOON)
+                                                    </h5>
                                                     <small>Total Nodes</small>
                                                 </div>
                                             </div>
@@ -157,6 +161,7 @@ $row_nodes = mysqli_fetch_assoc($result_nodes);
     </div>
     <?php include('requirements/footer.php') ?>
     <script src="/assets/js/dashboards-ecommerce.js"></script>
+
     <script>
         function updateElapsedTime() {
             const updateTextElement = document.getElementById('updateText');
