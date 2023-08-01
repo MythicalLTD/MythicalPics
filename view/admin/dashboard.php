@@ -197,7 +197,7 @@ $row_nodes = mysqli_fetch_assoc($result_nodes);
 
             setInterval(updateText, 1000);
         }
-        window.onload = updateElapsedTime;
+        window.onload = updateElapsedTime; 
     </script>
 </body>
 
