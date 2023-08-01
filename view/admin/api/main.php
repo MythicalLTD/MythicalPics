@@ -80,7 +80,7 @@ $totalPages = ceil($totalapikeys / $apiPage);
                                                     $userdbinfoa = $resulta->fetch_assoc();
                                                     echo '<td><a href="/newadmin/users/edit?id=' . $userdbinfoa['id'] . '">' . $userdbinfoa['username'] . '<a></td>';
                                                 } else {
-                                                    echo 'None';
+                                                    echo '<td>None</td>';
                                                 }
                                                 echo "<td><a href=\"/newadmin/api/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
                                                 echo "</tr>";

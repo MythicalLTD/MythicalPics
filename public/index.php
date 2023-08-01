@@ -178,6 +178,26 @@ try {
         }
     });
 
+    $router->add("/newadmin/domains",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/domains/main.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/domains");  
+        }
+    });
+
+    $router->add("/newadmin/domains/delete",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/domains/delete.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/domains/delete");  
+        }
+    });
+
     $router->add("/newadmin/api",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
