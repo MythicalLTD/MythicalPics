@@ -23,14 +23,6 @@ if (isset($_POST['api_key'])) {
                 if (!file_exists('../public/storage/json')) {
                     mkdir('json', 0777, true);
                 }
-                if ($_ENV['DISABLE_UPDATES'] == "true") { 
-                    $checkCommand = "cd /var/www/MythicalPics && git pull";
-                    ssh2_exec($connection, $checkCommand);
-                    ssh2_disconnect($connection);
-                }
-                else {
-
-                }
                 $imgname_c = time();
                 $new_name = $imgname_c . '.' . $ext;
                 $upload_folder = '../public/storage/uploads/';
