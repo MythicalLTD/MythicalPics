@@ -1,7 +1,7 @@
 <?php
 include(__DIR__ . '/../requirements/page.php');
 
-$apiPage = 50;
+$apiPage = 20;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * $apiPage;
 $searchCondition = "";

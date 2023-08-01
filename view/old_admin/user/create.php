@@ -1,17 +1,15 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 require('../class/session.php');
-function pass()
-{
-    return null;
-}
 $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
 }
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 if (isset($_POST['create_user'])) {
     if ($settings['enable_smtp'] == "true") {
         $smtp_host = $settings['smtp_host'];
@@ -29,7 +27,9 @@ if (isset($_POST['create_user'])) {
         $n = rand(0, $alphaLength);
         $pass[] = $alphabet[$n];
     }
-    $key = implode($pass);
+    $formatted_timestamp = date("HisdmY", $timestamp);
+    $encoded_timestamp = base64_encode($formatted_timestamp);
+    $key = $encoded_timestamp . implode($pass);
     $ip_addres = getclientip();
     $msg = "";
     $name = mysqli_real_escape_string($conn, $_POST['name']);

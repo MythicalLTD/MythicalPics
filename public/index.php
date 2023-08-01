@@ -134,7 +134,47 @@ try {
         {
             require("../view/admin/dashboard.php");
         } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/admin");  
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin");  
+        }
+    });
+
+    $router->add("/newadmin/users",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/users/main.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/users");  
+        }
+    });
+
+    $router->add("/newadmin/users/new",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/users/create.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/users/create");  
+        }
+    });
+
+    $router->add("/newadmin/users/edit",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/users/edit.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/users/edit");  
+        }
+    });
+
+    $router->add("/newadmin/users/delete",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/users/delete.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/newadmin/users/delete");  
         }
     });
 

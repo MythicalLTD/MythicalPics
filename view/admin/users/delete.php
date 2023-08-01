@@ -1,14 +1,5 @@
 <?php
-require('../class/session.php');
-function pass()
-{
-    return null;
-}
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
-
-if ($userdb['admin'] == "false") {
-    header('location: /');
-}
+include(__DIR__ . '/../requirements/page.php');
 
 if (isset($_GET['id'])) {
     if (!$_GET['id'] == "") {
@@ -43,14 +34,14 @@ if (isset($_GET['id'])) {
             deleteImagesAndPrintMessage($conn);
             $conn->query("DELETE FROM `atoropics_users` WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn, $_GET['id'])."");
             $conn->close();
-            header('location: /admin/users');
+            header('location: /newadmin/users');
         }
     } else {
-        header('location: /admin/users');
+        header('location: /newadmin/users');
         exit();
     }
 } else {
-    header('location: /admin/users');
+    header('location: /newadmin/users');
     exit();
 }
 ?>

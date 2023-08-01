@@ -25,7 +25,7 @@ function is_active_page($page_urls)
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">BASIC ADMINISTRATION</span>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/admin']) ? 'active' : ''; ?>">
+    <li class="menu-item">
       <a href="/newadmin" class="menu-link">
         <i class="menu-icon tf-icons ti ti-home"></i>
         <div>Overview</div>
