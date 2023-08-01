@@ -27,7 +27,7 @@ if (isset($_GET['edit_domain'])) {
                     $conn->query("UPDATE `atoropics_domains` SET `ownerkey` = '" . $skey . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
                 } else {
                     $conn->close();
-                    header('location: /admin/domains?e=User can`t have more then 1 domain');
+                    header('location: /oldadmin/domains?e=User can`t have more then 1 domain');
                     exit();
                 }
 
@@ -36,11 +36,11 @@ if (isset($_GET['edit_domain'])) {
                 $conn->query("UPDATE `atoropics_domains` SET `description` = '" . $dsc . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
             }
             $conn->close();
-            header('location: /admin/domains/edit?id=' . $_GET['id']);
+            header('location: /oldadmin/domains/edit?id=' . $_GET['id']);
             exit();
         }
     } else {
-        header('location: /admin/domains');
+        header('location: /oldadmin/domains');
         exit();
     }
 } else if (isset($_GET['id'])) {
@@ -54,11 +54,11 @@ if (isset($_GET['edit_domain'])) {
             $domaindb = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
-        header('location: /admin/domains');
+        header('location: /oldadmin/domains');
         exit();
     }
 } else {
-    header('location: /admin/domains');
+    header('location: /oldadmin/domains');
     exit();
 }
 ?>
@@ -141,7 +141,7 @@ if (isset($_GET['edit_domain'])) {
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="/admin">Admin</a></li>
-                    <li><a href="/admin/users">Domains</a></li>
+                    <li><a href="/oldadmin/users">Domains</a></li>
                     <li class="active">
                         <?= $domaindb['domain'] ?>
                     </li>
@@ -171,7 +171,7 @@ if (isset($_GET['edit_domain'])) {
                     </div>
                 </div>
                 <div class="row">
-                    <form action="/admin/domains/edit?id=<?= $_GET['id'] ?>" method="get
+                    <form action="/oldadmin/domains/edit?id=<?= $_GET['id'] ?>" method="get
                     ">
                         <div class="col-md-6">
                             <div class="box box-primary">
@@ -227,7 +227,7 @@ if (isset($_GET['edit_domain'])) {
                                 <p class="no-margin">If you delete a domain you can't add it back</p>
                             </div>
                             <div class="box-footer">
-                                <form action="/admin/domain/delete" method="GET">
+                                <form action="/oldadmin/domain/delete" method="GET">
                                     <button type="submit" name="id" class="btn btn-sm btn-danger pull-right"
                                         value="<?= $_GET['id'] ?>">Delete domain</button>
                                 </form>

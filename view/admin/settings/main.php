@@ -20,7 +20,7 @@ if (isset($_POST['update_adv_settings'])) {
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `atoropics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `atoropics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `atoropics_settings`.`id` = 1;");
-    header('location: /newadmin/settings');
+    header('location: /admin/settings');
 }
 
 if (isset($_POST['update_settings'])) {
@@ -28,7 +28,7 @@ if (isset($_POST['update_settings'])) {
     $app_logo = $_POST['app:logo'];
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_name` = '" . $app_name . "' WHERE `atoropics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `atoropics_settings`.`id` = 1;");
-    header('location: /newadmin/settings');
+    header('location: /admin/settings');
 }
 ?>
 <!DOCTYPE html>
@@ -56,12 +56,12 @@ if (isset($_POST['update_settings'])) {
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><a
-                                    href="/newadmin/settings">Settings</a> /</span> Main</h4>
+                                    href="/admin/settings">Settings</a> /</span> Main</h4>
                         <div class="card mb-4">
                             <h5 class="card-header">General</h5>
                             <hr class="my-0">
                             <div class="card-body">
-                                <form action="/newadmin/settings" method="POST">
+                                <form action="/admin/settings" method="POST">
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label for="app:name" class="form-label">Company Name</label>
@@ -78,7 +78,7 @@ if (isset($_POST['update_settings'])) {
                                         <button type="submit" name="update_settings"
                                             class="btn btn-primary me-2 waves-effect waves-light" value="true">Save
                                             changes</button>
-                                        <a href="/newadmin" class="btn btn-label-secondary waves-effect">Cancel</a>
+                                        <a href="/admin" class="btn btn-label-secondary waves-effect">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -87,7 +87,7 @@ if (isset($_POST['update_settings'])) {
                             <h5 class="card-header">Mail</h5>
                             <hr class="my-0">
                             <div class="card-body">
-                                <form action="/newadmin/settings/mail" method="GET">
+                                <form action="/admin/settings/mail" method="GET">
                                     <div class="row">
                                         <div class="form-group col-md-3">
                                             <label class="control-label">SMTP</label>
@@ -156,7 +156,7 @@ if (isset($_POST['update_settings'])) {
                                         <button type="submit" name="update_settings"
                                             class="btn btn-primary me-2 waves-effect waves-light" value="true">Save
                                             changes</button>
-                                        <a href="/newadmin" class="btn btn-label-secondary waves-effect">Cancel</a>
+                                        <a href="/admin" class="btn btn-label-secondary waves-effect">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -165,7 +165,7 @@ if (isset($_POST['update_settings'])) {
                             <h5 class="card-header">Advanced Settings</h5>
                             <hr class="my-0">
                             <div class="card-body">
-                                <form action="/newadmin/settings" method="POST">
+                                <form action="/admin/settings" method="POST">
                                     <div class="row">
                                         <div class="form-group col-md-2">
                                             <label class="control-label">App Maintenance</label>
@@ -313,7 +313,7 @@ if (isset($_POST['update_settings'])) {
                                         <button type="submit" name="update_adv_settings"
                                             class="btn btn-primary me-2 waves-effect waves-light" value="true">Save
                                             changes</button>
-                                        <a href="/newadmin" class="btn btn-label-secondary waves-effect">Cancel</a>
+                                        <a href="/admin" class="btn btn-label-secondary waves-effect">Cancel</a>
                                     </div>
                                 </form>
                             </div>

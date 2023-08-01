@@ -22,7 +22,7 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
             $result = mysqli_stmt_get_result($stmt);
 
             if (mysqli_num_rows($result) > 0) {
-                header('location: /newadmin/domains?e=User can\'t have more than 1 domain');
+                header('location: /admin/domains?e=User can\'t have more than 1 domain');
                 exit();
             } else {
                 $conn->query("UPDATE `atoropics_domains` SET `ownerkey` = '" . $skey . "' WHERE `id` = " . $domain_id . ";");
@@ -33,10 +33,10 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
             $conn->query("UPDATE `atoropics_domains` SET `description` = '" . $description . "' WHERE `id` = " . $domain_id . ";");
         }
 
-        header('location: /newadmin/domains/edit?id=' . $domain_id);
+        header('location: /admin/domains/edit?id=' . $domain_id);
         exit();
     } else {
-        header('location: /newadmin/domains');
+        header('location: /admin/domains');
         exit();
     }
 } else if (isset($_GET['id'])) {
@@ -50,11 +50,11 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
             $domaindb = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
-        header('location: /newadmin/domains');
+        header('location: /admin/domains');
         exit();
     }
 } else {
-    header('location: /newadmin/domains');
+    header('location: /admin/domains');
     exit();
 }
 ?>
@@ -104,7 +104,7 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
                                     <h5 class="card-header">Domains Info</h5>
                                     <hr class="my-0" />
                                     <div class="card-body">
-                                        <form action="/newadmin/domains/edit" method="GET">
+                                        <form action="/admin/domains/edit" method="GET">
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="domain" class="form-label">Domain</label>
@@ -128,7 +128,7 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
                                             <div class="mt-2">
                                                 <button type="submit" name="edit_domain" class="btn btn-primary me-2"
                                                     value="true">Save changes</button>
-                                                <a href="/newadmin/domains" class="btn btn-label-secondary">Cancel</a>
+                                                <a href="/admin/domains" class="btn btn-label-secondary">Cancel</a>
                                             </div>
                                         </form>
                                     </div>

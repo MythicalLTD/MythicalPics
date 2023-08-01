@@ -43,14 +43,14 @@ if (isset($_GET['id'])) {
             deleteImagesAndPrintMessage($conn);
             $conn->query("DELETE FROM `atoropics_users` WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn, $_GET['id'])."");
             $conn->close();
-            header('location: /admin/users');
+            header('location: /oldadmin/users');
         }
     } else {
-        header('location: /admin/users');
+        header('location: /oldadmin/users');
         exit();
     }
 } else {
-    header('location: /admin/users');
+    header('location: /oldadmin/users');
     exit();
 }
 ?>

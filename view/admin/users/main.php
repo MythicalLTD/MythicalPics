@@ -65,7 +65,7 @@ $totalPages = ceil($totalUsers / $usersPerPage);
                         <div class="card">
                             <h5 class="card-header">
                                 Users
-                                <a href="/newadmin/users/new" class="btn btn-primary float-end">Create New User</a>
+                                <a href="/admin/users/new" class="btn btn-primary float-end">Create New User</a>
                             </h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
@@ -95,11 +95,11 @@ $totalPages = ceil($totalUsers / $usersPerPage);
                                                     $sql_domains = "SELECT COUNT(*) AS total_count FROM atoropics_domains where ownerkey = '".$row['api_key']."';";
                                                     $result_domains = mysqli_query($conn, $sql_domains);
                                                     $row_domains = mysqli_fetch_assoc($result_domains);
-                                                    echo '<td><a href="/newadmin/domains?search=' . $row['api_key'] . '">' . $row_domains['total_count'] . '<a></td>';
+                                                    echo '<td><a href="/admin/domains?search=' . $row['api_key'] . '">' . $row_domains['total_count'] . '<a></td>';
                                                 } else {
                                                     echo '<td>None</td>';
                                                 }
-                                                echo "<td><a href=\"/newadmin/users/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/newadmin/users/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
+                                                echo "<td><a href=\"/admin/users/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/admin/users/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
                                                 echo "</tr>";
                                             }
                                         } else {

@@ -26,19 +26,19 @@ function is_active_page($page_urls)
       <span class="menu-header-text">BASIC ADMINISTRATION</span>
     </li>
     <li class="menu-item">
-      <a href="/newadmin" class="menu-link">
+      <a href="/admin" class="menu-link">
         <i class="menu-icon tf-icons ti ti-home"></i>
         <div>Overview</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/newadmin/settings']) ? 'active' : ''; ?>">
-      <a href="/newadmin/settings" class="menu-link">
+    <li class="menu-item <?php echo is_active_page(['/admin/settings']) ? 'active' : ''; ?>">
+      <a href="/admin/settings" class="menu-link">
         <i class="menu-icon tf-icons ti ti-settings"></i>
         <div>Settings</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/newadmin/api']) ? 'active' : ''; ?>">
-      <a href="/newadmin/api" class="menu-link">
+    <li class="menu-item <?php echo is_active_page(['/admin/api']) ? 'active' : ''; ?>">
+      <a href="/admin/api" class="menu-link">
         <i class="menu-icon tf-icons ti ti-device-gamepad-2"></i>
         <div>Application API</div>
       </a>
@@ -46,26 +46,26 @@ function is_active_page($page_urls)
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">MANAGEMENT</span>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/newadmin/domains']) ? 'active' : ''; ?>">
-      <a href="/newadmin/domains" class="menu-link">
+    <li class="menu-item <?php echo is_active_page(['/admin/domains']) ? 'active' : ''; ?>">
+      <a href="/admin/domains" class="menu-link">
         <i class="menu-icon tf-icons ti ti-server-2"></i>
         <div>Domains</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/newadmin/users']) ? 'active' : ''; ?>">
-      <a href="/newadmin/users" class="menu-link">
+    <li class="menu-item <?php echo is_active_page(['/admin/users']) ? 'active' : ''; ?>">
+      <a href="/admin/users" class="menu-link">
         <i class="menu-icon tf-icons ti ti-users"></i>
         <div>Users</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/newadmin/nodes']) ? 'active' : ''; ?>">
-      <a href="/newadmin/nodes" class="menu-link">
+    <li class="menu-item <?php echo is_active_page(['/admin/nodes']) ? 'active' : ''; ?>">
+      <a href="/admin/nodes" class="menu-link">
         <i class="menu-icon tf-icons ti ti-network"></i>
         <div>Nodes (SOON)</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/newadmin/reports']) ? 'active' : ''; ?>">
-      <a href="/newadmin/reports" class="menu-link">
+    <li class="menu-item <?php echo is_active_page(['/admin/reports']) ? 'active' : ''; ?>">
+      <a href="/admin/reports" class="menu-link">
         <i class="menu-icon tf-icons ti ti-flag"></i>
         <div>Reports (SOON)</div>
       </a>

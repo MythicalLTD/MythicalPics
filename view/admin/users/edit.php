@@ -26,7 +26,7 @@ if (isset($_GET['edit_user'])) {
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
                 if (mysqli_num_rows($result) > 0) {
-                    header('location: /newadmin/users?e=Email is already taken in the database&id='.$_GET['id']);
+                    header('location: /admin/users?e=Email is already taken in the database&id='.$_GET['id']);
                     die();
                 }
                 $conn->query("UPDATE `atoropics_users` SET `email` = '" . $email . "' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
@@ -39,7 +39,7 @@ if (isset($_GET['edit_user'])) {
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
                 if (mysqli_num_rows($result) > 0) {
-                    header('location: /newadmin/users?e=Username is already taken in the database&id='.$_GET['id']);
+                    header('location: /admin/users?e=Username is already taken in the database&id='.$_GET['id']);
                     die();
                 }
                 $conn->query("UPDATE `atoropics_users` SET `username` = '" . $username . "' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
@@ -48,12 +48,12 @@ if (isset($_GET['edit_user'])) {
             if (!$avatar == "") {
                 $conn->query("UPDATE `atoropics_users` SET `avatar` = '" . $avatar . "' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
             } 
-            header('location: /newadmin/users/edit?id=' . mysqli_real_escape_string($conn, $_GET["id"]));
+            header('location: /admin/users/edit?id=' . mysqli_real_escape_string($conn, $_GET["id"]));
             $conn->close();
             die();
         }
     } else {
-        header('location: /newadmin/users');
+        header('location: /admin/users');
         die();
     }
 } else if (isset($_GET['reest_key'])) {
@@ -78,7 +78,7 @@ if (isset($_GET['edit_user'])) {
             $key = $encoded_timestamp . implode($pass);
             $conn->query("UPDATE `atoropics_users` SET `api_key` = '".$key."' WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn,$_GET['id']).";");
             $conn->close();
-            header('location: /newadmin/users/edit?id='.$_GET['id'].'&s=We updated the api key for the user!');
+            header('location: /admin/users/edit?id='.$_GET['id'].'&s=We updated the api key for the user!');
         } 
     } 
 } else if (isset($_GET['reset_password'])) {
@@ -93,7 +93,7 @@ if (isset($_GET['edit_user'])) {
             $password = md5($pwd);
             $conn->query("UPDATE `atoropics_users` SET `password` = '".$password."' WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn,$_GET['id']).";");
             $conn->close();
-            header('location: /newadmin/users/edit?id='.$_GET['id'].'&s=We updated the password for the user!');
+            header('location: /admin/users/edit?id='.$_GET['id'].'&s=We updated the password for the user!');
         } 
     } 
 } else if (isset($_GET['id'])) {
@@ -107,11 +107,11 @@ if (isset($_GET['edit_user'])) {
             $userdbdd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
-        header('location: /newadmin/users');
+        header('location: /admin/users');
         die();
     }
 } else {
-    header('location: /newadmin/users');
+    header('location: /admin/users');
     die();
 }
 ?>
@@ -159,7 +159,7 @@ if (isset($_GET['edit_user'])) {
                             <div class="col-md-12">
                                 <ul class="nav nav-pills flex-column flex-md-row mb-4">
                                     <li class="nav-item">
-                                        <a href="/newadmin/users/edit?id=<?= $_GET['id'] ?>" class="nav-link active"><i
+                                        <a href="/admin/users/edit?id=<?= $_GET['id'] ?>" class="nav-link active"><i
                                                 class="ti-xs ti ti-users me-1"></i> Account</a>
                                     </li>
                                     <!--<li class="nav-item">
@@ -189,7 +189,7 @@ if (isset($_GET['edit_user'])) {
                                     </div>
                                     <hr class="my-0" />
                                     <div class="card-body">
-                                        <form action="/newadmin/users/edit" method="GET">
+                                        <form action="/admin/users/edit" method="GET">
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="username" class="form-label">Username</label>
@@ -233,7 +233,7 @@ if (isset($_GET['edit_user'])) {
                                             <div class="mt-2">
                                                 <button type="submit" name="edit_user" class="btn btn-primary me-2"
                                                     value="true">Save changes</button>
-                                                <a href="/newadmin/users" class="btn btn-label-secondary">Cancel</a>
+                                                <a href="/admin/users" class="btn btn-label-secondary">Cancel</a>
                                             </div>
                                         </form>
                                     </div>
@@ -273,7 +273,7 @@ if (isset($_GET['edit_user'])) {
                                             irreversible, so proceed with caution!
                                         </p>
                                     </div>
-                                    <form method="GET" action="/newadmin/users/delete" class="row g-3">
+                                    <form method="GET" action="/admin/users/delete" class="row g-3">
                                         <div class="col-12 text-center">
                                             <button type="submit" name="id" value="<?= $_GET['id'] ?>"
                                                 class="btn btn-danger me-sm-3 me-1">Delete user</button>
@@ -296,7 +296,7 @@ if (isset($_GET['edit_user'])) {
                                         <p class="text-muted">After updating the key, the user will have to login again.
                                         </p>
                                     </div>
-                                    <form method="GET" action="/newadmin/users/edit" class="row g-3">
+                                    <form method="GET" action="/admin/users/edit" class="row g-3">
                                         <div class="col-12 text-center">
                                             <input type="hidden" name="reest_key" value="true"> 
                                             <button type="submit" name="id" value="<?= $_GET['id'] ?>"
@@ -319,7 +319,7 @@ if (isset($_GET['edit_user'])) {
                                         <h3 class="mb-2">Reset user password?</h3>
                                         <p class="text-muted">After updating the key, the user will stay logged in!!</p>
                                     </div>
-                                    <form method="GET" action="/newadmin/users/edit" class="row g-3">
+                                    <form method="GET" action="/admin/users/edit" class="row g-3">
                                         <div class="col-12">
                                             <label class="form-label" for="resetPwd">New Password</label>
                                             <input type="password" id="pwd" name="pwd" class="form-control"

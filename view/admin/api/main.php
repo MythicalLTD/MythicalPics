@@ -78,15 +78,15 @@ $totalPages = ceil($totalapikeys / $apiPage);
                                                 $resulta = mysqli_query($conn, $check_query);
                                                 if (mysqli_num_rows($resulta) > 0) {
                                                     $userdbinfoa = $resulta->fetch_assoc();
-                                                    echo '<td><a href="/newadmin/users/edit?id=' . $userdbinfoa['id'] . '">' . $userdbinfoa['username'] . '<a></td>';
+                                                    echo '<td><a href="/admin/users/edit?id=' . $userdbinfoa['id'] . '">' . $userdbinfoa['username'] . '<a></td>';
                                                 } else {
                                                     echo '<td>None</td>';
                                                 }
-                                                echo "<td><a href=\"/newadmin/api/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
+                                                echo "<td><a href=\"/admin/api/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
                                                 echo "</tr>";
                                             }
                                         } else {
-                                            echo "<tr><td colspan='5'>No api keys found.</td></tr>";
+                                            echo "<tr><br<center><td class='text-center'colspan='5'><br>No api keys found.<br><br>&nbsp;</td></center></tr>";
                                         }
                                         ?>
                                     </tbody>
@@ -112,7 +112,7 @@ $totalPages = ceil($totalapikeys / $apiPage);
                                             <h3 class="mb-2">Create new API Key!</h3>
                                             <p class="text-muted">Remember, this is an admin API key and can't be used for the client API endpoint.</p>
                                         </div>
-                                        <form method="GET" action="/newadmin/api/create" class="row g-3">
+                                        <form method="GET" action="/admin/api/create" class="row g-3">
                                             <div class="col-12">
                                                 <label class="form-label" for="name">Name</label>
                                                 <input type="text" id="name" name="name" class="form-control"

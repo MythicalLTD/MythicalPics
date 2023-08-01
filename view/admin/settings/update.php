@@ -8,5 +8,5 @@ $githubVersion = trim($version);
 $update = "cd /var/www/MythicalPics && git pull";
 $update_status = ssh2_exec($connection, $update);
 ssh2_disconnect($connection);
-header('location: /newadmin/settings');
+header('location: /admin/settings');
 ?>

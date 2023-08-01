@@ -22,7 +22,7 @@ if (isset($_POST['saveEmailSettings'])) {
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_password` = '" . $mail_password . "' WHERE `atoropics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from` = '" . $mail_from_address . "' WHERE `atoropics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from_name` = '" . $mail_from_name . "' WHERE `atoropics_settings`.`id` = 1;");
-    header('location: /admin/settings/mail');
+    header('location: /oldadmin/settings/mail');
 }
 ?>
 <!DOCTYPE html>
@@ -132,9 +132,9 @@ if (isset($_POST['saveEmailSettings'])) {
                     <div class="col-xs-12">
                         <div class="nav-tabs-custom nav-tabs-floating">
                             <ul class="nav nav-tabs">
-                                <li class=""><a href="/admin/settings">General</a></li>
-                                <li class="active"><a href="/admin/settings/mail">Mail</a></li>
-                                <li><a href="/admin/settings/advanced">Advanced</a>
+                                <li class=""><a href="/oldadmin/settings">General</a></li>
+                                <li class="active"><a href="/oldadmin/settings/mail">Mail</a></li>
+                                <li><a href="/oldadmin/settings/advanced">Advanced</a>
                                 </li>
                             </ul>
                         </div>

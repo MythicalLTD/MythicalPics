@@ -82,7 +82,7 @@ if (isset($_POST['create_user'])) {
             } else {
                 echo "</div>";
                 $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
-                header('location: /newadmin/users');
+                header('location: /admin/users');
             }
 
         } else {
@@ -128,7 +128,7 @@ if (isset($_POST['create_user'])) {
                                     <h5 class="card-header">Profile Details</h5>
                                     <hr class="my-0" />
                                     <div class="card-body">
-                                        <form action="/newadmin/users/new" method="POST">
+                                        <form action="/admin/users/new" method="POST">
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="name" class="form-label">Username</label>
@@ -148,7 +148,7 @@ if (isset($_POST['create_user'])) {
                                             <div class="mt-2">
                                                 <button type="submit" name="create_user" class="btn btn-primary me-2"
                                                     value="true">Create user</button>
-                                                <a href="/newadmin/users/view" class="btn btn-label-secondary">Cancel</a>
+                                                <a href="/admin/users/view" class="btn btn-label-secondary">Cancel</a>
                                             </div>
                                         </form>
                                     </div>

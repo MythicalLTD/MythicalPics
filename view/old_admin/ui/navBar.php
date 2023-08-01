@@ -1,9 +1,9 @@
 <?php $current_url = $_SERVER['REQUEST_URI'];
-$isUsersPage = (strpos($current_url, "/admin/users") !== false);
-$isSearchPage = (strpos($current_url, "/admin/users") !== false && !empty($search));
+$isUsersPage = (strpos($current_url, "/oldadmin/users") !== false);
+$isSearchPage = (strpos($current_url, "/oldadmin/users") !== false && !empty($search));
 
-$isDomainsPage = (strpos($current_url, "/admin/domains") !== false);
-$isDomainsSearchPage = (strpos($current_url, "/admin/domains") !== false && !empty($search));
+$isDomainsPage = (strpos($current_url, "/oldadmin/domains") !== false);
+$isDomainsSearchPage = (strpos($current_url, "/oldadmin/domains") !== false && !empty($search));
 ?>
 
 <aside class="main-sidebar">
@@ -20,20 +20,20 @@ $isDomainsSearchPage = (strpos($current_url, "/admin/domains") !== false && !emp
                 </a>
             </li>
             <li class="<?php
-            if ($current_url == "/admin/settings" || $current_url == "/admin/settings/mail" || $current_url == "/admin/settings/advanced") {
+            if ($current_url == "/oldadmin/settings" || $current_url == "/oldadmin/settings/mail" || $current_url == "/oldadmin/settings/advanced") {
                 echo 'active';
             }
             ?>">
-                <a href="/admin/settings">
+                <a href="/oldadmin/settings">
                     <i class="fa fa-wrench"></i> <span>Settings</span>
                 </a> 
             </li>
             <li class="<?php
-            if ($current_url == "/admin/api" || $current_url == "/admin/api/new") {
+            if ($current_url == "/oldadmin/api" || $current_url == "/oldadmin/api/new") {
                 echo 'active';
             }
             ?>">
-                <a href="/admin/api">
+                <a href="/oldadmin/api">
                     <i class="fa fa-gamepad"></i> <span>Application API</span>
                 </a>
             </li>
@@ -49,12 +49,12 @@ $isDomainsSearchPage = (strpos($current_url, "/admin/domains") !== false && !emp
                 </a>
             </li>
             <li class="">
-                <a href="/admin/reports">
+                <a href="/oldadmin/reports">
                     <i class="fa fa-th-large"></i> <span>Reports</span>
                 </a>
             </li>
             <li class="<?= ($isUsersPage || $isSearchPage) ? 'active' : '' ?>">
-                <a href="/admin/users">
+                <a href="/oldadmin/users">
                     <i class="fa fa-users"></i> <span>Users</span>
                 </a>
             </li>

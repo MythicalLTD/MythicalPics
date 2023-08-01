@@ -42,7 +42,7 @@ if (isset($_GET['edit_user'])) {
                     $conn->query("UPDATE `atoropics_users` SET `email` = '" . $email . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
                 } else {
                     $conn->close();
-                    header('location: /admin/users?e=Email is already taken in the database');
+                    header('location: /oldadmin/users?e=Email is already taken in the database');
                     exit();
                 }
 
@@ -57,7 +57,7 @@ if (isset($_GET['edit_user'])) {
                     $conn->query("UPDATE `atoropics_users` SET `username` = '" . $username . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
                 } else {
                     $conn->close();
-                    header('location: /admin/users?e=Username is already taken in the database');
+                    header('location: /oldadmin/users?e=Username is already taken in the database');
                     exit();
                 }
             }
@@ -65,11 +65,11 @@ if (isset($_GET['edit_user'])) {
                 $conn->query("UPDATE `atoropics_users` SET `avatar` = '" . $avatar . "' WHERE `atoropics_users`.`id` = " . $_GET['id'] . ";");
             }
             $conn->close();
-            header('location: /admin/users/edit?id=' . $_GET['id']);
+            header('location: /oldadmin/users/edit?id=' . $_GET['id']);
             exit();
         }
     } else {
-        header('location: /admin/users');
+        header('location: /oldadmin/users');
         exit();
     }
 } else if (isset($_GET['id'])) {
@@ -83,11 +83,11 @@ if (isset($_GET['edit_user'])) {
             $userdbdd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
-        header('location: /admin/users');
+        header('location: /oldadmin/users');
         exit();
     }
 } else {
-    header('location: /admin/users');
+    header('location: /oldadmin/users');
     exit();
 }
 ?>
@@ -172,7 +172,7 @@ if (isset($_GET['edit_user'])) {
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="/admin">Admin</a></li>
-                    <li><a href="/admin/users">Users</a></li>
+                    <li><a href="/oldadmin/users">Users</a></li>
                     <li class="active">
                         <?= $userdbdd['username'] ?>
                     </li>
@@ -202,7 +202,7 @@ if (isset($_GET['edit_user'])) {
                     </div>
                 </div>
                 <div class="row">
-                    <form action="/admin/users/edit?id=<?= $_GET['id'] ?>" method="get
+                    <form action="/oldadmin/users/edit?id=<?= $_GET['id'] ?>" method="get
                     ">
                         <div class="col-md-6">
                             <div class="box box-primary">
@@ -301,7 +301,7 @@ if (isset($_GET['edit_user'])) {
                                     it to be deleted.</p>
                             </div>
                             <div class="box-footer">
-                                <form action="/admin/users/delete" method="GET">
+                                <form action="/oldadmin/users/delete" method="GET">
                                     <button type="submit" name="id" class="btn btn-sm btn-danger pull-right"
                                         value="<?= $_GET['id'] ?>">Delete User</button>
                                 </form>

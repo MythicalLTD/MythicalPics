@@ -64,7 +64,7 @@ $totalPages = ceil($totalDomains / $domainsPerPage);
                         <div class="card">
                             <h5 class="card-header">
                                 Domains
-                                <a href="/newadmin/domains/new" class="btn btn-primary float-end">Add new domain</a>
+                                <a href="/admin/domains/new" class="btn btn-primary float-end">Add new domain</a>
                             </h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
@@ -90,12 +90,12 @@ $totalPages = ceil($totalDomains / $domainsPerPage);
                                                 $resulta = mysqli_query($conn, $check_query);
                                                 if (mysqli_num_rows($resulta) > 0) {
                                                     $userdbinfoa = $resulta->fetch_assoc();
-                                                    echo '<td><a href="/newadmin/users/edit?id=' . $userdbinfoa['id'] . '">' . $userdbinfoa['username'] . '<a></td>';
+                                                    echo '<td><a href="/admin/users/edit?id=' . $userdbinfoa['id'] . '">' . $userdbinfoa['username'] . '<a></td>';
                                                 } else {
                                                     echo '<td>None</td>';
                                                 }
                                                 echo "<td>" . $row['created-date'] . "</td>";
-                                                echo "<td><a href=\"/newadmin/domains/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/newadmin/domains/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
+                                                echo "<td><a href=\"/admin/domains/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/admin/domains/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
                                                 echo "</tr>";
                                             }
                                         } else {
