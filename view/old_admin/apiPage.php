@@ -1,14 +1,14 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
 }
 if (isset($_GET['revoke-key'])) {
     $keyid = $_GET['revoke-key'];
-    mysqli_query($conn, "DELETE FROM atoropics_apikeys WHERE `atoropics_apikeys`.`id` = " . $keyid . "");
+    mysqli_query($conn, "DELETE FROM mythicalpics_apikeys WHERE `mythicalpics_apikeys`.`id` = " . $keyid . "");
     header('location: /oldadmin/api');
 }
 ?>
@@ -127,7 +127,7 @@ if (isset($_GET['revoke-key'])) {
                             </div>
                             <?php
                             $ownerApiKey = $_COOKIE['api_key'];
-                            $sql = "SELECT * FROM atoropics_apikeys WHERE owner_api_key = '$ownerApiKey'";
+                            $sql = "SELECT * FROM mythicalpics_apikeys WHERE owner_api_key = '$ownerApiKey'";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {

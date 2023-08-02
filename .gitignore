@@ -1,9 +1,5 @@
 /vendor/
-/apache/
-apache_stop.bat
-apache_start.bat
 /public/storage/
 /public/db-manager
 /.vscode
 .env
-backup.bash

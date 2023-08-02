@@ -1,8 +1,5 @@
-
-
-
-DROP TABLE IF EXISTS `atoropics_apikeys`;
-CREATE TABLE `atoropics_apikeys` (
+DROP TABLE IF EXISTS `mythicalpics_apikeys`;
+CREATE TABLE `mythicalpics_apikeys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `api_key` text NOT NULL,
   `owner_api_key` text NOT NULL,
@@ -12,12 +9,12 @@ CREATE TABLE `atoropics_apikeys` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-LOCK TABLES `atoropics_apikeys` WRITE;
+LOCK TABLES `mythicalpics_apikeys` WRITE;
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `atoropics_domains`;
-CREATE TABLE `atoropics_domains` (
+DROP TABLE IF EXISTS `mythicalpics_domains`;
+CREATE TABLE `mythicalpics_domains` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `domain` text DEFAULT NULL,
   `description` text NOT NULL DEFAULT 'The default description of the domain',
@@ -27,12 +24,12 @@ CREATE TABLE `atoropics_domains` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-LOCK TABLES `atoropics_domains` WRITE;
+LOCK TABLES `mythicalpics_domains` WRITE;
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `atoropics_imgs`;
-CREATE TABLE `atoropics_imgs` (
+DROP TABLE IF EXISTS `mythicalpics_imgs`;
+CREATE TABLE `mythicalpics_imgs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `owner_key` varchar(255) NOT NULL,
@@ -43,35 +40,15 @@ CREATE TABLE `atoropics_imgs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-LOCK TABLES `atoropics_imgs` WRITE;
+LOCK TABLES `mythicalpics_imgs` WRITE;
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `atoropics_nodes`;
-CREATE TABLE `atoropics_nodes` (
+DROP TABLE IF EXISTS `mythicalpics_settings`;
+CREATE TABLE `mythicalpics_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text DEFAULT NULL COMMENT 'The name of the node',
-  `domain` text DEFAULT NULL COMMENT 'The domain of the nodes ex: "node-1.yourimghost.net"',
-  `description` text DEFAULT NULL COMMENT 'The description of the node',
-  `ip` text DEFAULT NULL COMMENT 'The server ip to connect to the ssh console! ',
-  `port` text DEFAULT NULL COMMENT 'The server port to connect to the daemon',
-  `username` text DEFAULT NULL COMMENT 'The username for the ssh user',
-  `password` text DEFAULT NULL COMMENT 'The password for the ssh user',
-  `created-date` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'The creation date for the node',
-  `enabled` enum('true','false') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-LOCK TABLES `atoropics_nodes` WRITE;
-UNLOCK TABLES;
-
-
-DROP TABLE IF EXISTS `atoropics_settings`;
-CREATE TABLE `atoropics_settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `app_name` text NOT NULL DEFAULT 'AtoroPics',
-  `app_logo` text NOT NULL DEFAULT 'https://avatars.githubusercontent.com/u/118304455',
+  `app_name` text NOT NULL DEFAULT '\'MythicalSystems\'',
+  `app_logo` text NOT NULL DEFAULT 'https://avatars.githubusercontent.com/u/117385445',
   `app_maintenance` enum('false','true') NOT NULL DEFAULT 'false',
   `app_proto` varchar(255) NOT NULL,
   `app_url` varchar(255) NOT NULL,
@@ -88,17 +65,17 @@ CREATE TABLE `atoropics_settings` (
   `smtp_from` varchar(255) NOT NULL,
   `smtp_from_name` varchar(255) NOT NULL,
   `discord_webhook` varchar(255) NOT NULL,
-  `version` text NOT NULL DEFAULT '1.3.6',
+  `version` text NOT NULL DEFAULT '\'1.4.1\'',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-LOCK TABLES `atoropics_settings` WRITE;
+LOCK TABLES `mythicalpics_settings` WRITE;
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `atoropics_users`;
-CREATE TABLE `atoropics_users` (
+DROP TABLE IF EXISTS `mythicalpics_users`;
+CREATE TABLE `mythicalpics_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` text NOT NULL,
   `avatar` text DEFAULT NULL,
@@ -118,7 +95,7 @@ CREATE TABLE `atoropics_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-LOCK TABLES `atoropics_users` WRITE;
+LOCK TABLES `mythicalpics_users` WRITE;
 UNLOCK TABLES;
 
 

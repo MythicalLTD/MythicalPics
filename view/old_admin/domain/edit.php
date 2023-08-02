@@ -1,6 +1,6 @@
 <?php
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -8,23 +8,23 @@ if ($userdb['admin'] == "false") {
 
 if (isset($_GET['edit_domain'])) {
     if (!$_GET['id'] == "" || !$_GET['edit_domain'] == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
+        $user_query = "SELECT * FROM mythicalpics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $domaind = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $domaind = $conn->query("SELECT * FROM mythicalpics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
             $dsc = mysqli_real_escape_string($conn, $_GET['description']);
             $skey = mysqli_real_escape_string($conn, $_GET['skey']);
             if (!$skey == "" || !$skey == $domaind['ownerkey']) {
-                $user_query = "SELECT * FROM atoropics_domains WHERE ownerkey = ?";
+                $user_query = "SELECT * FROM mythicalpics_domains WHERE ownerkey = ?";
                 $stmt = mysqli_prepare($conn, $user_query);
                 mysqli_stmt_bind_param($stmt, "s", $skey);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
                 if (!mysqli_num_rows($result) > 0) {
-                    $conn->query("UPDATE `atoropics_domains` SET `ownerkey` = '" . $skey . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
+                    $conn->query("UPDATE `mythicalpics_domains` SET `ownerkey` = '" . $skey . "' WHERE `mythicalpics_domains`.`id` = " . $_GET['id'] . ";");
                 } else {
                     $conn->close();
                     header('location: /oldadmin/domains?e=User can`t have more then 1 domain');
@@ -33,7 +33,7 @@ if (isset($_GET['edit_domain'])) {
 
             }
             if (!$dsc == "" || !$domaind['description'] == $dsc) {
-                $conn->query("UPDATE `atoropics_domains` SET `description` = '" . $dsc . "' WHERE `atoropics_domains`.`id` = " . $_GET['id'] . ";");
+                $conn->query("UPDATE `mythicalpics_domains` SET `description` = '" . $dsc . "' WHERE `mythicalpics_domains`.`id` = " . $_GET['id'] . ";");
             }
             $conn->close();
             header('location: /oldadmin/domains/edit?id=' . $_GET['id']);
@@ -45,13 +45,13 @@ if (isset($_GET['edit_domain'])) {
     }
 } else if (isset($_GET['id'])) {
     if (!$_GET['id'] == "") {
-        $domain_query = "SELECT * FROM atoropics_domains WHERE id = ?";
+        $domain_query = "SELECT * FROM mythicalpics_domains WHERE id = ?";
         $stmt = mysqli_prepare($conn, $domain_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $domaindb = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $domaindb = $conn->query("SELECT * FROM mythicalpics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
         header('location: /oldadmin/domains');

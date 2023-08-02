@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -15,13 +15,13 @@ if (isset($_POST['saveEmailSettings'])) {
     $mail_password = $_POST['mail:password'];
     $mail_from_address = $_POST['mail:from:address'];
     $mail_from_name = $_POST['mail:from:name'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_smtp` = '" . $mail_enable . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_host` = '" . $mail_host . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_port` = '" . $mail_port . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_user` = '" . $mail_username . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_password` = '" . $mail_password . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from` = '" . $mail_from_address . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from_name` = '" . $mail_from_name . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `enable_smtp` = '" . $mail_enable . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_host` = '" . $mail_host . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_port` = '" . $mail_port . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_user` = '" . $mail_username . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_password` = '" . $mail_password . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_from` = '" . $mail_from_address . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_from_name` = '" . $mail_from_name . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /oldadmin/settings/mail');
 }
 ?>

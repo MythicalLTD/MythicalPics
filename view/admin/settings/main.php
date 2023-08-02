@@ -11,23 +11,23 @@ if (isset($_POST['update_adv_settings'])) {
     $app_recaptcha_secret_key = $_POST['recaptcha:secret_key'];
     $app_discord_invite = $_POST['discord:server:invite'];
     $app_discord_webhook = $_POST['discord:webhook'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_proto` = '" . $app_proto . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_maintenance` = '" . $app_maintenance . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_url` = '" . $app_url . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_registration` = '" . $app_registration . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_rechapa2` = '" . $app_recaptcha . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_key` = '" . $app_recaptcha_site_key . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_proto` = '" . $app_proto . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_maintenance` = '" . $app_maintenance . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_url` = '" . $app_url . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `enable_registration` = '" . $app_registration . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `enable_rechapa2` = '" . $app_recaptcha . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `rechapa2_site_key` = '" . $app_recaptcha_site_key . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /admin/settings');
 }
 
 if (isset($_POST['update_settings'])) {
     $app_name = $_POST['app:name'];
     $app_logo = $_POST['app:logo'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_name` = '" . $app_name . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_name` = '" . $app_name . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /admin/settings');
 }
 ?>

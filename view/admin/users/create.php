@@ -34,16 +34,16 @@ if (isset($_POST['create_user'])) {
     } else {
         $code = "null";
     }
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE email='" . $email . "'")) > 0) {
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE email='" . $email . "'")) > 0) {
         $msg = "<div class='alert alert-danger'>" . $email . " - This email address is in use.</div>";
     }
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE username='" . $name . "'")) > 0) {
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE username='" . $name . "'")) > 0) {
         $msg = "<div class='alert alert-danger'>" . $name . " - This username is in use.</div>";
     } else {
         $default = "https://www.gravatar.com/avatar/00000000000000000000000000000000";
         $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default);
 
-        $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
+        $sql = "INSERT INTO mythicalpics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {

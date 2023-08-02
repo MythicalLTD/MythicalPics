@@ -4,7 +4,7 @@ function pass()
 {
     return null;
 }
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -12,7 +12,7 @@ if ($userdb['admin'] == "false") {
 
 if (isset($_GET['id'])) {
     if (!$_GET['id'] == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
+        $user_query = "SELECT * FROM mythicalpics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
@@ -20,14 +20,14 @@ if (isset($_GET['id'])) {
         if (mysqli_num_rows($result) > 0) {
             function deleteImagesAndPrintMessage($conn)
             {
-                $query = "SELECT name FROM atoropics_imgs WHERE atoropics_imgs.id='".$_GET['id']."'";
+                $query = "SELECT name FROM mythicalpics_imgs WHERE mythicalpics_imgs.id='".$_GET['id']."'";
                 $result = mysqli_query($conn, $query);
                 if ($result) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $name = $row['name'];
                         $formats = array("jpg", "jpeg", "png", "gif");
                         unlink("../public/storage/json/" . $name . '.json');
-                        $conn->query("DELETE FROM atoropics_imgs WHERE `atoropics_imgs`.`name` = '".$name."'");
+                        $conn->query("DELETE FROM mythicalpics_imgs WHERE `mythicalpics_imgs`.`name` = '".$name."'");
                         foreach ($formats as $format) {
                             $file_path = "../public/storage/uploads/" . $name . '.' . $format;
                             if (file_exists($file_path)) {
@@ -41,7 +41,7 @@ if (isset($_GET['id'])) {
                 }
             }
             deleteImagesAndPrintMessage($conn);
-            $conn->query("DELETE FROM `atoropics_users` WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn, $_GET['id'])."");
+            $conn->query("DELETE FROM `mythicalpics_users` WHERE `mythicalpics_users`.`id` = ".mysqli_real_escape_string($conn, $_GET['id'])."");
             $conn->close();
             header('location: /oldadmin/users');
         }

@@ -1,7 +1,7 @@
 <?php
 
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . "'")->fetch_array();
 require('../class/maintenance.php');
 $usrname = $userdb['username'];
 $username = $userdb['username'];
@@ -11,7 +11,7 @@ $small_title = $userdb['embed_small_title'];
 $embed_theme = $userdb['embed_theme'];
 $embed_desc = $userdb['embed_desc'];
 
-$result = mysqli_query($conn, "SELECT * FROM atoropics_imgs");
+$result = mysqli_query($conn, "SELECT * FROM mythicalpics_imgs");
 
 include(__DIR__ . '/csrf.php');
 $csrf = new CSRF();
@@ -22,28 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $desc = $_POST['desc'];
       $small_title = $_POST['embed_small_title'];
       $colour = $_POST['colour'];
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_title="' . $title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_desc="' . $desc . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_small_title="' . $small_title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_theme="' . $colour . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_title="' . $title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_desc="' . $desc . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_small_title="' . $small_title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_theme="' . $colour . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
       header('location: /config');
     }
   } else {
     die('CSRF Login faild please click <a href="/config">here</a>');
   }
-}
-
-$query = "SELECT * FROM `atoropics_domains` WHERE `ownerkey` = '" . $_COOKIE['api_key'] . "'";
-$result = mysqli_query($conn, $query);
-
-$options = '';
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    $domain = $row['domain'];
-    $options .= "<option value='$domain'>$domain</option>";
-  }
-} else {
-  $options = "<option disabled>No domains found</option>";
 }
 ?>
 
@@ -155,12 +142,6 @@ if (mysqli_num_rows($result) > 0) {
                               <label class="form-label">Image Description</label>
                               <textarea type="text" class="form-control" name="desc" rows="4" name="desc"
                                 placeholder="My cool image hosting site..." required><?= $embed_desc ?></textarea>
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Domain</label>
-                              <select class="form-select">
-                                <?php echo $options; ?>
-                              </select>
                             </div>
                             <label class="form-label">Image Embed Colour</label>
                             <div class="input-group mt-2">

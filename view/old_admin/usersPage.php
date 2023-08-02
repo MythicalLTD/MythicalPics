@@ -1,6 +1,6 @@
 <?php
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -14,10 +14,10 @@ $searchQuery = '';
 if (!empty($search)) {
     $searchQuery = "WHERE email LIKE '%" . mysqli_real_escape_string($conn, $search) . "%'";
 }
-$countResult = $conn->query("SELECT COUNT(*) as count FROM atoropics_users $searchQuery");
+$countResult = $conn->query("SELECT COUNT(*) as count FROM mythicalpics_users $searchQuery");
 $totalUsers = $countResult->fetch_assoc()['count'];
 $totalPages = ceil($totalUsers / $limit);
-$query = "SELECT * FROM atoropics_users $searchQuery LIMIT $start, $limit";
+$query = "SELECT * FROM mythicalpics_users $searchQuery LIMIT $start, $limit";
 $result = $conn->query($query);
 $users = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -182,7 +182,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                 <!--<td class="text-center">
                                                     <a href="#">
                                                         <?php
-                                                        //$imaginesResult = $conn->query("SELECT COUNT(*) FROM atoropics_imgs WHERE owner_key = '" . $user['api_key'] . "'");
+                                                        //$imaginesResult = $conn->query("SELECT COUNT(*) FROM mythicalpics_imgs WHERE owner_key = '" . $user['api_key'] . "'");
                                                         //$imaginesCount = $imaginesResult->fetch_row()[0];
                                                         //echo $imaginesCount;
                                                         ?>
@@ -190,7 +190,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                 </td>-->
                                                 <td class="text-center"><!--<a href="#">-->
                                                     <?php
-                                                    $domainsResult = $conn->query("SELECT COUNT(*) FROM atoropics_domains WHERE ownerkey = '" . $user['api_key'] . "'");
+                                                    $domainsResult = $conn->query("SELECT COUNT(*) FROM mythicalpics_domains WHERE ownerkey = '" . $user['api_key'] . "'");
                                                     $domainsCount = $domainsResult->fetch_row()[0];
                                                     echo $domainsCount;
                                                     ?></a>

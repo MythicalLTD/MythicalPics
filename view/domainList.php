@@ -2,17 +2,17 @@
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 require('../class/maintenance.php');
 $usrname = $userdb['username'];
 $username = $userdb['username'];
 if (isset($_GET['del_domain'])) {
   $domain_id = $_GET['del_domain'];
   $domainname = $_GET['domainname'];
-  $query = "SELECT * FROM `atoropics_domains` WHERE `ownerkey`='".$_SESSION['api_key']."' AND `id`='".$domain_id."' AND `domain`='".$domainname."';";
+  $query = "SELECT * FROM `mythicalpics_domains` WHERE `ownerkey`='".$_SESSION['api_key']."' AND `id`='".$domain_id."' AND `domain`='".$domainname."';";
   $result = mysqli_query($conn, $query);
   if (mysqli_num_rows($result) > 0) {
-      mysqli_query($conn,"DELETE FROM atoropics_domains WHERE `atoropics_domains`.`id` = '$domain_id'");
+      mysqli_query($conn,"DELETE FROM mythicalpics_domains WHERE `mythicalpics_domains`.`id` = '$domain_id'");
       $disableCommand = 'sudo a2dissite '.$domainname.'.conf';
       ssh2_exec($connection, $disableCommand);
       ssh2_disconnect($connection);
@@ -116,7 +116,7 @@ if (isset($_GET['del_domain'])) {
               <div class="card">
                 <div class="table-responsive">
                   <?php 
-                    $query = "SELECT * FROM atoropics_domains WHERE ownerkey = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'";
+                    $query = "SELECT * FROM mythicalpics_domains WHERE ownerkey = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'";
                     $result = mysqli_query($conn, $query);              
                     if (mysqli_num_rows($result) > 0) {
                       echo '<table class="table table-vcenter card-table table-striped">

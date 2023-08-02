@@ -1,6 +1,5 @@
 public/assets/* linguist-generated
 public/dist/* linguist-generated
-public/fonts/* linguist-generated
-*.html linguist-vendored
+*.scss linguist-vendored
 *.css linguist-vendored
 *.js linguist-vendored

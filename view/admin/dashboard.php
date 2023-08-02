@@ -1,15 +1,15 @@
 <?php
 include('requirements/page.php');
 
-$sql_users = "SELECT COUNT(*) AS total_count FROM atoropics_users";
+$sql_users = "SELECT COUNT(*) AS total_count FROM mythicalpics_users";
 $result_users = mysqli_query($conn, $sql_users);
 $row_users = mysqli_fetch_assoc($result_users);
 
-$sql_domains = "SELECT COUNT(*) AS total_count FROM atoropics_domains";
+$sql_domains = "SELECT COUNT(*) AS total_count FROM mythicalpics_domains";
 $result_domains = mysqli_query($conn, $sql_domains);
 $row_domains = mysqli_fetch_assoc($result_domains);
 
-$sql_imgs = "SELECT COUNT(*) AS total_count FROM atoropics_imgs";
+$sql_imgs = "SELECT COUNT(*) AS total_count FROM mythicalpics_imgs";
 $result_imgs = mysqli_query($conn, $sql_imgs);
 $row_imgs = mysqli_fetch_assoc($result_imgs);
 

@@ -1,6 +1,6 @@
 <?php
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 require('../class/maintenance.php');
 $usrname = $userdb['username'];
 $username = $userdb['username'];
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['submit'])) {
             $domain_name = $_POST['domain'];
             $domain_description = $_POST['description'];
-            $query = "SELECT * FROM `atoropics_domains` WHERE `ownerkey`='" . $_SESSION['api_key'] . "';";
+            $query = "SELECT * FROM `mythicalpics_domains` WHERE `ownerkey`='" . $_SESSION['api_key'] . "';";
             $result = mysqli_query($conn, $query);
             if (mysqli_num_rows($result) > 0) {
                 ?>
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ssh2_exec($connection, $enableCommand);
 
                         ssh2_disconnect($connection);
-                        mysqli_query($conn, "INSERT INTO `atoropics_domains` (`domain`, `description`, `ownerkey`) VALUES ('$domain_name', '$domain_description', '" . $_SESSION["api_key"] . "');");
+                        mysqli_query($conn, "INSERT INTO `mythicalpics_domains` (`domain`, `description`, `ownerkey`) VALUES ('$domain_name', '$domain_description', '" . $_SESSION["api_key"] . "');");
                         header('location: /domains?msg=done');
                     } else {
                         try {
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $enableCommand = 'sudo a2ensite ' . $domain_name . '.conf';
                             ssh2_exec($connection, $enableCommand);
                             ssh2_disconnect($connection);
-                            mysqli_query($conn, "INSERT INTO `atoropics_domains` (`domain`, `description`, `ownerkey`, `enabled`) VALUES ('$domain_name', '$domain_description', '" . $_SESSION["api_key"] . "', 'true');");
+                            mysqli_query($conn, "INSERT INTO `mythicalpics_domains` (`domain`, `description`, `ownerkey`, `enabled`) VALUES ('$domain_name', '$domain_description', '" . $_SESSION["api_key"] . "', 'true');");
                             header('location: /domains?msg=done');
                         } catch (Exception $e) {
                             echo 'An error occurred: ' . $e->getMessage();

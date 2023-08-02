@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
-$query = "SELECT domain FROM atoropics_domains WHERE ownerkey = '".$_SESSION['api_key']."'";
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$query = "SELECT domain FROM mythicalpics_domains WHERE ownerkey = '".$_SESSION['api_key']."'";
 $result = $conn->query($query);
 if ($result) {
   $row = $result->fetch_assoc();

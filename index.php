@@ -21,19 +21,7 @@ else {
     error_reporting(0);
 }
 $conn = new mysqli($_ENV['MySQL_HOST'] . ':' .$_ENV['MySQL_PORT'], $_ENV['MySQL_USER'], $_ENV['MySQL_PASSWORD'], $_ENV['MySQL_DATABASE']);
-$settings = $conn->query("SELECT * FROM atoropics_settings")->fetch_array();
-
-//
-// CONNECT TO LOCAL MACHINE
-//
-$connection = ssh2_connect($_ENV['SSH_IP'], $_ENV['SSH_PORT']);
-if (!$connection) {
-    exit('SSH connection failed.');
-}
-
-if (!ssh2_auth_password($connection, $_ENV['SSH_USER'], $_ENV['SSH_PASSWORD'])) {
-    exit('SSH authentication failed.');
-}
+$settings = $conn->query("SELECT * FROM mythicalpics_settings")->fetch_array();
 
 //
 // GET USER IP

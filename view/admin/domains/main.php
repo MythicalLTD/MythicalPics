@@ -9,9 +9,9 @@ $searchCondition = '';
 if (!empty($searchKeyword)) {
     $searchCondition = " WHERE `domain` LIKE '%$searchKeyword%' OR `ownerkey` LIKE '%$searchKeyword%'";
 }
-$domain_query = "SELECT * FROM atoropics_domains" . $searchCondition . " ORDER BY `id` LIMIT $offset, $domainsPerPage";
+$domain_query = "SELECT * FROM mythicalpics_domains" . $searchCondition . " ORDER BY `id` LIMIT $offset, $domainsPerPage";
 $result = $conn->query($domain_query);
-$totalDomainQuery = "SELECT COUNT(*) AS total_users FROM atoropics_domains" . $searchCondition;
+$totalDomainQuery = "SELECT COUNT(*) AS total_users FROM mythicalpics_domains" . $searchCondition;
 $totalResult = $conn->query($totalDomainQuery);
 $totalDomains = $totalResult->fetch_assoc()['total_users'];
 $totalPages = ceil($totalDomains / $domainsPerPage);
@@ -86,7 +86,7 @@ $totalPages = ceil($totalDomains / $domainsPerPage);
                                                 echo "<td>" . $row['id'] . "</td>";
                                                 echo "<td>" . $row['domain'] . "</td>";
                                                 echo "<td>" . $row['description'] . "</td>";
-                                                $check_query = "SELECT * FROM atoropics_users WHERE api_key = '" . $row['ownerkey'] . "'";
+                                                $check_query = "SELECT * FROM mythicalpics_users WHERE api_key = '" . $row['ownerkey'] . "'";
                                                 $resulta = mysqli_query($conn, $check_query);
                                                 if (mysqli_num_rows($resulta) > 0) {
                                                     $userdbinfoa = $resulta->fetch_assoc();

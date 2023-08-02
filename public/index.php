@@ -88,14 +88,9 @@ try {
         
     });
 
-    $router->add("/api/config", function() {
+    $router->add("/downloadconfig", function() {
         require("../index.php");
         require("../api/sharex.php");
-    });
-
-    $router->add("/api/upload", function() {
-        require("../index.php");
-        require("../api/upload.php");
     });
 
     $router->add("/domains", function() {

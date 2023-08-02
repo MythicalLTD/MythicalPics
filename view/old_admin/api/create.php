@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -9,7 +9,7 @@ if ($userdb['admin'] == "false") {
 if (isset($_POST['submit'])) {
     $keyname = $_POST['api:key:name'];
     $api_key = "mythicalpics_" . generateRandomString(45);
-    mysqli_query($conn, "INSERT INTO `atoropics_apikeys` (`api_key`, `owner_api_key`, `name`) VALUES ('" . $api_key . "', '" . $_SESSION["api_key"] . "', '" . $keyname . "')");
+    mysqli_query($conn, "INSERT INTO `mythicalpics_apikeys` (`api_key`, `owner_api_key`, `name`) VALUES ('" . $api_key . "', '" . $_SESSION["api_key"] . "', '" . $keyname . "')");
     header('location: /oldadmin/api');
 }
 ?>

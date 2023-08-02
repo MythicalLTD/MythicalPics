@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE email = '" . mysqli_real_escape_string($conn, $_SESSION["SESSION_EMAIL"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE email = '" . mysqli_real_escape_string($conn, $_SESSION["SESSION_EMAIL"]) . "'")->fetch_array();
 require('../class/maintenance.php');
 $usrname = $userdb['username'];
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -13,7 +13,7 @@ $perPage = 12;
 $offset = ($page - 1) * $perPage;
 
 // Retrieve the images with the calculated offset and limit
-$result = mysqli_query($conn, "SELECT * FROM atoropics_imgs WHERE owner_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "' ORDER BY id DESC LIMIT $offset, $perPage");
+$result = mysqli_query($conn, "SELECT * FROM mythicalpics_imgs WHERE owner_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "' ORDER BY id DESC LIMIT $offset, $perPage");
 ?>
 
 <!doctype html>

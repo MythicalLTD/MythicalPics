@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -9,8 +9,8 @@ if ($userdb['admin'] == "false") {
 if (isset($_POST['update_settings'])) {
     $app_name = $_POST['app:name'];
     $app_logo = $_POST['app:logo'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_name` = '" . $app_name . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_name` = '" . $app_name . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /oldadmin/settings');
 }
 ?>

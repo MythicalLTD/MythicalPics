@@ -17,8 +17,8 @@ if (isset($_SESSION['SESSION_EMAIL'])) {
 $msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   if (isset($_GET['verification'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE code='".$_GET['verification']."'")) > 0) {
-      $query = mysqli_query($conn, "UPDATE atoropics_users SET code='' WHERE code='".$_GET['verification']."'");
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE code='".$_GET['verification']."'")) > 0) {
+      $query = mysqli_query($conn, "UPDATE mythicalpics_users SET code='' WHERE code='".$_GET['verification']."'");
 
       if ($query) {
         $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($settings['enable_rechapa2'] == "false") {
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-        $sql = "SELECT * FROM atoropics_users WHERE email='".$email."' AND password='".$password."'";
+        $sql = "SELECT * FROM mythicalpics_users WHERE email='".$email."' AND password='".$password."'";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) === 1) {
           $row = mysqli_fetch_assoc($result);
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($resp->isSuccess()) {
           $email = mysqli_real_escape_string($conn, $_POST['email']);
           $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-          $sql = "SELECT * FROM atoropics_users WHERE email='".$email."' AND password='".$password."'";
+          $sql = "SELECT * FROM mythicalpics_users WHERE email='".$email."' AND password='".$password."'";
           $result = mysqli_query($conn, $sql);
           if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);

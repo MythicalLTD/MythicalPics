@@ -1,6 +1,6 @@
 {
-    "name": "atorotech/atoropic",
-    "description": "A simple sharex system",
+    "name": "mythicalsystems/mythicalpics",
+    "description": "A better version of AtoroTech's ShareX Image hosting software",
     "type": "project",
     "require": {
         "vlucas/phpdotenv": "^5.5",
@@ -12,16 +12,10 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Tye",
-            "email": "thayagan21@gmail.com",
-            "homepage": "https://github.com/snyderwillcode",
-            "role": "Lead Developer"
-        },
-        {
             "name": "NaysKutzu",
             "email": "nayskutzu@gmail.com",
             "homepage": "https://github.com/NaysKutzu",
-            "role": "Main Developer"
+            "role": "Founder"
         }
     ],
     "config": {

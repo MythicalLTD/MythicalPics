@@ -5,7 +5,7 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
     $domain_id = mysqli_real_escape_string($conn, $_GET['id']);
     $description = mysqli_real_escape_string($conn, $_GET['description']);
     $skey = mysqli_real_escape_string($conn, $_GET['skey']);
-    $user_query = "SELECT * FROM atoropics_domains WHERE id = ?";
+    $user_query = "SELECT * FROM mythicalpics_domains WHERE id = ?";
     $stmt = mysqli_prepare($conn, $user_query);
     mysqli_stmt_bind_param($stmt, "s", $domain_id);
     mysqli_stmt_execute($stmt);
@@ -15,7 +15,7 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
         $domaind = $result->fetch_array();
 
         if (!empty($skey) && $skey !== $domaind['ownerkey']) {
-            $user_query = "SELECT * FROM atoropics_domains WHERE ownerkey = ?";
+            $user_query = "SELECT * FROM mythicalpics_domains WHERE ownerkey = ?";
             $stmt = mysqli_prepare($conn, $user_query);
             mysqli_stmt_bind_param($stmt, "s", $skey);
             mysqli_stmt_execute($stmt);
@@ -25,12 +25,12 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
                 header('location: /admin/domains?e=User can\'t have more than 1 domain');
                 exit();
             } else {
-                $conn->query("UPDATE `atoropics_domains` SET `ownerkey` = '" . $skey . "' WHERE `id` = " . $domain_id . ";");
+                $conn->query("UPDATE `mythicalpics_domains` SET `ownerkey` = '" . $skey . "' WHERE `id` = " . $domain_id . ";");
             }
         }
 
         if (!empty($description) && $description !== $domaind['description']) {
-            $conn->query("UPDATE `atoropics_domains` SET `description` = '" . $description . "' WHERE `id` = " . $domain_id . ";");
+            $conn->query("UPDATE `mythicalpics_domains` SET `description` = '" . $description . "' WHERE `id` = " . $domain_id . ";");
         }
 
         header('location: /admin/domains/edit?id=' . $domain_id);
@@ -41,13 +41,13 @@ if (isset($_GET['edit_domain']) && isset($_GET['id']) && !empty($_GET['edit_doma
     }
 } else if (isset($_GET['id'])) {
     if (!$_GET['id'] == "") {
-        $domain_query = "SELECT * FROM atoropics_domains WHERE id = ?";
+        $domain_query = "SELECT * FROM mythicalpics_domains WHERE id = ?";
         $stmt = mysqli_prepare($conn, $domain_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $domaindb = $conn->query("SELECT * FROM atoropics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $domaindb = $conn->query("SELECT * FROM mythicalpics_domains WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
         header('location: /admin/domains');

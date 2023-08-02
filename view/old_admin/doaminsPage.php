@@ -1,6 +1,6 @@
 <?php
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -14,10 +14,10 @@ $searchQuery = '';
 if (!empty($search)) {
     $searchQuery = "WHERE domain LIKE '%" . mysqli_real_escape_string($conn, $search) . "%'";
 }
-$countResult = $conn->query("SELECT COUNT(*) as count FROM atoropics_domains $searchQuery");
+$countResult = $conn->query("SELECT COUNT(*) as count FROM mythicalpics_domains $searchQuery");
 $totalUsers = $countResult->fetch_assoc()['count'];
 $totalPages = ceil($totalUsers / $limit);
-$query = "SELECT * FROM atoropics_domains $searchQuery LIMIT $start, $limit";
+$query = "SELECT * FROM mythicalpics_domains $searchQuery LIMIT $start, $limit";
 $result = $conn->query($query);
 $users = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -174,10 +174,10 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                 <td>
                                                     <?php
 
-                                                    $check_query = "SELECT * FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'";
+                                                    $check_query = "SELECT * FROM mythicalpics_users WHERE api_key = '" . $user['ownerkey'] . "'";
                                                     $result = mysqli_query($conn, $check_query);
                                                     if (mysqli_num_rows($result) > 0) {
-                                                        $ownersResult = $conn->query("SELECT username FROM atoropics_users WHERE api_key = '" . $user['ownerkey'] . "'");
+                                                        $ownersResult = $conn->query("SELECT username FROM mythicalpics_users WHERE api_key = '" . $user['ownerkey'] . "'");
                                                         $ownersCount = $ownersResult->fetch_row()[0];
                                                         echo $ownersCount;
                                                     } else {
