@@ -263,6 +263,28 @@ try {
         }
     });
 
+    $router->add("/admin/nodes", function() {
+        require("../index.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/nodes/main.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/nodes");  
+        }
+        
+    });
+
+    $router->add("/admin/nodes/new", function() {
+        require("../index.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/nodes/create.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/nodes/new");  
+        }
+        
+    });
+
     $router->add("/oldadmin",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
@@ -396,17 +418,6 @@ try {
             require("../view/old_admin/domain/edit.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/oldadmin/domains/edit");  
-        }
-        
-    });
-
-    $router->add("/admin/nodes", function() {
-        require("../index.php");
-        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
-        {
-            echo '<font color="red">This thing is not done yet do not try to bypass or enable this function yet!!</font>';
-        } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/nodes");  
         }
         
     });

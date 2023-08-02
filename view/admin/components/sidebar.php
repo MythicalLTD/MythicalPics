@@ -61,7 +61,7 @@ function is_active_page($page_urls)
     <li class="menu-item <?php echo is_active_page(['/admin/nodes']) ? 'active' : ''; ?>">
       <a href="/admin/nodes" class="menu-link">
         <i class="menu-icon tf-icons ti ti-network"></i>
-        <div>Nodes (SOON)</div>
+        <div>Nodes</div>
       </a>
     </li>
     <li class="menu-item <?php echo is_active_page(['/admin/reports']) ? 'active' : ''; ?>">

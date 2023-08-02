@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6eca3e06a094895c2b3be5cc40e9208",
+    "content-hash": "feedc247ccac72a5428d1da81953cb00",
     "packages": [
         {
             "name": "ecoal95/php-router",

@@ -3,3 +3,4 @@
 /public/db-manager
 /.vscode
 .env
+/logs/*.log

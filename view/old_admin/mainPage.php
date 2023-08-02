@@ -20,7 +20,7 @@ $sql_imgs = "SELECT COUNT(*) AS total_count FROM mythicalpics_imgs";
 $result_imgs = mysqli_query($conn, $sql_imgs);
 $row_imgs = mysqli_fetch_assoc($result_imgs);
 
-$sql_nodes = "SELECT COUNT(*) AS total_count FROM atoropics_nodes";
+$sql_nodes = "SELECT COUNT(*) AS total_count FROM mythicalpics_nodes";
 $result_nodes = mysqli_query($conn, $sql_nodes);
 $row_nodes = mysqli_fetch_assoc($result_nodes);
 
