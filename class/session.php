@@ -15,7 +15,7 @@ if (isset($_COOKIE['api_key'])) {
   else
   {
       setcookie('api_key', '', time() - 3600, '/');
-      setcookie('phpsessid', '', time() - 3600, '/');
+      setcookie('PHPSESSID', '', time() - 3600, '/');
       echo '<script>window.location.replace("/auth/login");</script>';
       exit();
   }
@@ -24,7 +24,7 @@ if (isset($_COOKIE['api_key'])) {
 else
 {
   setcookie('api_key', '', time() - 3600, '/');
-  setcookie('phpsessid', '', time() - 3600, '/');
+  setcookie('PHPSESSID', '', time() - 3600, '/');
   echo '<script>window.location.replace("/auth/login");</script>';
   exit();
 }

@@ -18,7 +18,7 @@ if ($_ENV['DEBUG_MODE'] == "true") {
 else {
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
-    error_reporting(0);
+    error_reporting(null);
 }
 $conn = new mysqli($_ENV['MySQL_HOST'] . ':' .$_ENV['MySQL_PORT'], $_ENV['MySQL_USER'], $_ENV['MySQL_PASSWORD'], $_ENV['MySQL_DATABASE']);
 $settings = $conn->query("SELECT * FROM atoropics_settings")->fetch_array();

@@ -46,27 +46,6 @@ CREATE TABLE `atoropics_imgs` (
 LOCK TABLES `atoropics_imgs` WRITE;
 UNLOCK TABLES;
 
-
-DROP TABLE IF EXISTS `atoropics_nodes`;
-CREATE TABLE `atoropics_nodes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text DEFAULT NULL COMMENT 'The name of the node',
-  `domain` text DEFAULT NULL COMMENT 'The domain of the nodes ex: "node-1.yourimghost.net"',
-  `description` text DEFAULT NULL COMMENT 'The description of the node',
-  `ip` text DEFAULT NULL COMMENT 'The server ip to connect to the ssh console! ',
-  `port` text DEFAULT NULL COMMENT 'The server port to connect to the daemon',
-  `username` text DEFAULT NULL COMMENT 'The username for the ssh user',
-  `password` text DEFAULT NULL COMMENT 'The password for the ssh user',
-  `created-date` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'The creation date for the node',
-  `enabled` enum('true','false') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-LOCK TABLES `atoropics_nodes` WRITE;
-UNLOCK TABLES;
-
-
 DROP TABLE IF EXISTS `atoropics_settings`;
 CREATE TABLE `atoropics_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

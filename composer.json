@@ -1,6 +1,6 @@
 {
-    "name": "atorotech/atoropic",
-    "description": "A simple sharex system",
+    "name": "mythicalsystems/mythicalpics",
+    "description": "A better version of a AtoroTech's ShareX Image hosting software",
     "type": "project",
     "require": {
         "vlucas/phpdotenv": "^5.5",

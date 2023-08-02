@@ -38,19 +38,9 @@ $isDomainsSearchPage = (strpos($current_url, "/oldadmin/domains") !== false && !
                 </a>
             </li>
             <li class="header">MANAGEMENT</li>
-            <li class="">
-                <a href="/admin/nodes">
-                    <i class="fa fa-sitemap"></i> <span>Nodes (SOON)</span>
-                </a>
-            </li>
             <li class="<?= ($isDomainsPage || $isDomainsSearchPage) ? 'active' : '' ?>">
                 <a href="/admin/domains">
                     <i class="fa fa-server"></i> <span>Domains</span>
-                </a>
-            </li>
-            <li class="">
-                <a href="/oldadmin/reports">
-                    <i class="fa fa-th-large"></i> <span>Reports</span>
                 </a>
             </li>
             <li class="<?= ($isUsersPage || $isSearchPage) ? 'active' : '' ?>">

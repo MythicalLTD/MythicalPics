@@ -18,16 +18,6 @@ try {
           header('location: '.$settings['app_proto'].$settings['app_url']."/");  
         }
     });
-   
-    $router->add('/api/admin/stats', function() {
-        require("../index.php");
-        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
-        {
-            require("../api/v2/stats.php");
-        } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/api/admin/stats");  
-        }
-    });
 
     $router->add('/auth/login', function() {
         require("../index.php");
@@ -401,17 +391,6 @@ try {
             require("../view/old_admin/domain/edit.php");
         } else {
           header('location: '.$settings['app_proto'].$settings['app_url']."/oldadmin/domains/edit");  
-        }
-        
-    });
-
-    $router->add("/admin/nodes", function() {
-        require("../index.php");
-        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
-        {
-            echo '<font color="red">This thing is not done yet do not try to bypass or enable this function yet!!</font>';
-        } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/nodes");  
         }
         
     });
