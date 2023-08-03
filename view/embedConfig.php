@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       header('location: /config');
     }
   } else {
-    die('CSRF Login faild please click <a href="/config">here</a>');
+    die('CSRF Login Failed please click <a href="/config">here</a>');
   }
 }
 ?>

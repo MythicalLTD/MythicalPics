@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   } else {
     echo "</div>";
-    $msg = "<div class='alert alert-danger'>CSRF verification faild!</div>";
+    $msg = "<div class='alert alert-danger'>CSRF verification Failed!</div>";
   }
 }
 ?>

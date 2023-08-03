@@ -69,19 +69,19 @@ if (isset($_GET['key'])) {
                                         } else {
                                             $conn->close();
                                             $stmt->close();
-                                            header('location: /admin/nodes?e=Faild to connect to the node: <code>This node already exists in the database.</code>');
+                                            header('location: /admin/nodes?e=Failed to connect to the node: <code>This node already exists in the database.</code>');
                                             die();
                                         }
                                     } else {
-                                        header('location: /admin/nodes?e=Faild to connect to the node: <code>' . $data['message'] . '</code>');
+                                        header('location: /admin/nodes?e=Failed to connect to the node: <code>' . $data['message'] . '</code>');
                                         die();
                                     }
                                 } else {
-                                    header('location: /admin/nodes?e=Faild to connect to the node: <code>Invalid JSON response</code>');
+                                    header('location: /admin/nodes?e=Failed to connect to the node: <code>Invalid JSON response</code>');
                                     die();
                                 }
                             } else {
-                                header('location: /admin/nodes?e=Faild to connect to the node: <code>Unexpected status code:'.  $statusCode .'</code>');
+                                header('location: /admin/nodes?e=Failed to connect to the node: <code>Unexpected status code:'.  $statusCode .'</code>');
                                 die();
                             }
                         } catch (RequestException $e) {
@@ -92,33 +92,33 @@ if (isset($_GET['key'])) {
                                 $data = json_decode($response->getBody(), true);
 
                                 if (json_last_error() === JSON_ERROR_NONE) {
-                                    header('location: /admin/nodes?e=Faild to connect to the node: <code>' . $data['message'] . '</code>');
+                                    header('location: /admin/nodes?e=Failed to connect to the node: <code>' . $data['message'] . '</code>');
                                     die();
                                 } else {
-                                    header('location: /admin/nodes?e=Faild to connect to the node: <code>' . $response->getReasonPhrase() . '</code>');
+                                    header('location: /admin/nodes?e=Failed to connect to the node: <code>' . $response->getReasonPhrase() . '</code>');
                                     die();
                                 }
                             } else {
-                                header('location: /admin/nodes?e=Faild to connect to the node: <code>' . $e->getMessage() . '</code>');
+                                header('location: /admin/nodes?e=Failed to connect to the node: <code>' . $e->getMessage() . '</code>');
                                 die();
                             }
                         }
                     } else {
-                        header('location: /admin/nodes?e=Faild to connect to the node: <code>Please use a https connection</code>');
+                        header('location: /admin/nodes?e=Failed to connect to the node: <code>Please use a https connection</code>');
                         die();
                     }
 
                 } else {
-                    header('location: /admin/nodes?e=Faild to connect to the node: <code>This is not a valid url please remove the / after the url</code>');
+                    header('location: /admin/nodes?e=Failed to connect to the node: <code>This is not a valid url please remove the / after the url</code>');
                     die();
                 }
 
             } else {
-                header('location: /admin/nodes?e=Faild to connect to the node: <code>This is not a valid url</code>');
+                header('location: /admin/nodes?e=Failed to connect to the node: <code>This is not a valid url</code>');
                 die();
             }
         } else {
-            header('location: /admin/nodes?e=Faild to connect to the node: <code>This is not a valid domain</code>');
+            header('location: /admin/nodes?e=Failed to connect to the node: <code>This is not a valid domain</code>');
             die();
         }
 

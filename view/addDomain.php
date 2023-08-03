@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     else {
-        die('CSRF Login faild please refresh');
+        die('CSRF Login Failed please refresh');
     }
 }
 ?>
