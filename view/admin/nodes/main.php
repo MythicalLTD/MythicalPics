@@ -15,6 +15,7 @@ $totalNodesQuery = "SELECT COUNT(*) AS total_nodes FROM mythicalpics_nodes" . $s
 $totalResult = $conn->query($totalNodesQuery);
 $totalNodes = $totalResult->fetch_assoc()['total_nodes'];
 $totalPages = ceil($totalNodes / $nodesPerPage);
+
 ?>
 
 <!DOCTYPE html>
@@ -81,6 +82,7 @@ $totalPages = ceil($totalNodes / $nodesPerPage);
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Status</th>
                                             <th>Description</th>
                                             <th>Created</th>
                                             <th>Action</th>
@@ -92,6 +94,7 @@ $totalPages = ceil($totalNodes / $nodesPerPage);
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
                                                 echo "<td>" . $row['name'] . "</td>";
+                                                echo "<td>Online</td>";
                                                 echo "<td>" . $row['description'] . "</td>";
                                                 echo "<td>" . $row['created-date'] . "</td>";
                                                 echo "<td><a href=\"/admin/nodes/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/admin/nodes/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";

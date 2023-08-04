@@ -18,16 +18,17 @@ try {
           header('location: '.$settings['app_proto'].$settings['app_url']."/");  
         }
     });
-   
-    $router->add('/api/admin/stats', function() {
+
+    $router->add('/api/daemon/info', function() {
         require("../index.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
         {
-            require("../api/v2/stats.php");
+            require("../api/daemon/info.php");
         } else {
-          header('location: '.$settings['app_proto'].$settings['app_url']."/api/admin/stats");  
+          header('location: '.$settings['app_proto'].$settings['app_url']."/api/daemon/info");  
         }
     });
+
 
     $router->add('/auth/login', function() {
         require("../index.php");
