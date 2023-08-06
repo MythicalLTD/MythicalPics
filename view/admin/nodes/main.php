@@ -82,7 +82,6 @@ $totalPages = ceil($totalNodes / $nodesPerPage);
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Status</th>
                                             <th>Description</th>
                                             <th>Created</th>
                                             <th>Action</th>
@@ -93,8 +92,7 @@ $totalPages = ceil($totalNodes / $nodesPerPage);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<td>" . $row['name'] . "</td>";
-                                                echo "<td>Online</td>";
+                                                echo "<td><a href='/admin/nodes/info?id=".$row['id']."'>" . $row['name'] . "</a></td>";
                                                 echo "<td>" . $row['description'] . "</td>";
                                                 echo "<td>" . $row['created-date'] . "</td>";
                                                 echo "<td><a href=\"/admin/nodes/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/admin/nodes/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";

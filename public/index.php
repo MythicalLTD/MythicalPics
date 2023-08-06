@@ -286,6 +286,17 @@ try {
         
     });
 
+    $router->add("/admin/nodes/info", function() {
+        require("../index.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/nodes/info.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/nodes/info");  
+        }
+        
+    });
+
     $router->add("/oldadmin",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
