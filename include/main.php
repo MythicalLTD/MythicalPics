@@ -1,14 +1,7 @@
 <?php 
-#                      AtoroTech NOTE
-# ! WARRNING DO NOT SET THIS AS YOUR WEBSERVER HOME DIR !
-# ! PLEASE DO NOT USE THIS AS YOUR HOME DIR USERS CAN DOWNLOAD !
-# ! YOUR .env FILE WITH ALL YOUR IMPORTANT INFO LIKE SSH AND MYSQL !
-# ! PLEASE USE the /public DIR THANKS FOR UNDERSTANDING !
-#
+require __DIR__ . '/../vendor/autoload.php';
 
-require __DIR__ . '/vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '/../.env');
 $dotenv->load();
 if ($_ENV['DEBUG_MODE'] == "true") {
     ini_set('display_errors', 1);
