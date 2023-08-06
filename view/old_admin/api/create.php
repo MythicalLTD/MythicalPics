@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $keyname = $_POST['api:key:name'];
     $api_key = "mythicalpics_" . generateRandomString(45);
     mysqli_query($conn, "INSERT INTO `mythicalpics_apikeys` (`api_key`, `owner_api_key`, `name`) VALUES ('" . $api_key . "', '" . $_SESSION["api_key"] . "', '" . $keyname . "')");
-    header('location: /oldadmin/api');
+    header('location: /admin/api');
 }
 ?>
 <!DOCTYPE html>
@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
                 <h1>Application API<small>Create a new application API key.</small></h1>
                 <ol class="breadcrumb">
                     <li><a href="/admin">Admin</a></li>
-                    <li><a href="/oldadmin/api">Application API</a></li>
+                    <li><a href="/admin/api">Application API</a></li>
                     <li class="active">New Credentials</li>
                 </ol>
             </section>

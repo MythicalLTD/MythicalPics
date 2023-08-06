@@ -133,14 +133,14 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                             <div class="box-header with-border">
                                 <h3 class="box-title">Domains</h3>
                                 <div class="box-tools search01">
-                                    <form action="/oldadmin/domains" method="GET">
+                                    <form action="/admin/domains" method="GET">
                                         <div class="input-group input-group-sm">
                                             <input type="text" name="filter[domain]" class="form-control pull-right"
                                                 value="<?= htmlspecialchars($search) ?>" placeholder="Search">
                                             <div class="input-group-btn">
                                                 <button type="submit" class="btn btn-default"><i
                                                         class="fa fa-search"></i></button>
-                                                <a href="/oldadmin/domains/new"><button type="button"
+                                                <a href="/admin/domains/new"><button type="button"
                                                         class="btn btn-sm btn-primary"
                                                         style="border-radius: 0 3px 3px 0;margin-left:-1px;">Create
                                                         New</button></a>
@@ -164,7 +164,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                         <?php foreach ($users as $user): ?>
                                             <tr class="align-middle">
                                                 <td><code><?= $user['id'] ?></code></td>
-                                                <td><a href="/oldadmin/domains/edit?id=<?= $user['id'] ?>">
+                                                <td><a href="/admin/domains/edit?id=<?= $user['id'] ?>">
                                                         <?= $user['domain'] ?>
                                                     </a>
                                                 </td>
@@ -201,7 +201,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                             <?php if ($page > 1): ?>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                        href="/oldadmin/domains?page=<?= $page - 1 ?>&filter[domain]=<?= urlencode($search) ?>"
+                                                        href="/admin/domains?page=<?= $page - 1 ?>&filter[domain]=<?= urlencode($search) ?>"
                                                         aria-label="Previous">
                                                         <span aria-hidden="true">‹</span>
                                                     </a>
@@ -210,14 +210,14 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                                                 <li class="page-item <?= $i == $page ? 'active' : '' ?>">
                                                     <a class="page-link"
-                                                        href="/oldadmin/domains?page=<?= $i ?>&filter[domain]=<?= urlencode($search) ?>"><?= $i ?></a>
+                                                        href="/admin/domains?page=<?= $i ?>&filter[domain]=<?= urlencode($search) ?>"><?= $i ?></a>
                                                 </li>
                                             <?php endfor; ?>
 
                                             <?php if ($page < $totalPages): ?>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                        href="/oldadmin/domains?page=<?= $page + 1 ?>&filter[domain]=<?= urlencode($search) ?>"
+                                                        href="/admin/domains?page=<?= $page + 1 ?>&filter[domain]=<?= urlencode($search) ?>"
                                                         aria-label="Next">
                                                         <span aria-hidden="true">›</span>
                                                     </a>

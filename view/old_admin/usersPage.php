@@ -133,14 +133,14 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                             <div class="box-header with-border">
                                 <h3 class="box-title">User List</h3>
                                 <div class="box-tools search01">
-                                    <form action="/oldadmin/users" method="GET">
+                                    <form action="/admin/users" method="GET">
                                         <div class="input-group input-group-sm">
                                             <input type="text" name="filter[email]" class="form-control pull-right"
                                                 value="<?= htmlspecialchars($search) ?>" placeholder="Search">
                                             <div class="input-group-btn">
                                                 <button type="submit" class="btn btn-default"><i
                                                         class="fa fa-search"></i></button>
-                                                <a href="/oldadmin/users/new"><button type="button"
+                                                <a href="/admin/users/new"><button type="button"
                                                         class="btn btn-sm btn-primary"
                                                         style="border-radius: 0 3px 3px 0;margin-left:-1px;">Create
                                                         New</button></a>
@@ -167,7 +167,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                         <?php foreach ($users as $user): ?>
                                             <tr class="align-middle">
                                                 <td><code><?= $user['id'] ?></code></td>
-                                                <td><a href="/oldadmin/users/edit?id=<?= $user['id'] ?>">
+                                                <td><a href="/admin/users/edit?id=<?= $user['id'] ?>">
                                                         <?= $user['email'] ?>
                                                     </a>
                                                     <?php if ($user['admin'] == "true") {
@@ -210,7 +210,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                             <?php if ($page > 1): ?>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                        href="/oldadmin/users?page=<?= $page - 1 ?>&filter[email]=<?= urlencode($search) ?>"
+                                                        href="/admin/users?page=<?= $page - 1 ?>&filter[email]=<?= urlencode($search) ?>"
                                                         aria-label="Previous">
                                                         <span aria-hidden="true">‹</span>
                                                     </a>
@@ -219,14 +219,14 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                                                 <li class="page-item <?= $i == $page ? 'active' : '' ?>">
                                                     <a class="page-link"
-                                                        href="/oldadmin/users?page=<?= $i ?>&filter[email]=<?= urlencode($search) ?>"><?= $i ?></a>
+                                                        href="/admin/users?page=<?= $i ?>&filter[email]=<?= urlencode($search) ?>"><?= $i ?></a>
                                                 </li>
                                             <?php endfor; ?>
 
                                             <?php if ($page < $totalPages): ?>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                        href="/oldadmin/users?page=<?= $page + 1 ?>&filter[email]=<?= urlencode($search) ?>"
+                                                        href="/admin/users?page=<?= $page + 1 ?>&filter[email]=<?= urlencode($search) ?>"
                                                         aria-label="Next">
                                                         <span aria-hidden="true">›</span>
                                                     </a>

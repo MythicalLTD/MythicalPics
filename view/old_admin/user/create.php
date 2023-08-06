@@ -88,7 +88,7 @@ if (isset($_POST['create_user'])) {
             } else {
                 echo "</div>";
                 $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
-                header('location: /oldadmin/users');
+                header('location: /admin/users');
             }
 
         } else {
@@ -179,7 +179,7 @@ if (isset($_POST['create_user'])) {
                 <h1>Create User<small>Add a new user to the system.</small></h1>
                 <ol class="breadcrumb">
                     <li><a href="/admin">Admin</a></li>
-                    <li><a href="/oldadmin/users">Users</a></li>
+                    <li><a href="/admin/users">Users</a></li>
                     <li class="active">Create</li>
                 </ol>
             </section>

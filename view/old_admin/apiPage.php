@@ -9,7 +9,7 @@ if ($userdb['admin'] == "false") {
 if (isset($_GET['revoke-key'])) {
     $keyid = $_GET['revoke-key'];
     mysqli_query($conn, "DELETE FROM mythicalpics_apikeys WHERE `mythicalpics_apikeys`.`id` = " . $keyid . "");
-    header('location: /oldadmin/api');
+    header('location: /admin/api');
 }
 ?>
 <!DOCTYPE html>
@@ -122,7 +122,7 @@ if (isset($_GET['revoke-key'])) {
                             <div class="box-header with-border">
                                 <h3 class="box-title">Credentials List</h3>
                                 <div class="box-tools">
-                                    <a href="/oldadmin/api/new" class="btn btn-sm btn-primary">Create New</a>
+                                    <a href="/admin/api/new" class="btn btn-sm btn-primary">Create New</a>
                                 </div>
                             </div>
                             <?php

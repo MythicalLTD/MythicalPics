@@ -82,7 +82,7 @@ if ($userdb['admin'] == "false") {
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li class="user-menu">
-                            <a href="/oldadmin">
+                            <a href="/admin">
                                 <img src="<?= $userdb['avatar'] ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs">
                                     <?= $userdb['username'] ?>
@@ -106,7 +106,7 @@ if ($userdb['admin'] == "false") {
             <section class="content-header">
                 <h1>Administrative Overview<small>A quick glance at your system.</small></h1>
                 <ol class="breadcrumb">
-                    <li><a href="/oldadmin">Admin</a></li>
+                    <li><a href="/admin">Admin</a></li>
                     <li class="active">Index</li>
                 </ol>
             </section>

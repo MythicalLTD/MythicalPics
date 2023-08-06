@@ -26,7 +26,7 @@ if (isset($_POST['saveadvsettings'])) {
     mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `mythicalpics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `mythicalpics_settings`.`id` = 1;");
     mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `mythicalpics_settings`.`id` = 1;");
-    header('location: /oldadmin/settings/advanced');
+    header('location: /admin/settings/advanced');
 }
 ?>
 <!DOCTYPE html>
@@ -138,9 +138,9 @@ if (isset($_POST['saveadvsettings'])) {
                     <div class="col-xs-12">
                         <div class="nav-tabs-custom nav-tabs-floating">
                             <ul class="nav nav-tabs">
-                                <li><a href="/oldadmin/settings">General</a></li>
-                                <li><a href="/oldadmin/settings/mail">Mail</a></li>
-                                <li class="active"><a href="/oldadmin/settings/advanced">Advanced</a>
+                                <li><a href="/admin/settings">General</a></li>
+                                <li><a href="/admin/settings/mail">Mail</a></li>
+                                <li class="active"><a href="/admin/settings/advanced">Advanced</a>
                                 </li>
                             </ul>
                         </div>
