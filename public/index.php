@@ -105,23 +105,10 @@ try {
             }
         });
 
-        $router->add("/(.*)", function () {
-            require(__DIR__."/../include/main.php");
-            require("../view/old_ui/errors/404.php");
-        });
-
     } else {
-
+        exit("Please use the old ui since the new ui is not ready");
     }
-    //API 
-    $router->add('/api/daemon/info', function () {
-        require(__DIR__."/../include/main.php");
-        if ($_SERVER['HTTP_HOST'] == $settings['app_url']) {
-            require("../api/daemon/info.php");
-        } else {
-            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/api/daemon/info");
-        }
-    });
+    
     //ADMIN
     if ($enable_old_admin == true) {
         $router->add("/admin", function () {
@@ -413,8 +400,28 @@ try {
 
         });
     }
+    //API 
+    $router->add('/api/daemon/info', function () {
+        require(__DIR__."/../include/main.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url']) {
+            require("../api/daemon/info.php");
+        } else {
+            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/api/daemon/info");
+        }
+    });
 
-
+    $router->add('/api/daemon/user/info', function () {
+        require(__DIR__."/../include/main.php");
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url']) {
+            require("../api/daemon/userinfo.php");
+        } else {
+            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/api/daemon/user/info");
+        }
+    });
+    $router->add("/(.*)", function () {
+        require(__DIR__."/../include/main.php");
+        require("../view/old_ui/errors/404.php");
+    });
     $router->route();
 } catch (Exception $e) {
     echo $e->getMessage();
