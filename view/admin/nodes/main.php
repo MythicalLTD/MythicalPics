@@ -136,7 +136,7 @@ $totalPages = ceil($totalNodes / $nodesPerPage);
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label" for="host">Host (HTTPS REQUIRED)</label>
-                                                <input type="text" id="host" name="host" class="form-control" placeholder="https://uk.mythicalsystems.tech" required />
+                                                <input type="text" id="host" name="host" class="form-control" placeholder="https://uk.mythicalsystems.me" required />
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label" for="auth_key">Authentication key</label>

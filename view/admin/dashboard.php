@@ -26,7 +26,7 @@ $row_nodes = mysqli_fetch_assoc($result_nodes);
 <head>
     <?php include('requirements/head.php'); ?>
     <title>
-        <?= $settings['app_name'] ?> | Dashboard
+        <?= $settings['app_name'] ?> | Admin
     </title>
 </head>
 

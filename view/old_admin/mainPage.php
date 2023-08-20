@@ -250,7 +250,7 @@ if ($userdb['admin'] == "false") {
                 <?= $settings['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
-            Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.
+            Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.me/">MythicalSystems</a>.
         </footer>
     </div>
     <script src="/dist/js/keyboard.polyfill.js" type="application/javascript"></script>
@@ -291,14 +291,6 @@ if ($userdb['admin'] == "false") {
 
             document.getElementById("loadtime").innerHTML = pgloadtime + "s";
         }
-    </script>
-    <script>
-        Swal.fire({
-            title: 'Admin Area Error!',
-            text: 'This admin area is EOL and won`t get updated anymore \nDo you want to continue',
-            icon: 'error',
-            confirmButtonText: 'Yes'
-        });
     </script>
 </body>
 

@@ -4,3 +4,4 @@
 /.vscode
 .env
 /logs/*.log
+/tmp

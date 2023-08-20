@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . '/../base.php');
+include(__DIR__ . '/../api/base.php');
 include(__DIR__ . '/base.php');
 $uapi_key = mysqli_real_escape_string($conn, $_GET['api_key']);
 if (isset($uapi_key)) {

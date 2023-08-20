@@ -18,26 +18,3 @@
 <script src="/assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 <script src="/assets/js/main.js"></script>
 <script src="/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
-<script>
-    let timerInterval
-    Swal.fire({
-        title: 'Please wait!',
-        html: 'We are still loading the backend.',
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
-            timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft()
-            }, 100)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-
-        }
-    })
-</script>

@@ -1,5 +1,5 @@
 <?php 
-include(__DIR__.'/../base.php');
+include(__DIR__.'/../api/base.php');
 include(__DIR__.'/base.php');
 $rsp = array(
     "code" => 200,

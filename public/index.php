@@ -401,21 +401,21 @@ try {
         });
     }
     //API 
-    $router->add('/api/daemon/info', function () {
+    $router->add('/daemon/info', function () {
         require(__DIR__."/../include/main.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url']) {
-            require("../api/daemon/info.php");
+            require("../daemon/info.php");
         } else {
-            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/api/daemon/info");
+            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/daemon/info");
         }
     });
 
-    $router->add('/api/daemon/user/info', function () {
+    $router->add('/daemon/user/info', function () {
         require(__DIR__."/../include/main.php");
         if ($_SERVER['HTTP_HOST'] == $settings['app_url']) {
-            require("../api/daemon/userinfo.php");
+            require("../daemon/userinfo.php");
         } else {
-            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/api/daemon/user/info");
+            header('location: ' . $settings['app_proto'] . $settings['app_url'] . "/daemon/user/info");
         }
     });
     $router->add("/(.*)", function () {
