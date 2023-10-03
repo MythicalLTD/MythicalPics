@@ -228,6 +228,16 @@ try {
         }
     });
 
+    $router->add("/admin/api/delete/all",function() {
+        require('../index.php');
+        if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
+        {
+            require("../view/admin/api/delete-all.php");
+        } else {
+          header('location: '.$settings['app_proto'].$settings['app_url']."/admin/api/delete/all");  
+        }
+    });
+
     $router->add("/admin/settings",function() {
         require('../index.php');
         if ($_SERVER['HTTP_HOST'] == $settings['app_url'])
