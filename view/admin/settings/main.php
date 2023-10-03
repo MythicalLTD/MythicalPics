@@ -328,8 +328,8 @@ if (isset($_POST['update_settings'])) {
                                                     </div>
                                                     <form class="row g-3">
                                                         <div class="col-12 text-center">
-                                                            <button type="submit" name="id" value="/admin/api/delete/all"
-                                                                class="btn btn-danger me-sm-3 me-1">Continue deleting</button>
+                                                            <a type="submit" name="id" href="/admin/api/delete/all"
+                                                                class="btn btn-danger me-sm-3 me-1">Continue deleting</a>
                                                             <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
                                                                 aria-label="Close">Cancel </button>
                                                         </div>
