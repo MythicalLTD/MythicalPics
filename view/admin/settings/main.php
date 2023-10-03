@@ -314,7 +314,7 @@ if (isset($_POST['update_settings'])) {
                                             class="btn btn-primary me-2 waves-effect waves-light" value="true">Save
                                             changes</button>
                                         <a href="/admin" class="btn btn-label-secondary waves-effect">Cancel</a>
-                                        <a method="GET" href="/admin/api/delete/all" class="btn btn-label-secondary">Delete All User Data</a>
+                                        <a method="GET" href="/admin/api/delete/all" class="btn btn-label-secondary">Delete All Images</a>
                                     </div>
                                 </form>
                             </div>
