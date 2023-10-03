@@ -314,7 +314,30 @@ if (isset($_POST['update_settings'])) {
                                             class="btn btn-primary me-2 waves-effect waves-light" value="true">Save
                                             changes</button>
                                         <a href="/admin" class="btn btn-label-secondary waves-effect">Cancel</a>
-                                        <a method="GET" href="/admin/api/delete/all" class="btn btn-label-secondary">Delete All Images</a>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIMGS"
+                                            class="btn btn-danger deactivate-account">Delete all images</button>
+                                        <div class="modal fade" id="deleteIMGS" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-simple">
+                                            <div class="modal-content p-3 p-md-5">
+                                                <div class="modal-body">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                    <div class="text-center mb-4">
+                                                        <h3 class="mb-2">Delete all Images?</h3>
+                                                        <p class="text-muted">After deleting all the images, the users will lose their photos!!</p>
+                                                    </div>
+                                                    <form class="row g-3">
+                                                        <div class="col-12 text-center">
+                                                            <button type="submit" name="id" value="/admin/api/delete/all"
+                                                                class="btn btn-danger me-sm-3 me-1">Continue deleting</button>
+                                                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                                                aria-label="Close">Cancel </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        v>
                                     </div>
                                 </form>
                             </div>

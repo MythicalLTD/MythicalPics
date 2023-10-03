@@ -2,7 +2,6 @@
 header('Content-Type: application/json');
 include(__DIR__ . '/../requirements/page.php');
 if ($userdb['admin'] == "true") {
-    // Get all images
     $query2 = "SELECT name FROM atoropics_imgs";
     $results2 = mysqli_query($conn, $query2);
     
@@ -23,7 +22,6 @@ if ($userdb['admin'] == "true") {
         if (isset($_SERVER['HTTP_REFERER'])) {
             header("Location: " . $_SERVER['HTTP_REFERER']);
         } else {
-            // If there's no referring page, you can redirect to a default page
             header("Location: /admin");
         }
         http_response_code(200);
@@ -32,7 +30,6 @@ if ($userdb['admin'] == "true") {
         if (isset($_SERVER['HTTP_REFERER'])) {
             header("Location: " . $_SERVER['HTTP_REFERER']);
         } else {
-            // If there's no referring page, you can redirect to a default page
             header("Location: /admin");
         }
     }
@@ -41,7 +38,6 @@ if ($userdb['admin'] == "true") {
     if (isset($_SERVER['HTTP_REFERER'])) {
         header("Location: " . $_SERVER['HTTP_REFERER']);
     } else {
-        // If there's no referring page, you can redirect to a default page
         header("Location: /");
     }
 }
