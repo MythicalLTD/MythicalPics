@@ -12,9 +12,18 @@ if ($userdb['admin'] == "true") {
             $allowed = array("");
             if (in_array($ext, $allowed)) {
                 $name = $imgid;
+                $formats = array("jpg", "jpeg", "png", "gif");
                 $delete_folder = '../public/storage/uploads/';
                 unlink("../public/storage/json/".$name.'.json');
-                unlink("../public/storage/uploads/".$name.'.png');
+                foreach ($formats as $format) {
+                    $file_path = "../public/storage/uploads/" . $name . '.' . $format;
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    } else {
+
+                    }
+                }
+
                 $conn->query("DELETE FROM atoropics_imgs WHERE name = '$name'");
             }
         }

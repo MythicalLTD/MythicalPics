@@ -13,9 +13,18 @@ if (isset($_GET['owner_key']) && isset($_GET['imgid'])) {
             $allowed = array("");
             if (in_array($ext, $allowed)) {
                 $name = $_GET['imgid'];
+                $formats = array("jpg", "jpeg", "png", "gif");
                 $delete_folder = '../public/storage/uploads/';
                 unlink("../public/storage/json/".$name.'.json');
-                unlink("../public/storage/uploads/".$name.'.png');
+                foreach ($formats as $format) {
+                    $file_path = "../public/storage/uploads/" . $name . '.' . $format;
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    } else {
+
+                    }
+                }
+                echo($ext);
                 $apikey = $_GET['owner_key'];
                 $conn->query("DELETE FROM atoropics_imgs WHERE name = '$name' AND owner_key = '$apikey'");
                 echo json_encode(array('status' => 'success', 'message' => 'Image deleted successfully'));
