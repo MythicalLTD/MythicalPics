@@ -3,7 +3,7 @@ if [[ -f panel.sql ]]; then
 fi
 
 DB_NAME="AtoroPics"
-TEMP_DB_NAME="AtoroPics_temp"
+TEMP_DB_NAME="mythicalpics_temp"
 
 # Drop and recreate the temporary database
 mysql -u root -e "DROP DATABASE IF EXISTS $TEMP_DB_NAME;"
@@ -13,7 +13,7 @@ mysql -u root -e "CREATE DATABASE $TEMP_DB_NAME;"
 mysqldump -u root --no-data "$DB_NAME" | mysql -u root "$TEMP_DB_NAME"
 
 # Recreate the required tables in the temporary database
-mysqldump -u root --no-data "$DB_NAME" --tables atoropics_domains atoropics_imgs atoropics_logs atoropics_nodes atoropics_settings atoropics_users | mysql -u root "$TEMP_DB_NAME"
+mysqldump -u root --no-data "$DB_NAME" --tables mythicalpics_domains mythicalpics_imgs mythicalpics_logs mythicalpics_nodes mythicalpics_settings mythicalpics_users | mysql -u root "$TEMP_DB_NAME"
 
 # Empty all tables in the temporary database
 TABLES="$(mysql -u root -N -B -e "SHOW TABLES IN $TEMP_DB_NAME")"

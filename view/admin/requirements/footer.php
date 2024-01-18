@@ -19,25 +19,10 @@
 <script src="/assets/js/main.js"></script>
 <script src="/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
 <script>
-    let timerInterval
-    Swal.fire({
-        title: 'Please wait!',
-        html: 'We are still loading the backend.',
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
-            timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft()
-            }, 100)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-
-        }
-    })
-</script>
+        Swal.fire({
+            title: 'READ ME',
+            text: 'We are sorry but after all those years we gota make this project EOL. From this point if you see the message it means that you are running the latest version of our software that is fully secured and has the latest patch! You can still use this software but we do not take any responsibility for 0 day exploits or others!',
+            icon: 'error',
+            confirmButtonText: 'Yes'
+        });
+    </script>

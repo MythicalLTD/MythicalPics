@@ -1,6 +1,6 @@
 <?php
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -14,10 +14,10 @@ $searchQuery = '';
 if (!empty($search)) {
     $searchQuery = "WHERE email LIKE '%" . mysqli_real_escape_string($conn, $search) . "%'";
 }
-$countResult = $conn->query("SELECT COUNT(*) as count FROM atoropics_users $searchQuery");
+$countResult = $conn->query("SELECT COUNT(*) as count FROM mythicalpics_users $searchQuery");
 $totalUsers = $countResult->fetch_assoc()['count'];
 $totalPages = ceil($totalUsers / $limit);
-$query = "SELECT * FROM atoropics_users $searchQuery LIMIT $start, $limit";
+$query = "SELECT * FROM mythicalpics_users $searchQuery LIMIT $start, $limit";
 $result = $conn->query($query);
 $users = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -30,14 +30,14 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - Users
+        <?= $_ENV['app_name'] ?> - Users
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings['app_logo'] ?>">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="16x16">
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $_ENV['app_logo'] ?>">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="16x16">
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>">
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/select2/select2.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
@@ -69,7 +69,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
         <header class="main-header">
             <a href="/" class="logo">
                 <span>
-                    <?= $settings['app_name'] ?>
+                    <?= $_ENV['app_name'] ?>
                 </span>
             </a>
             <nav class="navbar navbar-static-top">
@@ -159,7 +159,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                             <!--<th class="text-center"><span data-toggle="tooltip" data-placement="top"
                                                     title="Imagines that the users own">Imagines Owned</span></th>-->
                                             <th class="text-center"><span data-toggle="tooltip" data-placement="top"
-                                                    title="Domains that the user own.">Domains Owned</span></th>
+                                                    title="Images that the user own.">Images Owned</span></th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -179,21 +179,14 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                                 <td>
                                                     <?= $user['username'] ?>
                                                 </td>
-                                                <!--<td class="text-center">
+                                                <td class="text-center">
                                                     <a href="#">
                                                         <?php
-                                                        //$imaginesResult = $conn->query("SELECT COUNT(*) FROM atoropics_imgs WHERE owner_key = '" . $user['api_key'] . "'");
-                                                        //$imaginesCount = $imaginesResult->fetch_row()[0];
-                                                        //echo $imaginesCount;
+                                                        $imaginesResult = $conn->query("SELECT COUNT(*) FROM mythicalpics_imgs WHERE owner_key = '" . $user['api_key'] . "'");
+                                                        $imaginesCount = $imaginesResult->fetch_row()[0];
+                                                        echo $imaginesCount;
                                                         ?>
                                                     </a>
-                                                </td>-->
-                                                <td class="text-center"><!--<a href="#">-->
-                                                    <?php
-                                                    $domainsResult = $conn->query("SELECT COUNT(*) FROM atoropics_domains WHERE ownerkey = '" . $user['api_key'] . "'");
-                                                    $domainsCount = $domainsResult->fetch_row()[0];
-                                                    echo $domainsCount;
-                                                    ?></a>
                                                 </td>
                                                 <td class="text-center"><img src="<?= $user['avatar'] ?>"
                                                         style="height:20px;" class="img-circle">
@@ -245,7 +238,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
         <footer class="main-footer">
             <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                 <strong><i class="fa fa-fw fa-code-fork"></i></strong>
-                <?= $settings['version'] ?><br />
+                <?= $_ENV['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
             Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.

@@ -1,8 +1,8 @@
 <?php
-if ($settings['enable_rechapa2'] == "true") {
-  $recaptcha = new \ReCaptcha\ReCaptcha($settings['rechapa2_site_secret']);
+if ($_ENV['enable_rechapa2'] == "true") {
+  $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['rechapa2_site_secret']);
 }
-if ($settings['enable_registration'] == "false") {
+if ($_ENV['enable_registration'] == "false") {
   header('location: login');
 }
 $lifetime = 30 * 24 * 60 * 60;
@@ -21,13 +21,13 @@ if (isset($_SESSION['SESSION_EMAIL'])) {
   header("Location: /dashboard");
   die();
 }
-if ($settings['enable_smtp'] == "true") {
-  $smtp_host = $settings['smtp_host'];
-  $smtp_username = $settings['smtp_user'];
-  $smtp_password = $settings['smtp_password'];
-  $smtp_port = $settings['smtp_port'];
-  $smtp_from = $settings['smtp_from'];
-  $name = $settings['smtp_from_name'];
+if ($_ENV['enable_smtp'] == "true") {
+  $smtp_host = $_ENV['smtp_host'];
+  $smtp_username = $_ENV['smtp_user'];
+  $smtp_password = $_ENV['smtp_password'];
+  $smtp_port = $_ENV['smtp_port'];
+  $smtp_from = $_ENV['smtp_from'];
+  $name = $_ENV['smtp_from_name'];
 }
 $length = 16;
 $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -46,34 +46,34 @@ $msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($csrf->validate('register-form')) {
     if (isset($_POST['submit'])) {
-      if ($settings['enable_rechapa2'] == "false") {
+      if ($_ENV['enable_rechapa2'] == "false") {
         $name = mysqli_real_escape_string($conn, $_POST['name']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, md5($_POST['password']));
         $confirm_password = mysqli_real_escape_string($conn, md5($_POST['confirm-password']));
-        if ($settings['enable_smtp'] == "true") {
+        if ($_ENV['enable_smtp'] == "true") {
           $code = mysqli_real_escape_string($conn, md5(rand()));
         } else {
           $code = "null";
         }
 
-        if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE email='" . $email . "'")) > 0) {
+        if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE email='" . $email . "'")) > 0) {
           $msg = "<div class='alert alert-danger'>" . $email . " - This email address is in use.</div>";
         }
-        if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE username='" . $name . "'")) > 0) {
+        if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE username='" . $name . "'")) > 0) {
           $msg = "<div class='alert alert-danger'>" . $name . " - This username is in use.</div>";
         } else {
           if ($password === $confirm_password) {
             $default = "https://www.gravatar.com/avatar/00000000000000000000000000000000";
             $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default);
 
-            $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
+            $sql = "INSERT INTO mythicalpics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'MythicalShare', 'MythicalPics is the best image sharing software out there!' ,'A free image hosting service')";
             $result = mysqli_query($conn, $sql);
 
             if ($result) {
               echo "<div style='display: none;'>";
               //Create an instance; passing `true` enables exceptions
-              if ($settings['enable_smtp'] == "true") {
+              if ($_ENV['enable_smtp'] == "true") {
                 $mail = new PHPMailer(true);
 
                 try {
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   //Content
                   $mail->isHTML(true); //Set email format to HTML
                   $mail->Subject = 'no reply';
-                  $mail->Body = 'Here is the verification link <b><a href="' . $settings["app_proto"] . $settings["app_url"] . '/auth/login/?verification=' . $code . '">' . $settings["app_proto"] . $settings["app_url"] . '/auth/login/?verification=' . $code . '</a></b>';
+                  $mail->Body = 'Here is the verification link <b><a href="https://' . $_ENV["app_url"] . '/auth/login/?verification=' . $code . '">https://' . $_ENV["app_url"] . '/auth/login/?verification=' . $code . '</a></b>';
 
                   $mail->send();
                   echo 'Message has been sent';
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $msg = "<div class='alert alert-info'>We've send a verification link on your email address.</div>";
               } else {
                 echo "</div>";
-                $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
+                $msg = "<div class='alert alert-info'>Thanks for using " . $_ENV['app_name'] . "</div>";
                 header('location: /auth/login');
               }
 
@@ -126,29 +126,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $email = mysqli_real_escape_string($conn, $_POST['email']);
           $password = mysqli_real_escape_string($conn, md5($_POST['password']));
           $confirm_password = mysqli_real_escape_string($conn, md5($_POST['confirm-password']));
-          if ($settings['enable_smtp'] == "true") {
+          if ($_ENV['enable_smtp'] == "true") {
             $code = mysqli_real_escape_string($conn, md5(rand()));
           } else {
             $code = "null";
           }
 
-          if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE email='" . $email . "'")) > 0) {
+          if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE email='" . $email . "'")) > 0) {
             $msg = "<div class='alert alert-danger'>" . $email . " - This email address is in use.</div>";
           }
-          if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE username='" . $name . "'")) > 0) {
+          if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE username='" . $name . "'")) > 0) {
             $msg = "<div class='alert alert-danger'>" . $name . " - This username is in use.</div>";
           } else {
             if ($password === $confirm_password) {
               $default = "https://www.gravatar.com/avatar/00000000000000000000000000000000";
               $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default);
 
-              $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
+              $sql = "INSERT INTO mythicalpics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'MythicalPics', 'MythicalPics is the best image sharing platform out there using sharex' ,'A free image hosting service')";
               $result = mysqli_query($conn, $sql);
 
               if ($result) {
                 echo "<div style='display: none;'>";
                 //Create an instance; passing `true` enables exceptions
-                if ($settings['enable_smtp'] == "true") {
+                if ($_ENV['enable_smtp'] == "true") {
                   $mail = new PHPMailer(true);
 
                   try {
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     //Content
                     $mail->isHTML(true); //Set email format to HTML
                     $mail->Subject = 'no reply';
-                    $mail->Body = 'Here is the verification link <b><a href="' . $settings["app_proto"] . $settings["app_url"] . '/auth/login/?verification=' . $code . '">' . $settings["app_proto"] . $settings["app_url"] . '/auth/login/?verification=' . $code . '</a></b>';
+                    $mail->Body = 'Here is the verification link <b><a href="https://'. $_ENV["app_url"] . '/auth/login/?verification=' . $code . '">https://' . $_ENV["app_url"] . '/auth/login/?verification=' . $code . '</a></b>';
 
                     $mail->send();
                     echo 'Message has been sent';
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   $msg = "<div class='alert alert-info'>We've send a verification link on your email address.</div>";
                 } else {
                   echo "</div>";
-                  $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
+                  $msg = "<div class='alert alert-info'>Thanks for using " . $_ENV['app_name'] . "</div>";
                   header('location: /auth/login');
                 }
 
@@ -226,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <title>
-    <?= $settings['app_name'] ?> | Register
+    <?= $_ENV['app_name'] ?> | Register
   </title>
   <!-- CSS files -->
   <link href="/dist/css/tabler.min.css" rel="stylesheet" />
@@ -288,12 +288,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
           </div>
           <?php
-          if ($settings['enable_rechapa2'] == "true") {
+          if ($_ENV['enable_rechapa2'] == "true") {
             ?>
             <div class="text-center">
               <div class="input-group input-group-flat" style="max-width: 300px; margin: 0 auto;">
                 <br>
-                <div class="g-recaptcha" data-sitekey="<?= $settings['rechapa2_site_key'] ?>"></div>
+                <div class="g-recaptcha" data-sitekey="<?= $_ENV['rechapa2_site_key'] ?>"></div>
               </div>
             </div>
             <br>
@@ -329,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="/dist/js/demo.min.js" defer></script>
   <script src="./dist/js/preloader.js" defer></script>
   <?php
-  if ($settings['enable_rechapa2'] == "true") {
+  if ($_ENV['enable_rechapa2'] == "true") {
     ?>
     <script>
       $('form').submit(function (e) {

@@ -1,14 +1,14 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
 }
 if (isset($_GET['revoke-key'])) {
     $keyid = $_GET['revoke-key'];
-    mysqli_query($conn, "DELETE FROM atoropics_apikeys WHERE `atoropics_apikeys`.`id` = " . $keyid . "");
+    mysqli_query($conn, "DELETE FROM mythicalpics_apikeys WHERE `mythicalpics_apikeys`.`id` = " . $keyid . "");
     header('location: /oldadmin/api');
 }
 ?>
@@ -19,14 +19,14 @@ if (isset($_GET['revoke-key'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - API
+        <?= $_ENV['app_name'] ?> - API
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings['app_logo'] ?>">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="16x16">
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $_ENV['app_logo'] ?>">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="16x16">
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>">
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/select2/select2.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
@@ -58,7 +58,7 @@ if (isset($_GET['revoke-key'])) {
         <header class="main-header">
             <a href="/" class="logo">
                 <span>
-                    <?= $settings['app_name'] ?>
+                    <?= $_ENV['app_name'] ?>
                 </span>
             </a>
             <nav class="navbar navbar-static-top">
@@ -127,7 +127,7 @@ if (isset($_GET['revoke-key'])) {
                             </div>
                             <?php
                             $ownerApiKey = $_COOKIE['api_key'];
-                            $sql = "SELECT * FROM atoropics_apikeys WHERE owner_api_key = '$ownerApiKey'";
+                            $sql = "SELECT * FROM mythicalpics_apikeys WHERE owner_api_key = '$ownerApiKey'";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
@@ -170,7 +170,7 @@ if (isset($_GET['revoke-key'])) {
         <footer class="main-footer">
             <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                 <strong><i class="fa fa-fw fa-code-fork"></i></strong>
-                <?= $settings['version'] ?><br />
+                <?= $_ENV['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
             Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.

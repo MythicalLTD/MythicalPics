@@ -2,27 +2,20 @@
 
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 $version = file_get_contents("https://raw.githubusercontent.com/MythicalLTD/mythicalpics/main/version");
-$settingsVersion = trim($settings['version']);
+$_ENVVersion = trim($_ENV['version']);
 $githubVersion = trim($version);
 
 
-$sql_users = "SELECT COUNT(*) AS total_count FROM atoropics_users";
+$sql_users = "SELECT COUNT(*) AS total_count FROM mythicalpics_users";
 $result_users = mysqli_query($conn, $sql_users);
 $row_users = mysqli_fetch_assoc($result_users);
 
-$sql_domains = "SELECT COUNT(*) AS total_count FROM atoropics_domains";
-$result_domains = mysqli_query($conn, $sql_domains);
-$row_domains = mysqli_fetch_assoc($result_domains);
-
-$sql_imgs = "SELECT COUNT(*) AS total_count FROM atoropics_imgs";
+$sql_imgs = "SELECT COUNT(*) AS total_count FROM mythicalpics_imgs";
 $result_imgs = mysqli_query($conn, $sql_imgs);
 $row_imgs = mysqli_fetch_assoc($result_imgs);
 
-$sql_nodes = "SELECT COUNT(*) AS total_count FROM atoropics_nodes";
-$result_nodes = mysqli_query($conn, $sql_nodes);
-$row_nodes = mysqli_fetch_assoc($result_nodes);
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -36,14 +29,14 @@ if ($userdb['admin'] == "false") {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - Administration
+        <?= $_ENV['app_name'] ?> - Administration
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings['app_logo'] ?>">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="16x16">
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $_ENV['app_logo'] ?>">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="16x16">
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>">
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/select2/select2.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
@@ -75,7 +68,7 @@ if ($userdb['admin'] == "false") {
         <header class="main-header">
             <a href="/" class="logo">
                 <span>
-                    <?= $settings['app_name'] ?>
+                    <?= $_ENV['app_name'] ?>
                 </span>
             </a>
             <nav class="navbar navbar-static-top">
@@ -139,14 +132,14 @@ if ($userdb['admin'] == "false") {
                 <div class="row">
                     <div class="col-xs-12">
                         <?php
-                        if ($settingsVersion === $githubVersion) {
+                        if ($_ENVVersion === $githubVersion) {
                             ?>
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">System Information</h3>
                                 </div>
                                 <div class="box-body">
-                                    You are running MythicalPics version <code><?= $settings['version'] ?></code>. Your
+                                    You are running MythicalPics version <code><?= $_ENV['version'] ?></code>. Your
                                     system
                                     is up-to-date!
                                 </div>
@@ -160,7 +153,7 @@ if ($userdb['admin'] == "false") {
                                 </div>
                                 <div class="box-body">
                                     You are not up-to-date please update your MythicalPics panel, your version is:
-                                    <code><?= $settings['version'] ?></code>.
+                                    <code><?= $_ENV['version'] ?></code>.
                                 </div>
                             </div>
                             <?php
@@ -212,7 +205,7 @@ if ($userdb['admin'] == "false") {
                     </div>
                     <div class="box-body text-center">
                         <h3>
-                            <?= $row_domains['total_count'] ?>
+                            REMOVED (EOL)
                         </h3>
                     </div>
                 </div>
@@ -236,7 +229,7 @@ if ($userdb['admin'] == "false") {
                     </div>
                     <div class="box-body text-center">
                         <h3>
-                            <?= $row_nodes['total_count'] ?> (SOON)
+                            0 (SOON)
                         </h3>
                     </div>
                 </div>
@@ -247,7 +240,7 @@ if ($userdb['admin'] == "false") {
         <footer class="main-footer">
             <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                 <strong><i class="fa fa-fw fa-code-fork"></i></strong>
-                <?= $settings['version'] ?><br />
+                <?= $_ENV['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
             Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.

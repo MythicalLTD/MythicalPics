@@ -5,9 +5,9 @@ $apiPage = 20;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * $apiPage;
 $searchCondition = "";
-$user_query = "SELECT * FROM atoropics_apikeys" . $searchCondition . " ORDER BY `id` LIMIT $offset, $apiPage";
+$user_query = "SELECT * FROM mythicalpics_apikeys" . $searchCondition . " ORDER BY `id` LIMIT $offset, $apiPage";
 $result = $conn->query($user_query);
-$totalapikeysQuery = "SELECT COUNT(*) AS total_apikey FROM atoropics_apikeys" . $searchCondition;
+$totalapikeysQuery = "SELECT COUNT(*) AS total_apikey FROM mythicalpics_apikeys" . $searchCondition;
 $totalResult = $conn->query($totalapikeysQuery);
 $totalapikeys = $totalResult->fetch_assoc()['total_apikey'];
 $totalPages = ceil($totalapikeys / $apiPage);
@@ -20,7 +20,7 @@ $totalPages = ceil($totalapikeys / $apiPage);
 <head>
     <?php include(__DIR__ . '/../requirements/head.php'); ?>
     <title>
-        <?= $settings['app_name'] ?> | API Keys
+        <?= $_ENV['app_name'] ?> | API Keys
     </title>
     <style>
         .avatar-image {
@@ -74,7 +74,7 @@ $totalPages = ceil($totalapikeys / $apiPage);
                                                 echo "<tr>";
                                                 echo "<td>" . $row['name'] . "</td>";
                                                 echo "<td><code>" . $row['api_key'] . "</code></td>";
-                                                $check_query = "SELECT * FROM atoropics_users WHERE api_key = '" . $row['owner_api_key'] . "'";
+                                                $check_query = "SELECT * FROM mythicalpics_users WHERE api_key = '" . $row['owner_api_key'] . "'";
                                                 $resulta = mysqli_query($conn, $check_query);
                                                 if (mysqli_num_rows($resulta) > 0) {
                                                     $userdbinfoa = $resulta->fetch_assoc();

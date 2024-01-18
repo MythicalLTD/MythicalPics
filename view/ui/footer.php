@@ -4,8 +4,8 @@
             <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                        <a href="" class="link-secondary" rel="noopener">
-                            <?= $settings['version']?>
+                        <a href="https://github.com/mythicalltd/mythicalpics" class="link-secondary" rel="noopener">
+                            <?= $_ENV['version']?>
                         </a>
                     </li>
                 </ul>
@@ -13,9 +13,9 @@
             <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                        Copyright &copy; 2023
+                        Copyright &copy; 2019-2024
                         <a href="https://github.com/mythicalltd" class="link-secondary">MythicalSystems</a>.
-                        All rights reserved.
+                        All rights not reserved from (20.01.2024).
                     </li>
 
                 </ul>

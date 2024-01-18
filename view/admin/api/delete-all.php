@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include(__DIR__ . '/../requirements/page.php');
 if ($userdb['admin'] == "true") {
-    $query2 = "SELECT name FROM atoropics_imgs";
+    $query2 = "SELECT name FROM mythicalpics_imgs";
     $results2 = mysqli_query($conn, $query2);
     
     if ($results2 !== false && mysqli_num_rows($results2) > 0) {
@@ -24,7 +24,7 @@ if ($userdb['admin'] == "true") {
                     }
                 }
 
-                $conn->query("DELETE FROM atoropics_imgs WHERE name = '$name'");
+                $conn->query("DELETE FROM mythicalpics_imgs WHERE name = '$name'");
             }
         }
         echo json_encode(array('status' => 'success', 'message' => 'All images deleted successfully'));

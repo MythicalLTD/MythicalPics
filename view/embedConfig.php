@@ -1,7 +1,7 @@
 <?php
 
 require('../class/session.php');
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . "'")->fetch_array();
 require('../class/maintenance.php');
 $usrname = $userdb['username'];
 $username = $userdb['username'];
@@ -11,7 +11,7 @@ $small_title = $userdb['embed_small_title'];
 $embed_theme = $userdb['embed_theme'];
 $embed_desc = $userdb['embed_desc'];
 
-$result = mysqli_query($conn, "SELECT * FROM atoropics_imgs");
+$result = mysqli_query($conn, "SELECT * FROM mythicalpics_imgs");
 
 include(__DIR__ . '/csrf.php');
 $csrf = new CSRF();
@@ -22,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $desc = $_POST['desc'];
       $small_title = $_POST['embed_small_title'];
       $colour = $_POST['colour'];
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_title="' . $title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_desc="' . $desc . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_small_title="' . $small_title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
-      mysqli_query($conn, 'UPDATE atoropics_users SET embed_theme="' . $colour . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_title="' . $title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_desc="' . $desc . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_small_title="' . $small_title . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
+      mysqli_query($conn, 'UPDATE mythicalpics_users SET embed_theme="' . $colour . '" WHERE api_key="' . mysqli_real_escape_string($conn, $_COOKIE["api_key"]) . '"');
       header('location: /config');
     }
   } else {
@@ -33,18 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-$query = "SELECT * FROM `atoropics_domains` WHERE `ownerkey` = '" . $_COOKIE['api_key'] . "'";
 $result = mysqli_query($conn, $query);
 
-$options = '';
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    $domain = $row['domain'];
-    $options .= "<option value='$domain'>$domain</option>";
-  }
-} else {
-  $options = "<option disabled>No domains found</option>";
-}
+
 ?>
 
 <!doctype html>
@@ -63,7 +54,7 @@ if (mysqli_num_rows($result) > 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>
-    <?= $settings['app_name'] ?> | Embed
+    <?= $_ENV['app_name'] ?> | Embed
   </title>
   <script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
   <meta name="msapplication-TileColor" content="" />
@@ -73,8 +64,8 @@ if (mysqli_num_rows($result) > 0) {
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
-  <link rel="icon" href="<?= $settings['app_logo'] ?>" type="image/x-icon" />
-  <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>" type="image/x-icon" />
+  <link rel="icon" href="<?= $_ENV['app_logo'] ?>" type="image/x-icon" />
+  <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>" type="image/x-icon" />
   <!-- CSS files -->
   <link href="/dist/css/tabler.min.css" rel="stylesheet" />
   <link href="/dist/css/tabler-flags.min.css" rel="stylesheet" />
@@ -114,7 +105,7 @@ if (mysqli_num_rows($result) > 0) {
         </button>
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
           <a href=".">
-            <?= $settings['app_name'] ?>
+            <?= $_ENV['app_name'] ?>
           </a>
         </h1>
         <?php
@@ -148,19 +139,13 @@ if (mysqli_num_rows($result) > 0) {
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Image Title</label>
-                              <input type="text" class="form-control" name="title" placeholder="AtoroShare" name="title"
+                              <input type="text" class="form-control" name="title" placeholder="MythicalPics" name="title"
                                 value="<?= $desc_title ?>" required>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Image Description</label>
                               <textarea type="text" class="form-control" name="desc" rows="4" name="desc"
                                 placeholder="My cool image hosting site..." required><?= $embed_desc ?></textarea>
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Domain</label>
-                              <select class="form-select">
-                                <?php echo $options; ?>
-                              </select>
                             </div>
                             <label class="form-label">Image Embed Colour</label>
                             <div class="input-group mt-2">
@@ -201,11 +186,11 @@ if (mysqli_num_rows($result) > 0) {
                           <h5 class="mb-0 mt-0" readonly>
                             <?php echo $small_title ?>
                             <h5>
-                              <input type="text" class="card-title embedViewer-input mb-0 mt-2" name="embedViewer_title"
-                                id="embedViewer_title" placeholder="<?php echo $desc_title ?>" readonly>
+                              <p type="text" class="card-title embedViewer-input mb-0 mt-2" name="embedViewer_title"
+                                id="embedViewer_title" placeholder=""><?php echo $desc_title ?></p>
                               <textarea class="embedViewer-input mb-0" name="embedViewer_description"
                                 id="embedViewer_description" placeholder="Embed description..."
-                                readonly><?php echo $embed_desc ?></textarea>
+                                readonly locked disabled><?php echo $embed_desc ?></textarea>
                               <div style="text-align: left; margin-top: 15px;"><img class="img-fluid"
                                   id="embedViewer_image"
                                   src="https://cdn.discordapp.com/attachments/1037824534880993310/1106309882677825696/New.png"

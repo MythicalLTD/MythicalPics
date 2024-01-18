@@ -4,13 +4,13 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['create_user'])) {
-    if ($settings['enable_smtp'] == "true") {
-        $smtp_host = $settings['smtp_host'];
-        $smtp_username = $settings['smtp_user'];
-        $smtp_password = $settings['smtp_password'];
-        $smtp_port = $settings['smtp_port'];
-        $smtp_from = $settings['smtp_from'];
-        $name = $settings['smtp_from_name'];
+    if ($_ENV['enable_smtp'] == "true") {
+        $smtp_host = $_ENV['smtp_host'];
+        $smtp_username = $_ENV['smtp_user'];
+        $smtp_password = $_ENV['smtp_password'];
+        $smtp_port = $_ENV['smtp_port'];
+        $smtp_from = $_ENV['smtp_from'];
+        $name = $_ENV['smtp_from_name'];
     }
     $length = 16;
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -29,27 +29,27 @@ if (isset($_POST['create_user'])) {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-    if ($settings['enable_smtp'] == "true") {
+    if ($_ENV['enable_smtp'] == "true") {
         $code = mysqli_real_escape_string($conn, md5(rand()));
     } else {
         $code = "null";
     }
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE email='" . $email . "'")) > 0) {
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE email='" . $email . "'")) > 0) {
         $msg = "<div class='alert alert-danger'>" . $email . " - This email address is in use.</div>";
     }
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE username='" . $name . "'")) > 0) {
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE username='" . $name . "'")) > 0) {
         $msg = "<div class='alert alert-danger'>" . $name . " - This username is in use.</div>";
     } else {
         $default = "https://www.gravatar.com/avatar/00000000000000000000000000000000";
         $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default);
 
-        $sql = "INSERT INTO atoropics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'AtoroShare', '#ffff' ,'A free image hosting service')";
+        $sql = "INSERT INTO mythicalpics_users (username, avatar, email, password, code, last_ip, register_ip, api_key, admin, embed_title, embed_desc, embed_theme) VALUES ('" . $name . "', '{$grav_url}', '" . $email . "', '{$password}', '{$code}', '{$ip_addres}', '{$ip_addres}', '{$key}', 'false', 'MythicalPics', 'MythicalPics is the best sharex imagine hosting platform' ,'A free image hosting service')";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
             echo "<div style='display: none;'>";
             //Create an instance; passing `true` enables exceptions
-            if ($settings['enable_smtp'] == "true") {
+            if ($_ENV['enable_smtp'] == "true") {
                 $mail = new PHPMailer(true);
 
                 try {
@@ -70,7 +70,7 @@ if (isset($_POST['create_user'])) {
                     //Content
                     $mail->isHTML(true); //Set email format to HTML
                     $mail->Subject = 'no reply';
-                    $mail->Body = 'Here is the verification link <b><a href="'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '">'.$settings["app_proto"]. $settings["app_url"].'/auth/login/?verification=' . $code . '</a></b>';
+                    $mail->Body = 'Here is the verification link <b><a href="https://'. $_ENV["app_url"].'/auth/login/?verification=' . $code . '">https://'. $_ENV["app_url"].'/auth/login/?verification=' . $code . '</a></b>';
 
                     $mail->send();
                     echo 'Message has been sent';
@@ -81,7 +81,7 @@ if (isset($_POST['create_user'])) {
                 $msg = "<div class='alert alert-info'>We've send a verification link on your email address.</div>";
             } else {
                 echo "</div>";
-                $msg = "<div class='alert alert-info'>Thanks for using " . $settings['app_name'] . "</div>";
+                $msg = "<div class='alert alert-info'>Thanks for using " . $_ENV['app_name'] . "</div>";
                 header('location: /admin/users');
             }
 
@@ -99,7 +99,7 @@ if (isset($_POST['create_user'])) {
 <head>
     <?php include(__DIR__ . '/../requirements/head.php'); ?>
     <title>
-        <?= $settings['app_name'] ?> | Users
+        <?= $_ENV['app_name'] ?> | Users
     </title>
 </head>
 

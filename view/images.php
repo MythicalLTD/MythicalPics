@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE email = '" . mysqli_real_escape_string($conn, $_SESSION["SESSION_EMAIL"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE email = '" . mysqli_real_escape_string($conn, $_SESSION["SESSION_EMAIL"]) . "'")->fetch_array();
 require('../class/maintenance.php');
 $usrname = $userdb['username'];
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -13,7 +13,7 @@ $perPage = 12;
 $offset = ($page - 1) * $perPage;
 
 // Retrieve the images with the calculated offset and limit
-$result = mysqli_query($conn, "SELECT * FROM atoropics_imgs WHERE owner_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "' ORDER BY id DESC LIMIT $offset, $perPage");
+$result = mysqli_query($conn, "SELECT * FROM mythicalpics_imgs WHERE owner_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "' ORDER BY id DESC LIMIT $offset, $perPage");
 ?>
 
 <!doctype html>
@@ -32,7 +32,7 @@ $result = mysqli_query($conn, "SELECT * FROM atoropics_imgs WHERE owner_key = '"
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>
-    <?= $settings['app_name'] ?> | Dashboard
+    <?= $_ENV['app_name'] ?> | Dashboard
   </title>
   <script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
   <meta name="msapplication-TileColor" content="" />
@@ -42,8 +42,8 @@ $result = mysqli_query($conn, "SELECT * FROM atoropics_imgs WHERE owner_key = '"
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
-  <link rel="icon" href="<?= $settings['app_logo'] ?>" type="image/x-icon" />
-  <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>" type="image/x-icon" />
+  <link rel="icon" href="<?= $_ENV['app_logo'] ?>" type="image/x-icon" />
+  <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>" type="image/x-icon" />
   <!-- CSS files -->
   <link href="/dist/css/tabler.min.css" rel="stylesheet" />
   <link href="/dist/css/tabler-flags.min.css" rel="stylesheet" />
@@ -84,7 +84,7 @@ $result = mysqli_query($conn, "SELECT * FROM atoropics_imgs WHERE owner_key = '"
 
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
           <a>
-            <?= $settings['app_name'] ?>
+            <?= $_ENV['app_name'] ?>
           </a>
         </h1>
         <?php
@@ -134,9 +134,9 @@ $result = mysqli_query($conn, "SELECT * FROM atoropics_imgs WHERE owner_key = '"
               echo '      </div>';
               echo '    </div>';
               echo '      <div class="card-footer text-end">';
-              echo '        <a target="_blank" href="' . $settings['app_proto'] . $settings['app_url'] . '/api/delete?owner_key=' . $_SESSION["api_key"] . '&imgid=' . $row["name"] . '" class="btn btn-danger">Delete</a>';
+              echo '        <a target="_blank" href="https://' . $_ENV['app_url'] . '/api/delete?owner_key=' . $_SESSION["api_key"] . '&imgid=' . $row["name"] . '" class="btn btn-danger">Delete</a>';
               echo '        <a download href="' . $row["storage_folder"] . '" class="btn btn-primary">Download</a>';
-              echo '        <a href="' . $settings['app_proto'] . $settings['app_url'] . '/i?i=' . $row["name"] . '"  class="btn btn-warning">Link</a>';
+              echo '        <a href="https://' . $_ENV['app_url'] . '/i?i=' . $row["name"] . '"  class="btn btn-warning">Link</a>';
               echo '      </div>';
               echo '  </div>';
               echo '</div>';

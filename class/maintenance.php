@@ -1,5 +1,5 @@
 <?php 
-if ($settings['app_maintenance'] == "false") {
+if ($_ENV['app_maintenance'] == "false") {
     
 }
 else

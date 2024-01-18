@@ -9,9 +9,9 @@ $searchCondition = '';
 if (!empty($searchKeyword)) {
     $searchCondition = " WHERE `username` LIKE '%$searchKeyword%' OR `email` LIKE '%$searchKeyword%'";
 }
-$user_query = "SELECT * FROM atoropics_users" . $searchCondition . " ORDER BY `id` LIMIT $offset, $usersPerPage";
+$user_query = "SELECT * FROM mythicalpics_users" . $searchCondition . " ORDER BY `id` LIMIT $offset, $usersPerPage";
 $result = $conn->query($user_query);
-$totalUsersQuery = "SELECT COUNT(*) AS total_users FROM atoropics_users" . $searchCondition;
+$totalUsersQuery = "SELECT COUNT(*) AS total_users FROM mythicalpics_users" . $searchCondition;
 $totalResult = $conn->query($totalUsersQuery);
 $totalUsers = $totalResult->fetch_assoc()['total_users'];
 $totalPages = ceil($totalUsers / $usersPerPage);
@@ -24,7 +24,7 @@ $totalPages = ceil($totalUsers / $usersPerPage);
 <head>
     <?php include(__DIR__ . '/../requirements/head.php'); ?>
     <title>
-        <?= $settings['app_name'] ?> | Users
+        <?= $_ENV['app_name'] ?> | Users
     </title>
     <style>
         .avatar-image {
@@ -75,7 +75,6 @@ $totalPages = ceil($totalUsers / $usersPerPage);
                                             <th>Username</th>
                                             <th>Email</th>
                                             <th>Admin</th>
-                                            <th>Domains</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -88,17 +87,7 @@ $totalPages = ceil($totalUsers / $usersPerPage);
                                                 echo "<td>" . $row['username'] . "</td>";
                                                 echo "<td>" . $row['email'] . "</td>";
                                                 echo "<td>" . $row['admin'] . "</td>";
-                                                $check_query = "SELECT * FROM atoropics_domains WHERE ownerkey = '" . $row['api_key'] . "'";
-                                                $resulta = mysqli_query($conn, $check_query);
-                                                if (mysqli_num_rows($resulta) > 0) {
-                                                    $userdbinfoa = $resulta->fetch_assoc();
-                                                    $sql_domains = "SELECT COUNT(*) AS total_count FROM atoropics_domains where ownerkey = '".$row['api_key']."';";
-                                                    $result_domains = mysqli_query($conn, $sql_domains);
-                                                    $row_domains = mysqli_fetch_assoc($result_domains);
-                                                    echo '<td><a href="/admin/domains?search=' . $row['api_key'] . '">' . $row_domains['total_count'] . '<a></td>';
-                                                } else {
-                                                    echo '<td>None</td>';
-                                                }
+
                                                 echo "<td><a href=\"/admin/users/edit?id=" . $row['id'] . "\" class=\"btn btn-primary\">Edit</a>&nbsp;<a href=\"/admin/users/delete?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a></td>";
                                                 echo "</tr>";
                                             }

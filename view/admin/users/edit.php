@@ -3,24 +3,24 @@ include(__DIR__ . '/../requirements/page.php');
 
 if (isset($_GET['edit_user'])) {
     if (!$_GET['id'] == "" || !$_GET['edit_user'] == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
+        $user_query = "SELECT * FROM mythicalpics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $userdbdd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $userdbdd = $conn->query("SELECT * FROM mythicalpics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
             $email = mysqli_real_escape_string($conn, $_GET['email']);
             $username = mysqli_real_escape_string($conn, $_GET['username']);
             $avatar = mysqli_real_escape_string($conn, $_GET['avatar']);
             $admin = mysqli_real_escape_string($conn, $_GET['root_admin']);
             if ($admin == "1") {
-                $conn->query("UPDATE `atoropics_users` SET `admin` = 'true' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
+                $conn->query("UPDATE `mythicalpics_users` SET `admin` = 'true' WHERE `mythicalpics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
             } else if ($admin == "0") {
-                $conn->query("UPDATE `atoropics_users` SET `admin` = 'false' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
+                $conn->query("UPDATE `mythicalpics_users` SET `admin` = 'false' WHERE `mythicalpics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
             }
             if ($email !== "" && $email !== $userdbdd['email']) {
-                $user_query = "SELECT * FROM atoropics_users WHERE email = ?";
+                $user_query = "SELECT * FROM mythicalpics_users WHERE email = ?";
                 $stmt = mysqli_prepare($conn, $user_query);
                 mysqli_stmt_bind_param($stmt, "s", $email);
                 mysqli_stmt_execute($stmt);
@@ -29,11 +29,11 @@ if (isset($_GET['edit_user'])) {
                     header('location: /admin/users?e=Email is already taken in the database&id='.$_GET['id']);
                     die();
                 }
-                $conn->query("UPDATE `atoropics_users` SET `email` = '" . $email . "' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
+                $conn->query("UPDATE `mythicalpics_users` SET `email` = '" . $email . "' WHERE `mythicalpics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
             }
             
             if ($username !== "" && $username !== $userdbdd['username']) {
-                $user_query = "SELECT * FROM atoropics_users WHERE username = ?";
+                $user_query = "SELECT * FROM mythicalpics_users WHERE username = ?";
                 $stmt = mysqli_prepare($conn, $user_query);
                 mysqli_stmt_bind_param($stmt, "s", $username);
                 mysqli_stmt_execute($stmt);
@@ -42,11 +42,11 @@ if (isset($_GET['edit_user'])) {
                     header('location: /admin/users?e=Username is already taken in the database&id='.$_GET['id']);
                     die();
                 }
-                $conn->query("UPDATE `atoropics_users` SET `username` = '" . $username . "' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
+                $conn->query("UPDATE `mythicalpics_users` SET `username` = '" . $username . "' WHERE `mythicalpics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
             }
             
             if (!$avatar == "") {
-                $conn->query("UPDATE `atoropics_users` SET `avatar` = '" . $avatar . "' WHERE `atoropics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
+                $conn->query("UPDATE `mythicalpics_users` SET `avatar` = '" . $avatar . "' WHERE `mythicalpics_users`.`id` = " . mysqli_real_escape_string($conn, $_GET["id"]) . ";");
             } 
             header('location: /admin/users/edit?id=' . mysqli_real_escape_string($conn, $_GET["id"]));
             $conn->close();
@@ -58,7 +58,7 @@ if (isset($_GET['edit_user'])) {
     }
 } else if (isset($_GET['reest_key'])) {
     if (!$_GET['id'] == "" && !$_GET['reest_key'] == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
+        $user_query = "SELECT * FROM mythicalpics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
@@ -76,14 +76,14 @@ if (isset($_GET['edit_user'])) {
             $formatted_timestamp = date("HisdmY", $timestamp);
             $encoded_timestamp = base64_encode($formatted_timestamp);
             $key = $encoded_timestamp . implode($pass);
-            $conn->query("UPDATE `atoropics_users` SET `api_key` = '".$key."' WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn,$_GET['id']).";");
+            $conn->query("UPDATE `mythicalpics_users` SET `api_key` = '".$key."' WHERE `mythicalpics_users`.`id` = ".mysqli_real_escape_string($conn,$_GET['id']).";");
             $conn->close();
             header('location: /admin/users/edit?id='.$_GET['id'].'&s=We updated the api key for the user!');
         } 
     } 
 } else if (isset($_GET['reset_password'])) {
     if (!$_GET['id'] == "" && !$_GET['reset_password'] == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
+        $user_query = "SELECT * FROM mythicalpics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
@@ -91,20 +91,20 @@ if (isset($_GET['edit_user'])) {
         if (mysqli_num_rows($result) > 0) {
             $pwd = mysqli_real_escape_string($conn,$_GET['pwd']);
             $password = md5($pwd);
-            $conn->query("UPDATE `atoropics_users` SET `password` = '".$password."' WHERE `atoropics_users`.`id` = ".mysqli_real_escape_string($conn,$_GET['id']).";");
+            $conn->query("UPDATE `mythicalpics_users` SET `password` = '".$password."' WHERE `mythicalpics_users`.`id` = ".mysqli_real_escape_string($conn,$_GET['id']).";");
             $conn->close();
             header('location: /admin/users/edit?id='.$_GET['id'].'&s=We updated the password for the user!');
         } 
     } 
 } else if (isset($_GET['id'])) {
     if (!mysqli_real_escape_string($conn, $_GET["id"]) == "") {
-        $user_query = "SELECT * FROM atoropics_users WHERE id = ?";
+        $user_query = "SELECT * FROM mythicalpics_users WHERE id = ?";
         $stmt = mysqli_prepare($conn, $user_query);
         mysqli_stmt_bind_param($stmt, "s", $_GET['id']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if (mysqli_num_rows($result) > 0) {
-            $userdbdd = $conn->query("SELECT * FROM atoropics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
+            $userdbdd = $conn->query("SELECT * FROM mythicalpics_users WHERE id = '" . mysqli_real_escape_string($conn, $_GET["id"]) . "'")->fetch_array();
         }
     } else {
         header('location: /admin/users');
@@ -122,7 +122,7 @@ if (isset($_GET['edit_user'])) {
 <head>
     <?php include(__DIR__ . '/../requirements/head.php'); ?>
     <title>
-        <?= $settings['app_name'] ?> | Users
+        <?= $_ENV['app_name'] ?> | Users
     </title>
 </head>
 

@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -9,8 +9,8 @@ if ($userdb['admin'] == "false") {
 if (isset($_POST['update_settings'])) {
     $app_name = $_POST['app:name'];
     $app_logo = $_POST['app:logo'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_name` = '" . $app_name . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_name` = '" . $app_name . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_logo` = '" . $app_logo . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /oldadmin/settings');
 }
 ?>
@@ -21,14 +21,14 @@ if (isset($_POST['update_settings'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - Settings
+        <?= $_ENV['app_name'] ?> - Settings
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings['app_logo'] ?>">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="16x16">
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $_ENV['app_logo'] ?>">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="16x16">
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>">
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/select2/select2.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
@@ -60,7 +60,7 @@ if (isset($_POST['update_settings'])) {
         <header class="main-header">
             <a href="/" class="logo">
                 <span>
-                    <?= $settings['app_name'] ?>
+                    <?= $_ENV['app_name'] ?>
                 </span>
             </a>
             <nav class="navbar navbar-static-top">
@@ -143,7 +143,7 @@ if (isset($_POST['update_settings'])) {
                                             <label class="control-label">Company Name</label>
                                             <div>
                                                 <input type="text" class="form-control" name="app:name"
-                                                    value="<?= $settings['app_name'] ?>">
+                                                    value="<?= $_ENV['app_name'] ?>">
                                                 <p class="text-muted"><small>This is the name that is used throughout
                                                         the panel and in emails sent to clients.</small></p>
                                             </div>
@@ -152,7 +152,7 @@ if (isset($_POST['update_settings'])) {
                                             <label class="control-label">Company Logo</label>
                                             <div>
                                                 <input type="text" class="form-control" name="app:logo"
-                                                    value="<?= $settings['app_logo'] ?>">
+                                                    value="<?= $_ENV['app_logo'] ?>">
                                                 <p class="text-muted"><small>This is the logo that is used to display
                                                         the favicon and in the ui.</small></p>
                                             </div>
@@ -172,7 +172,7 @@ if (isset($_POST['update_settings'])) {
         <footer class="main-footer">
             <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                 <strong><i class="fa fa-fw fa-code-fork"></i></strong>
-                <?= $settings['version'] ?><br />
+                <?= $_ENV['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
             Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.

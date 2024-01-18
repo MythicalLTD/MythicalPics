@@ -1,21 +1,15 @@
 <?php
 include('requirements/page.php');
 
-$sql_users = "SELECT COUNT(*) AS total_count FROM atoropics_users";
+$sql_users = "SELECT COUNT(*) AS total_count FROM mythicalpics_users";
 $result_users = mysqli_query($conn, $sql_users);
 $row_users = mysqli_fetch_assoc($result_users);
 
-$sql_domains = "SELECT COUNT(*) AS total_count FROM atoropics_domains";
-$result_domains = mysqli_query($conn, $sql_domains);
-$row_domains = mysqli_fetch_assoc($result_domains);
 
-$sql_imgs = "SELECT COUNT(*) AS total_count FROM atoropics_imgs";
+$sql_imgs = "SELECT COUNT(*) AS total_count FROM mythicalpics_imgs";
 $result_imgs = mysqli_query($conn, $sql_imgs);
 $row_imgs = mysqli_fetch_assoc($result_imgs);
 
-//$sql_nodes = "SELECT COUNT(*) AS total_count FROM atoropics_nodes";
-//$result_nodes = mysqli_query($conn, $sql_nodes);
-//$row_nodes = mysqli_fetch_assoc($result_nodes);
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +20,7 @@ $row_imgs = mysqli_fetch_assoc($result_imgs);
 <head>
     <?php include('requirements/head.php'); ?>
     <title>
-        <?= $settings['app_name'] ?> | Dashboard
+        <?= $_ENV['app_name'] ?> | Dashboard
     </title>
 </head>
 
@@ -88,7 +82,7 @@ $row_imgs = mysqli_fetch_assoc($result_imgs);
                                                 </div>
                                                 <div class="card-info">
                                                     <h5 class="mb-0">
-                                                        <?= $row_domains['total_count'] ?>
+                                                        REMOVED (EOL)
                                                     </h5>
                                                     <small>Total Domains</small>
                                                 </div>

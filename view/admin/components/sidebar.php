@@ -14,7 +14,7 @@ function is_active_page($page_urls)
   <div class="app-brand demo">
     <a href="/" class="app-brand-link">
       <span class="app-brand-text demo menu-text fw-bold">
-        <?= $settings['app_name'] ?>
+        <?= $_ENV['app_name'] ?>
       </span>
     </a>
   </div>
@@ -31,25 +31,25 @@ function is_active_page($page_urls)
         <div>Overview</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/admin/settings']) ? 'active' : ''; ?>">
-      <a href="/admin/settings" class="menu-link">
+    <li class="menu-item disabled">
+      <a href="#" class="menu-link">
         <i class="menu-icon tf-icons ti ti-settings"></i>
         <div>Settings</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/admin/api']) ? 'active' : ''; ?>">
-      <a href="/admin/api" class="menu-link">
+    <li class="menu-item disabled">
+      <a href="#" class="menu-link">
         <i class="menu-icon tf-icons ti ti-device-gamepad-2"></i>
-        <div>Application API</div>
+        <div>Application API (EOL)</div>
       </a>
     </li>
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">MANAGEMENT</span>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/admin/domains']) ? 'active' : ''; ?>">
-      <a href="/admin/domains" class="menu-link">
+    <li class="menu-item disabled">
+      <a href="#" class="menu-link">
         <i class="menu-icon tf-icons ti ti-server-2"></i>
-        <div>Domains</div>
+        <div>Domains (Security Issues)</div>
       </a>
     </li>
     <li class="menu-item <?php echo is_active_page(['/admin/users']) ? 'active' : ''; ?>">
@@ -58,10 +58,10 @@ function is_active_page($page_urls)
         <div>Users</div>
       </a>
     </li>
-    <li class="menu-item <?php echo is_active_page(['/admin/reports']) ? 'active' : ''; ?>">
-      <a href="/admin/reports" class="menu-link">
+    <li class="menu-item disabled">
+      <a href="#" class="menu-link">
         <i class="menu-icon tf-icons ti ti-flag"></i>
-        <div>Reports (SOON)</div>
+        <div>Reports (EOL)</div>
       </a>
     </li>
   </ul>

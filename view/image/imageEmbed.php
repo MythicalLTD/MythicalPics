@@ -19,9 +19,9 @@ if (isset($_GET['i'])) {
         <link rel="stylesheet" href="./dist/css/argon.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.3/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>">
+        <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>">
         <title>
-          <?= $settings['app_name'] ?> |
+          <?= $_ENV['app_name'] ?> |
           <?= $data['title'] ?>
         </title>
         <meta property="twitter:card" content="summary_large_image" />
@@ -40,7 +40,7 @@ if (isset($_GET['i'])) {
           integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link type="application/json+oembed"
-          href="<?php echo $settings['app_proto'] . $settings['app_url'] . '/' . $json_file; ?>" />
+          href="<?php echo 'https://'. $_ENV['app_url'] . '/' . $json_file; ?>" />
         <link href="./dist/css/preloader.css" rel="stylesheet" />
       </head>
 
@@ -122,14 +122,14 @@ if (isset($_GET['i'])) {
       </html>
     <?php
     } else {
-      echo '<script>window.location.replace("' . $settings['app_proto'] . $settings['app_url'] . '");</script>';
+      echo '<script>window.location.replace("https://' . $_ENV['app_url'] . '");</script>';
       die();
     }
   } else {
-    echo '<script>window.location.replace("' . $settings['app_proto'] . $settings['app_url'] . '");</script>';
+    echo '<script>window.location.replace("https://' . $_ENV['app_url'] . '");</script>';
     die();
   }
 } else {
-  echo '<script>window.location.replace("' . $settings['app_proto'] . $settings['app_url'] . '");</script>';
+  echo '<script>window.location.replace("https://'  . $_ENV['app_url'] . '");</script>';
 }
 ?>

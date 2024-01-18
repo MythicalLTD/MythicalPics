@@ -1,14 +1,13 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
 }
 
 if (isset($_POST['saveadvsettings'])) {
-    $app_proto = $_POST['atoropics:settings:proto'];
     $app_maintenance = $_POST['atoropics:settings:maintenance'];
     $app_url = $_POST['atoropics:settings:url'];
     $app_registration = $_POST['registration:enabled'];
@@ -17,15 +16,14 @@ if (isset($_POST['saveadvsettings'])) {
     $app_recaptcha_secret_key = $_POST['recaptcha:secret_key'];
     $app_discord_invite = $_POST['discord:server:invite'];
     $app_discord_webhook = $_POST['discord:webhook'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_proto` = '" . $app_proto . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_maintenance` = '" . $app_maintenance . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `app_url` = '" . $app_url . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_registration` = '" . $app_registration . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_rechapa2` = '" . $app_recaptcha . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_key` = '" . $app_recaptcha_site_key . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_maintenance` = '" . $app_maintenance . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `app_url` = '" . $app_url . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `enable_registration` = '" . $app_registration . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `enable_rechapa2` = '" . $app_recaptcha . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `rechapa2_site_key` = '" . $app_recaptcha_site_key . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `rechapa2_site_secret` = '" . $app_recaptcha_secret_key . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `discord` = '" . $app_discord_invite . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `discord_webhook` = '" . $app_discord_webhook . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /oldadmin/settings/advanced');
 }
 ?>
@@ -36,14 +34,14 @@ if (isset($_POST['saveadvsettings'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - Settings
+        <?= $_ENV['app_name'] ?> - Settings
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings['app_logo'] ?>">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="16x16">
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $_ENV['app_logo'] ?>">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="16x16">
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>">
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/select2/select2.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
@@ -75,7 +73,7 @@ if (isset($_POST['saveadvsettings'])) {
         <header class="main-header">
             <a href="/" class="logo">
                 <span>
-                    <?= $settings['app_name'] ?>
+                    <?= $_ENV['app_name'] ?>
                 </span>
             </a>
             <nav class="navbar navbar-static-top">
@@ -159,7 +157,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <label class="control-label">App Maintenance</label>
                                             <div>
                                                 <?php
-                                                if ($settings['app_maintenance'] == "false") {
+                                                if ($_ENV['app_maintenance'] == "false") {
                                                     ?>
                                                     <select class="form-control" name="atoropics:settings:maintenance">
                                                         <option value="false">Off</option>
@@ -179,35 +177,12 @@ if (isset($_POST['saveadvsettings'])) {
                                                 <p class="text-muted small">The protocol for the app!</p>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-5">
-                                            <label class="control-label">App Protocol</label>
-                                            <div>
-                                                <?php
-                                                if ($settings['app_proto'] == "https://") {
-                                                    ?>
-                                                    <select class="form-control" name="atoropics:settings:proto">
-                                                        <option value="https://">HTTPS</option>
-                                                        <option value="http://">HTTP</option>
-                                                    </select>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <select class="form-control" name="atoropics:settings:proto">
-                                                        <option value="http://">HTTP</option>
-                                                        <option value="https://">HTTPS</option>
-                                                    </select>
-                                                    <?php
-                                                }
-
-                                                ?>
-                                                <p class="text-muted small">The protocol for the app!</p>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group col-md-5">
                                             <label class="control-label">App Domain</label>
                                             <div>
                                                 <input type="text" required="" class="form-control"
-                                                    name="atoropics:settings:url" value="<?= $settings['app_url'] ?>">
+                                                    name="atoropics:settings:url" value="<?= $_ENV['app_url'] ?>">
                                                 <p class="text-muted small">The domain of the application!</p>
                                             </div>
                                         </div>
@@ -224,7 +199,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <label class="control-label">Registration Status</label>
                                             <div>
                                                 <?php
-                                                if ($settings['enable_registration'] == "true") {
+                                                if ($_ENV['enable_registration'] == "true") {
                                                     ?>
                                                     <select class="form-control" name="registration:enabled">
                                                         <option value="true">Enabled</option>
@@ -247,7 +222,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <label class="control-label">reCAPTCHA Status</label>
                                             <div>
                                                 <?php
-                                                if ($settings['enable_rechapa2'] == "true") {
+                                                if ($_ENV['enable_rechapa2'] == "true") {
                                                     ?>
                                                     <select class="form-control" name="recaptcha:enabled">
                                                         <option value="true">Enabled</option>
@@ -271,7 +246,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <div>
                                                 <input type="text" required="" class="form-control"
                                                     name="recaptcha:website_key"
-                                                    value="<?= $settings['rechapa2_site_key'] ?>">
+                                                    value="<?= $_ENV['rechapa2_site_key'] ?>">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4">
@@ -279,7 +254,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <div>
                                                 <input type="text" required="" class="form-control"
                                                     name="recaptcha:secret_key"
-                                                    value="<?= $settings['rechapa2_site_secret'] ?>">
+                                                    value="<?= $_ENV['rechapa2_site_secret'] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -295,7 +270,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <label class="control-label">Discord Server Invite</label>
                                             <div>
                                                 <input type="text" required="" class="form-control"
-                                                    name="discord:server:invite" value="<?= $settings['discord'] ?>">
+                                                    name="discord:server:invite" value="<?= $_ENV['discord'] ?>">
                                                 <p class="text-muted small">The server invite so users will join your
                                                     discord.</p>
                                             </div>
@@ -304,7 +279,7 @@ if (isset($_POST['saveadvsettings'])) {
                                             <label class="control-label">Discord Webhook</label>
                                             <div>
                                                 <input type="password" required="" class="form-control"
-                                                    name="discord:webhook" value="<?= $settings['discord_webhook'] ?>">
+                                                    name="discord:webhook" value="<?= $_ENV['discord_webhook'] ?>">
                                                 <p class="text-muted small">The webhook where we are going to send the
                                                     reports!</p>
                                             </div>
@@ -326,7 +301,7 @@ if (isset($_POST['saveadvsettings'])) {
         <footer class="main-footer">
             <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                 <strong><i class="fa fa-fw fa-code-fork"></i></strong>
-                <?= $settings['version'] ?><br />
+                <?= $_ENV['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
             Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.

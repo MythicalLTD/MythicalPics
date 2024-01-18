@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
 if (isset($_POST['api_key'])) {
-    $query = "SELECT * FROM atoropics_users WHERE api_key='" . mysqli_real_escape_string($conn, $_POST['api_key']) . "'";
+    $query = "SELECT * FROM mythicalpics_users WHERE api_key='" . mysqli_real_escape_string($conn, $_POST['api_key']) . "'";
     $results = mysqli_query($conn, $query);
     if (mysqli_num_rows($results) == 1) {
-        $userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_POST['api_key']) . "'")->fetch_array();
+        $userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_POST['api_key']) . "'")->fetch_array();
         $username = $userdb['username'];
         $desc = $userdb['embed_desc'];
         $desc_tit = $userdb['embed_title'];
@@ -29,7 +29,7 @@ if (isset($_POST['api_key'])) {
                 $lockFile = fopen('lockfile-'.$imgname_c.'.lock', 'w');
                 flock($lockFile, LOCK_EX);
                 if (move_uploaded_file($file['tmp_name'], $upload_folder . $new_name)) {
-                    $imgurl = $settings['app_proto'] . $settings['app_url'] . "/storage/uploads/" . $new_name;
+                    $imgurl = "https://". $_ENV['app_url'] . "/storage/uploads/" . $new_name;
                     $date = date("Y-m-d H:i:s");
                     $filesize = filesize($upload_folder . $new_name);
                     if ($filesize >= 1073741824) {
@@ -53,17 +53,9 @@ if (isset($_POST['api_key'])) {
                     );
                     $json = json_encode($data, JSON_PRETTY_PRINT);
                     file_put_contents("../public/storage/json/" . $imgname_c . '.json', $json);
-                    $query = "SELECT domain FROM atoropics_domains WHERE ownerkey = '" . $userdb['api_key'] . "'";
-                    $result = $conn->query($query);
-                    if ($result) {
-                        $row = $result->fetch_assoc();
-                        $domain = $row['domain'];
-                        echo $settings['app_proto'] . $domain . "/i?i=" . $imgname_c;
-                    } else {
-                        echo $settings['app_proto'] . $settings['app_url'] . "/i?i=" . $imgname_c;
-                    }
+                    echo "https://". $_ENV['app_url'] . "/i?i=" . $imgname_c;
                     $apikey = mysqli_real_escape_string($conn, $_POST['api_key']);
-                    $conn->query("INSERT INTO atoropics_imgs (name, owner_key, size, storage_folder) VALUES ('$imgname_c', '$apikey', '$filesize', '$imgurl')");
+                    $conn->query("INSERT INTO mythicalpics_imgs (name, owner_key, size, storage_folder) VALUES ('$imgname_c', '$apikey', '$filesize', '$imgurl')");
 
                     flock($lockFile, LOCK_UN);
                     fclose($lockFile);

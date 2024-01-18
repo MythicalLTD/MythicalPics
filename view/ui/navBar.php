@@ -55,17 +55,8 @@
                   </span>
                 </a>
               </li>
-              <li class="nav-item <?php
-              if ($current_url == "/domains" || $current_url == "/domain/add")
-              {
-                echo "active";
-              }
-              else
-              {
-                echo "";
-              }
-              ?>">
-                <a class="nav-link" href="/domains">
+              <li class="nav-item disabled">
+                <a class="nav-link disabled" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -75,7 +66,7 @@
                     </path>
                   </svg>
                   <span class="nav-link-title">
-                    &nbsp; Custom Domain
+                    &nbsp; Custom Domain (Disabled)
                   </span>
                 </a>
               </li>

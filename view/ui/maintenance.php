@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maintenance mode -
-        <?= $settings['app_name'] ?>
+        <?= $_ENV['app_name'] ?>
     </title>
     <meta name="msapplication-TileColor" content="" />
     <meta name="theme-color" content="" />
@@ -14,8 +14,8 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
-    <link rel="icon" href="<?= $settings['app_logo'] ?>" type="image/x-icon" />
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>" type="image/x-icon" />
+    <link rel="icon" href="<?= $_ENV['app_logo'] ?>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>" type="image/x-icon" />
     <!-- CSS files -->
     <link href="/dist/css/tabler.min.css" rel="stylesheet" />
     <link href="/dist/css/tabler-flags.min.css" rel="stylesheet" />

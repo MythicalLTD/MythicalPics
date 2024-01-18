@@ -1,7 +1,7 @@
 <?php
 require('../class/session.php');
 
-$userdb = $conn->query("SELECT * FROM atoropics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
+$userdb = $conn->query("SELECT * FROM mythicalpics_users WHERE api_key = '" . mysqli_real_escape_string($conn, $_SESSION["api_key"]) . "'")->fetch_array();
 
 if ($userdb['admin'] == "false") {
     header('location: /');
@@ -15,13 +15,13 @@ if (isset($_POST['saveEmailSettings'])) {
     $mail_password = $_POST['mail:password'];
     $mail_from_address = $_POST['mail:from:address'];
     $mail_from_name = $_POST['mail:from:name'];
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `enable_smtp` = '" . $mail_enable . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_host` = '" . $mail_host . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_port` = '" . $mail_port . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_user` = '" . $mail_username . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_password` = '" . $mail_password . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from` = '" . $mail_from_address . "' WHERE `atoropics_settings`.`id` = 1;");
-    mysqli_query($conn, "UPDATE `atoropics_settings` SET `smtp_from_name` = '" . $mail_from_name . "' WHERE `atoropics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `enable_smtp` = '" . $mail_enable . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_host` = '" . $mail_host . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_port` = '" . $mail_port . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_user` = '" . $mail_username . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_password` = '" . $mail_password . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_from` = '" . $mail_from_address . "' WHERE `mythicalpics_settings`.`id` = 1;");
+    mysqli_query($conn, "UPDATE `mythicalpics_settings` SET `smtp_from_name` = '" . $mail_from_name . "' WHERE `mythicalpics_settings`.`id` = 1;");
     header('location: /oldadmin/settings/mail');
 }
 ?>
@@ -32,14 +32,14 @@ if (isset($_POST['saveEmailSettings'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        <?= $settings['app_name'] ?> - Settings
+        <?= $_ENV['app_name'] ?> - Settings
     </title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings['app_logo'] ?>">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?= $settings['app_logo'] ?>" sizes="16x16">
-    <link rel="shortcut icon" href="<?= $settings['app_logo'] ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $_ENV['app_logo'] ?>">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?= $_ENV['app_logo'] ?>" sizes="16x16">
+    <link rel="shortcut icon" href="<?= $_ENV['app_logo'] ?>">
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/select2/select2.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/bootstrap/bootstrap.min.css" />
     <link media="all" type="text/css" rel="stylesheet" href="/dist/vendor/adminlte/admin.min.css" />
@@ -71,7 +71,7 @@ if (isset($_POST['saveEmailSettings'])) {
         <header class="main-header">
             <a href="/" class="logo">
                 <span>
-                    <?= $settings['app_name'] ?>
+                    <?= $_ENV['app_name'] ?>
                 </span>
             </a>
             <nav class="navbar navbar-static-top">
@@ -155,7 +155,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">SMTP</label>
                                                 <div>
                                                     <?php
-                                                    if ($settings['enable_smtp'] == "true") {
+                                                    if ($_ENV['enable_smtp'] == "true") {
                                                         ?>
                                                         <select name="mail:enable" class="form-control">
                                                             <option value="true">Enable</option>
@@ -178,7 +178,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">SMTP Host</label>
                                                 <div>
                                                     <input required="" type="text" class="form-control" name="mail:host"
-                                                        value="<?= $settings['smtp_host'] ?>">
+                                                        value="<?= $_ENV['smtp_host'] ?>">
                                                     <p class="text-muted small">Enter the SMTP server
                                                         address that mail should be sent through.</p>
                                                 </div>
@@ -187,7 +187,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">SMTP Port</label>
                                                 <div>
                                                     <input required="" type="number" class="form-control"
-                                                        name="mail:port" value="<?= $settings['smtp_port'] ?>">
+                                                        name="mail:port" value="<?= $_ENV['smtp_port'] ?>">
                                                     <p class="text-muted small">Enter the SMTP server
                                                         port that mail should be sent through.</p>
                                                 </div>
@@ -197,7 +197,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                         class="field-optional"></span></label>
                                                 <div>
                                                     <input type="text" class="form-control" name="mail:username"
-                                                        value="<?= $settings['smtp_user'] ?>">
+                                                        value="<?= $_ENV['smtp_user'] ?>">
                                                     <p class="text-muted small">The username to use when
                                                         connecting to the SMTP server.</p>
                                                 </div>
@@ -206,7 +206,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">Password <span
                                                         class="field-optional"></span></label>
                                                 <div>
-                                                    <input type="password" value="<?= $settings['smtp_password'] ?>"
+                                                    <input type="password" value="<?= $_ENV['smtp_password'] ?>"
                                                         class="form-control" name="mail:password">
                                                     <p class="text-muted small">The password to use in
                                                         conjunction with the SMTP username.
@@ -220,7 +220,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                 <label class="control-label">Mail From</label>
                                                 <div>
                                                     <input required="" type="email" class="form-control"
-                                                        name="mail:from:address" value="<?= $settings['smtp_from'] ?>">
+                                                        name="mail:from:address" value="<?= $_ENV['smtp_from'] ?>">
                                                     <p class="text-muted small">Enter an email address
                                                         that all outgoing emails will originate from.
                                                     </p>
@@ -231,7 +231,7 @@ if (isset($_POST['saveEmailSettings'])) {
                                                         class="field-optional"></span></label>
                                                 <div>
                                                     <input type="text" class="form-control" name="mail:from:name"
-                                                        value="<?= $settings['smtp_from_name'] ?>">
+                                                        value="<?= $_ENV['smtp_from_name'] ?>">
                                                     <p class="text-muted small">The name that emails
                                                         should appear to come from.</p>
                                                 </div>
@@ -254,7 +254,7 @@ if (isset($_POST['saveEmailSettings'])) {
         <footer class="main-footer">
             <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                 <strong><i class="fa fa-fw fa-code-fork"></i></strong>
-                <?= $settings['version'] ?><br />
+                <?= $_ENV['version'] ?><br />
                 <strong><i class="fa fa-fw fa-clock-o"></i></strong> <span id="loadtime"></span>
             </div>
             Copyright &copy; 2022 - 2023 <a href="https://mythicalsystems.tech/">MythicalSystems</a>.

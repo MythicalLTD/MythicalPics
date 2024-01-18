@@ -1,6 +1,6 @@
 <?php
-if ($settings['enable_rechapa2'] == "true") {
-  $recaptcha = new \ReCaptcha\ReCaptcha($settings['rechapa2_site_secret']);
+if ($_ENV['enable_rechapa2'] == "true") {
+  $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['rechapa2_site_secret']);
 }
 $lifetime = 30 * 24 * 60 * 60;
 ini_set('session.gc_maxlifetime', $lifetime);
@@ -17,8 +17,8 @@ if (isset($_SESSION['SESSION_EMAIL'])) {
 $msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   if (isset($_GET['verification'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM atoropics_users WHERE code='".$_GET['verification']."'")) > 0) {
-      $query = mysqli_query($conn, "UPDATE atoropics_users SET code='' WHERE code='".$_GET['verification']."'");
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mythicalpics_users WHERE code='".$_GET['verification']."'")) > 0) {
+      $query = mysqli_query($conn, "UPDATE mythicalpics_users SET code='' WHERE code='".$_GET['verification']."'");
 
       if ($query) {
         $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
@@ -31,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($csrf->validate('login-form')) {
     if (isset($_POST['submit'])) {
-      if ($settings['enable_rechapa2'] == "false") {
+      if ($_ENV['enable_rechapa2'] == "false") {
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-        $sql = "SELECT * FROM atoropics_users WHERE email='".$email."' AND password='".$password."'";
+        $sql = "SELECT * FROM mythicalpics_users WHERE email='".$email."' AND password='".$password."'";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) === 1) {
           $row = mysqli_fetch_assoc($result);
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($resp->isSuccess()) {
           $email = mysqli_real_escape_string($conn, $_POST['email']);
           $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-          $sql = "SELECT * FROM atoropics_users WHERE email='".$email."' AND password='".$password."'";
+          $sql = "SELECT * FROM mythicalpics_users WHERE email='".$email."' AND password='".$password."'";
           $result = mysqli_query($conn, $sql);
           if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>
-    <?= $settings['app_name'] ?> | Login
+    <?= $_ENV['app_name'] ?> | Login
   </title>
   <!-- CSS files -->
   <link href="/dist/css/tabler.min.css" rel="stylesheet" />
@@ -194,12 +194,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
             </div>
             <?php
-            if ($settings['enable_rechapa2'] == "true") {
+            if ($_ENV['enable_rechapa2'] == "true") {
               ?>
               <div class="text-center">
                 <div class="input-group input-group-flat" style="max-width: 300px; margin: 0 auto;">
                   <br>
-                  <div class="g-recaptcha" data-sitekey="<?= $settings['rechapa2_site_key'] ?>"></div>
+                  <div class="g-recaptcha" data-sitekey="<?= $_ENV['rechapa2_site_key'] ?>"></div>
                 </div>
               </div>
               <?php
@@ -215,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
       <?php
-        if ($settings['enable_registration'] == "true") {
+        if ($_ENV['enable_registration'] == "true") {
           ?>
           <div class="text-center text-muted mt-3">
             Don't have account yet? <a href="register" tabindex="-1">Sign up</a>
@@ -231,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="/dist/js/demo.min.js" defer></script>
   <script src="./dist/js/preloader.js" defer></script>
   <?php
-  if ($settings['enable_rechapa2'] == "true") {
+  if ($_ENV['enable_rechapa2'] == "true") {
     ?>
     <script>
       $('form').submit(function (e) {
